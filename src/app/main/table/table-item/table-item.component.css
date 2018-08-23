@@ -26,6 +26,11 @@
     transform: scale(1.1);
 }
 
+.dam-item .prueba{
+    height: 118px;
+    align-items: center;
+}
+
 .dam-type{
     padding: 0 0 10px;
     padding-top: 0px;
@@ -49,7 +54,7 @@
     max-width: 100%;
     margin: auto auto 15px;
     cursor: pointer;
-    object-fit: cover;
+    object-fit: contain;
     height: 100px;
 }
 
