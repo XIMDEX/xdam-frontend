@@ -23,7 +23,7 @@ export class TableItemComponent implements OnInit {
 
   getResourceImage(hash){
     const token = this.mainService.getToken();
-    return environment.resourcesAPI + "/" + hash + "/image?api_token=" + token
+    return this.mainService.getRoute('get', 'resources') + "/" + hash + "/image?api_token=" + token
   }
 
   downloadFile(){
