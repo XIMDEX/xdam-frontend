@@ -43,8 +43,6 @@ export class MainService {
     if (!isNil(route)) {
       route =  hasIn(method, route) ? `${this.settings.getBaseUrl()}${(route)[method]}` : null;
     }
-
-    console.log('routes', route);
     return route;
   }
 
@@ -56,7 +54,7 @@ export class MainService {
     const url = this.getRoute('get', 'resources');
     this.httpOptions.params = params;
     if (!hasIn('page', params)) {
-      this.getCurrentPage().subscribe(value => {params.page = value});
+      this.getCurrentPage().subscribe(value => {params["page"] = value});
     }
     return this.http.get(url, this.httpOptions)
   }
