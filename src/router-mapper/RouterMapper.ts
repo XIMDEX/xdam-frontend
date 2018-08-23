@@ -8,7 +8,7 @@ export default class RouterMapper {
     token = '';
 
     constructor() {
-        this.init()
+        this.init();
     }
 
     setBaseUrl(url) {
@@ -39,18 +39,18 @@ export default class RouterMapper {
     }
 
     protected urlParams() {
-        let url = new URL(window.location.href);
+        const url = new URL(window.location.href);
         return url.searchParams;
     }
 
     private init() {
-        let xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
+        const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
         if (isNil(xdam)) {
-            xdam.token = this.urlParams().get('token')
+            xdam.token = this.urlParams().get('token');
         }
-        var result = Object.assign({}, environment, xdam);
+        const result = Object.assign({}, environment, xdam);
         this.setBaseUrl(result.base_url)
             .setToken(result.token)
-            .setRoutes(result.endpoints)
+            .setRoutes(result.endpoints);
     }
 }

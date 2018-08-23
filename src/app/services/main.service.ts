@@ -16,17 +16,17 @@ export class MainService {
   private currentPage: BehaviorSubject<number>;
   private searchTerm: BehaviorSubject<string>;
 
-  private token: string = "";
+  private token = '';
   private settings: RouterMapper;
 
-  constructor(private http:HttpClient) { 
+  constructor(private http: HttpClient) {
     this.currentPage = new BehaviorSubject<number>(1);
-    this.searchTerm = new BehaviorSubject<string>("");
+    this.searchTerm = new BehaviorSubject<string>('');
     this.settings = new RouterMapper();
 
-    this.httpOptions.headers = new HttpHeaders({ 
+    this.httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization':  "Bearer " + this.getToken()
+        'Authorization':  'Bearer ' + this.getToken()
     });
   }
 
@@ -50,50 +50,50 @@ export class MainService {
     return this.getResources(params);
   }
 
-  getResources(params: Object = {}){
+  getResources(params: Object = {}) {
     const url = this.getRoute('get', 'resources');
     this.httpOptions.params = params;
     if (!hasIn('page', params)) {
-      this.getCurrentPage().subscribe(value => {params["page"] = value});
+      this.getCurrentPage().subscribe(value => { params['page'] = value; });
     }
-    return this.http.get(url, this.httpOptions)
+    return this.http.get(url, this.httpOptions);
   }
 
-  postFileForm(form: FormData){
+  postFileForm(form: FormData) {
     const url = this.getRoute('post', 'resources');
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
-      'Authorization':  "Bearer " + this.getToken(),
+      'Authorization':  'Bearer ' + this.getToken(),
       'Accept': 'application/json'});
-    return this.http.post(url, form, {headers: heads})
+    return this.http.post(url, form, {headers: heads});
   }
 
-  downloadResource(hash){
+  downloadResource(hash) {
     const url = this.getRoute('get', 'resources');
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
-      'Authorization':  "Bearer " + this.getToken()});
-    return this.http.get(url + "/" + hash + "/file", {headers: heads});
+      'Authorization': 'Bearer ' + this.getToken()});
+    return this.http.get(url + '/' + hash + '/file', {headers: heads});
   }
 
-  deleteResource(id){
+  deleteResource(id) {
     const url = this.getRoute('delete', 'resources');
-    return this.http.delete(url + "/" + id, this.httpOptions)
+    return this.http.delete(url + '/' + id, this.httpOptions);
   }
 
-  setCurrentPage(newPage: number){
+  setCurrentPage(newPage: number) {
     this.currentPage.next(newPage);
   }
 
-  getCurrentPage(): Observable<number>{
+  getCurrentPage(): Observable<number> {
     return this.currentPage.asObservable();
   }
 
-  setSearchTerm(newTerm: string){
+  setSearchTerm(newTerm: string) {
     this.searchTerm.next(newTerm);
   }
 
-  getSearchTerm(): Observable<string>{
+  getSearchTerm(): Observable<string> {
     return this.searchTerm.asObservable();
   }
 }

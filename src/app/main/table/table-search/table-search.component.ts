@@ -13,7 +13,7 @@ export class TableSearchComponent implements OnInit {
   faSearch = faSearch;
   faEraser = faEraser;
   faSync = faSync;
-  term: string = "";
+  term = '';
 
   constructor(
     private mainService: MainService,
@@ -26,12 +26,12 @@ export class TableSearchComponent implements OnInit {
     this.mainService.setSearchTerm(this.term);
   }
 
-  handleResourceModal(){
-    this.ngxSmartModalService.getModal('assets').open()
+  handleResourceModal() {
+    this.ngxSmartModalService.getModal('assets').open();
   }
 
   delete() {
-    this.term = "";
+    this.term = '';
     this.search();
   }
 

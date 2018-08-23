@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  API: "http://universo.lh/api/v1/",
-  resourcesAPI: "http://universo.lh/api/v1/resources",
-  token: ""
+  API: 'http://universo.lh/api/v1/',
+  resourcesAPI: 'http://universo.lh/api/v1/resources',
+  token: ''
 };
 
 /*

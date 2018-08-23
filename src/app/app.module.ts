@@ -36,7 +36,7 @@ import { AssetsModalComponent } from './modals/assets-modal/assets-modal.compone
     BrowserModule,
     FontAwesomeModule,
     FiltersModule,
-    HttpClientModule, 
+    HttpClientModule,
     FormsModule,
     NgxSmartModalModule.forRoot()
   ],

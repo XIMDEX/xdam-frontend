@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 })
 export class FilterItemComponent implements OnInit {
   form: FormGroup;
-  options: [{}]
+  options: [{}];
   constructor() { }
 
   ngOnInit() {

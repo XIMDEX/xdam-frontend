@@ -12,7 +12,7 @@ export class TableItemComponent implements OnInit {
   faDownload = faDownload;
   faEdit = faEdit;
   faTrash = faTrash;
-  image: string = "";
+  image = '';
   @Input() item: any;
 
   constructor(private mainService: MainService) { }
@@ -21,16 +21,16 @@ export class TableItemComponent implements OnInit {
     this.image = this.getResourceImage(this.item.hash);
   }
 
-  getResourceImage(hash){
+  getResourceImage(hash) {
     const token = this.mainService.getToken();
-    return this.mainService.getRoute('get', 'resources') + "/" + hash + "/image?api_token=" + token
+    return this.mainService.getRoute('get', 'resources') + '/' + hash + '/image?api_token=' + token;
   }
 
-  downloadFile(){
+  downloadFile() {
     this.mainService.downloadResource(this.item.hash);
   }
 
-  deleteFile(){
+  deleteFile() {
     this.mainService.deleteResource(this.item.id).subscribe();
   }
 }
