@@ -1,1 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('../node_modules/ngx-smart-modal/ngx-smart-modal.css');
+
+
+html{
+    font-family: 'Lato', sans-serif;
+    color: #666;
+}
+
+.shadow-panel{
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.12);
+}
+
+.flex-row-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.btn-base{
+    display: inline-block;
+    background: linear-gradient(180deg,#00a397 0,#009E92 100%);
+    color: white;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 10px;
+    line-height: 28px;
+    box-shadow: none;
+    cursor: pointer;
+    border-left: 1px dotted #E0E4E6;
+    font-size: 12px;
+    padding: 0 10px;
+    border: unset;
+}
+
+.btn-base:hover {
+    background: #00a397;
+    background: linear-gradient(180deg,#00a89b 0,#00a397 100%); 
+}
+
+.btn-base.group {
+    border:1px solid #00a89b;
+}
+
+.btn-base.group:first-child {
+    border-right: unset;
+}
+
+.btn-base.group:last-child {
+    border-left: unset;
+}
+
+.nsm-dialog { 
+    max-width: 75% !important;
+}
+
+.btn-base.red{
+    background: linear-gradient(180deg,#c54444 0,#E35D5D 100%);
+}

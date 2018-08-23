@@ -1,0 +1,13 @@
+<div class="filter-item">
+  <div class="header">
+    {{title}}
+  </div>
+  <div class="body">
+    <form [formGroup]="form">
+      <label formArrayName="options" *ngFor="let option of form.controls.options.controls; let i = index">
+        <input type="checkbox" [formControlName]="i">
+        {{options[i].name}}
+      </label>
+    </form>
+  </div>
+</div>

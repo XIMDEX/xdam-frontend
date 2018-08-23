@@ -3,10 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  API: "http://universo.lh/api/v1/",
-  resourcesAPI: "http://universo.lh/api/v1/resources",
-  token: ""
+    token: "",
+    base_url: '',
+    endpoints: {
+      resources: {
+        get: 'resources',
+        post: 'resources'
+      }
+    }
 };
 
 /*

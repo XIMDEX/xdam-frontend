@@ -1,0 +1,27 @@
+<app-table-search></app-table-search>
+<!--PAGINATOR-->
+<div class="flex-row-container">
+    <div class="pagination-found"> 
+        <span class="label label-default">Found <span class="badge">{{query.total}}</span> items</span>
+    </div>
+    <nav class="pagination-nav">
+        <ul class="pagination shadow-panel">
+            <li [ngClass]="{'active': page.active == true}" *ngFor="let page of paginator">
+                <a (click)="changePage(page.value)">
+                    <ng-container *ngIf="page.icon !== null; else number">
+                        <fa-icon [icon]="page.icon"></fa-icon>
+                    </ng-container>
+                    <ng-template #number>
+                        <span>{{ page.value }}</span>
+                    </ng-template>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!--END PAGINATOR-->
+<div class="items">
+    <ng-container *ngFor="let item of items">
+        <app-table-item [item]="item"></app-table-item>
+    </ng-container>
+</div>
