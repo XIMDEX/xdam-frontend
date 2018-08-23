@@ -10,7 +10,7 @@
   </div>
   <div class="dam-options">
       <a class="btn-base group" title="Edit"><fa-icon [icon]="faEdit"></fa-icon></a>
-      <a [href]="image" target="_blank" download class="btn-base group" title="Download"><fa-icon [icon]="faDownload"></fa-icon></a>
-      <a class="btn-base group" title="Delete"><fa-icon [icon]="faTrash"></fa-icon></a>
+      <a (click)="downloadFile()" download class="btn-base group" title="Download"><fa-icon [icon]="faDownload"></fa-icon></a>
+      <a (click)="deleteFile()" class="btn-base group" title="Delete"><fa-icon [icon]="faTrash"></fa-icon></a>
   </div>
 </div>

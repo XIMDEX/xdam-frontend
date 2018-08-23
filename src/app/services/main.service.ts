@@ -72,7 +72,15 @@ export class MainService {
 
   downloadResource(hash){
     const url = this.getRoute('get', 'resources');
-    return this.http.get(url + "/" + hash + "/file");
+    const heads = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Authorization':  "Bearer " + this.getToken()});
+    return this.http.get(url + "/" + hash + "/file", {headers: heads});
+  }
+
+  deleteResource(id){
+    const url = this.getRoute('delete', 'resources');
+    return this.http.delete(url + "/" + id, this.httpOptions)
   }
 
   setCurrentPage(newPage: number){

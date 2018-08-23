@@ -8,7 +8,8 @@ export const environment = {
     endpoints: {
       resources: {
         get: 'resources',
-        post: 'resources'
+        post: 'resources',
+        delete: 'resources'
       }
     }
 };

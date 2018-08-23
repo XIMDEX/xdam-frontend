@@ -29,4 +29,8 @@ export class TableItemComponent implements OnInit {
   downloadFile(){
     this.mainService.downloadResource(this.item.hash);
   }
+
+  deleteFile(){
+    this.mainService.deleteResource(this.item.id).subscribe();
+  }
 }
