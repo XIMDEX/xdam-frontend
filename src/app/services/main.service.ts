@@ -51,12 +51,17 @@ export class MainService {
   }
 
   getResources(params: Object = {}) {
-    const url = this.getRoute('get', 'resources');
+    const url = this.getRoute('list', 'resources');
     this.httpOptions.params = params;
     if (!hasIn('page', params)) {
       this.getCurrentPage().subscribe(value => { params['page'] = value; });
     }
     return this.http.get(url, this.httpOptions);
+  }
+
+  getResource(hash) {
+    const url = this.getRoute('get', 'resources');
+    return this.http.get(url + '/' + hash, this.httpOptions);
   }
 
   postFileForm(form: FormData) {
@@ -68,17 +73,26 @@ export class MainService {
     return this.http.post(url, form, {headers: heads});
   }
 
+  putFileForm(form: FormData, id: number) {
+    const url = this.getRoute('post', 'resources');
+    const heads = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Authorization':  'Bearer ' + this.getToken(),
+      'Accept': 'application/json'});
+    return this.http.post(url + '/' + id, form, {headers: heads});
+  }
+
   downloadResource(hash) {
     const url = this.getRoute('get', 'resources');
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Authorization': 'Bearer ' + this.getToken()});
-    return this.http.get(url + '/' + hash + '/file', {headers: heads});
+    return this.http.get(url + '/' + hash + '/file', {headers: heads, responseType: 'blob'});
   }
 
   deleteResource(id) {
     const url = this.getRoute('delete', 'resources');
-    return this.http.delete(url + '/' + id, this.httpOptions);
+    return this.http.delete(url + '/' + id, {headers: this.httpOptions.headers});
   }
 
   setCurrentPage(newPage: number) {
@@ -87,6 +101,10 @@ export class MainService {
 
   getCurrentPage(): Observable<number> {
     return this.currentPage.asObservable();
+  }
+
+  getCurrentPageValue(): number {
+    return this.currentPage.getValue();
   }
 
   setSearchTerm(newTerm: string) {

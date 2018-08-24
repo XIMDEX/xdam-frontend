@@ -17,6 +17,8 @@ import { MainService } from './services/main.service';
 import { FormsModule } from '@angular/forms';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 import { AssetsModalComponent } from './modals/assets-modal/assets-modal.component';
+import { DynFormComponent } from './modals/assets-modal/dyn-form/dyn-form.component';
+import { DynFieldComponent } from './modals/assets-modal/dyn-form/dyn-field/dyn-field.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { AssetsModalComponent } from './modals/assets-modal/assets-modal.compone
     TableSearchComponent,
     TableItemComponent,
     TablePaginatorComponent,
-    AssetsModalComponent
+    AssetsModalComponent,
+    DynFormComponent,
+    DynFieldComponent
   ],
   imports: [
     BrowserModule,

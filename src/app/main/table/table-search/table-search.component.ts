@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faSearch, faEraser, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { MainService } from '../../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import {AssetsModalComponent} from '../../../modals/assets-modal/assets-modal.component';
@@ -13,6 +13,7 @@ export class TableSearchComponent implements OnInit {
   faSearch = faSearch;
   faEraser = faEraser;
   faSync = faSync;
+  faTrash = faTrashAlt;
   term = '';
 
   constructor(

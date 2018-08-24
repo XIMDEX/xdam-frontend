@@ -2,21 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import {MainService} from '../../services/main.service';
-
-class Asset {
-  title: string;
-  description: string;
-  author: string;
-  externalUrl: string;
-  resource: File;
-  constructor(title, desc, aut, url, f) {
-    this.title = title;
-    this.description = desc;
-    this.author = aut;
-    this.externalUrl = url;
-    this.resource = f;
-  }
-}
+import { Asset } from 'src/models/Asset';
+import { isNil } from 'ramda';
 
 @Component({
   selector: 'app-assets-modal',
@@ -27,7 +14,10 @@ class Asset {
 export class AssetsModalComponent implements OnInit {
   faTimes = faTimes;
   faSave = faSave;
-  asset = new Asset('', '', '', '', null);
+  asset = new Asset('', '', '', '', '', null);
+  id = 0;
+  edit = false;
+
   constructor(
     private mainService: MainService,
     private ngxSmartModalService: NgxSmartModalService
@@ -40,29 +30,60 @@ export class AssetsModalComponent implements OnInit {
     this.asset.resource = files.item(0);
   }
 
+  updateData() {
+    if (this.ngxSmartModalService.getModal('assets').hasData()) {
+      this.edit = true;
+      const data = this.ngxSmartModalService.getModal('assets').getData();
+      this.asset = data.asset;
+      this.id = data.id;
+    }
+  }
+
   submit() {
     const formData: FormData = new FormData();
-    for (const key in this.asset) {
-      if (key === 'resource') {
-        formData.append(key, this.asset[key]);
-      } else {
-        formData.append(key, this.asset[key]);
-      }
+    if (this.edit) {
+      formData.append('_method', 'PUT');
     }
-    this.mainService.postFileForm(formData).subscribe(
-      suc => {
-        this.mainService.setCurrentPage(1);
-        this.close();
-      },
-      err => {
-        console.log('error', err);
-      }
-    );
 
+    for (const key in this.asset) {
+      if (key === 'resource' && isNil(this.asset[key])) {
+        continue;
+      }
+      formData.append(key, this.asset[key]);
+    }
+    this.sendFile(formData);
+  }
+
+  sendFile(form: FormData) {
+    if (!this.edit) {
+      this.mainService.postFileForm(form).subscribe(
+        suc => {
+          this.mainService.setCurrentPage(1);
+          this.close();
+        },
+        err => {
+          console.log('error', err);
+        }
+      );
+    } else {
+      this.mainService.putFileForm(form, this.id).subscribe(
+        suc => {
+          this.mainService.setCurrentPage(1);
+          this.close();
+        },
+        err => {
+          console.log('error', err);
+        }
+      );
+    }
+  }
+
+  reset() {
+    this.asset = new Asset('', '', '', '', '' , null);
+    this.ngxSmartModalService.get('assets').removeData();
   }
 
   close() {
-    this.asset = new Asset('', '', '', '', null);
     this.ngxSmartModalService.close('assets');
   }
 }

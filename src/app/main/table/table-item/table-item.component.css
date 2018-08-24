@@ -83,14 +83,14 @@
 /* MOBILE */
 @media all and (max-width: 599px) { 
     :host{
-        margin: 5px;
+        margin: 10px;
         
     }
 }
 /*TABLET*/
 @media all and (min-width: 600px) and (max-width: 1024px){
     :host{
-        margin: 15px;
+        margin: 5px;
     }
 }
 

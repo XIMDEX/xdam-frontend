@@ -25,9 +25,11 @@
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "@ngrx/store": "^6.1.0",
     "core-js": "^2.5.4",
+    "file-saver": "^1.3.8",
     "ngx-smart-modal": "^7.0.3",
     "ramda": "^0.25.0",
     "rxjs": "^6.0.0",
+    "typedjson-npm": "^0.1.7",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

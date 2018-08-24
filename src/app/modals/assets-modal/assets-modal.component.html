@@ -1,4 +1,9 @@
-<ngx-smart-modal (onClose)="assetForm.reset()" #assetModal identifier="assets">
+<ngx-smart-modal 
+    (onClose)="assetForm.reset(); reset();" 
+    (onDataAdded)="updateData()"
+    (onDismiss)="assetForm.reset(); reset();"
+    #assets identifier="assets"
+>
     <form (ngSubmit)="submit()" #assetForm="ngForm" class="dam-edit-item">
         <div class="dam-edit-item-column">
             <div class="dam-edit-item-img"> <img src=""> </div>

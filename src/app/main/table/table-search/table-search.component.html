@@ -1,13 +1,13 @@
 <app-assets-modal></app-assets-modal>
 <div class="search-bar shadow-panel">
     <div class="search-main">
-        <input [(ngModel)]="term" ref="searchInput" type="text">
-        <button (click)="search()" class="btn-base group btn-tool"><fa-icon [icon]="faSearch"></fa-icon></button>
+        <input [(ngModel)]="term" (keyup.enter)="search()" ref="searchInput" type="text">
+        <button (click)="search()" class="btn-base group btn-tool" title="Search"><fa-icon [icon]="faSearch"></fa-icon></button>
         <!--<button class="btn-base group btn-tool"><fa-icon [icon]="faSync"></fa-icon></button>-->
-        <button (click)="delete()" class="btn-base group btn-tool"><fa-icon [icon]="faEraser"></fa-icon></button>
+        <button (click)="delete()" class="btn-base group btn-tool" title="Reset search"><fa-icon [icon]="faEraser"></fa-icon></button>
+        <button class="btn-base btn-filters btn-tool" title="Clear filters"><fa-icon [icon]="faTrash"></fa-icon></button>
     </div>
     <div class="search-options">
         <button (click)="handleResourceModal()" class="btn-base btn-filters">New Asset</button>
-        <button class="btn-base btn-filters">Clean Filters</button>
     </div>
 </div>

@@ -1,8 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import {AssetsManagerComponent} from './assets-manager/assets-manager.component';
 import { MainService } from '../services/main.service';
 import { HttpParams} from '@angular/common/http';
-import { environment } from '../../environments/environment';
 
 class Item {
   id: number;
