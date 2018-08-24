@@ -32,16 +32,16 @@ export class TableItemComponent implements OnInit {
         img = this.getResourceImage(this.item.hash);
         break;
       case 'audio':
-        img = 'https://robohash.org/audio';
+        img = 'https://via.placeholder.com/200/ef680e/000000?text=Audio';
         break;
       case 'video':
-        img = 'https://robohash.org/video';
+        img = 'https://via.placeholder.com/200/af8282/000000?text=Video';
         break;
       case 'pdf':
         img = this.getResourceImage(this.item.hash);
         break;
       case 'other':
-        img = 'https://robohash.org/other';
+        img = 'https://via.placeholder.com/200/5ab1c9/000000?text=Other';
         break;
     }
     return img;
