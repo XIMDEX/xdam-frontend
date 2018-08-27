@@ -4,6 +4,13 @@ import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import {MainService} from '../../services/main.service';
 import { Asset } from 'src/models/Asset';
 import { isNil } from 'ramda';
+import { DynFormComponent } from '../../dyn-form/dyn-form.component';
+import { DynQuestionComponent } from '../../dyn-form/questions/dyn-question/dyn-question.component';
+import { QuestionBase } from '../../dyn-form/questions/question-base';
+import { DropdownQuestion } from '../../dyn-form/questions/question-dropdown';
+import { TextboxQuestion } from '../../dyn-form/questions/question-textbox';
+import { DepDropQuestion } from '../../dyn-form/questions/question-depdrop';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-assets-modal',
@@ -17,6 +24,8 @@ export class AssetsModalComponent implements OnInit {
   asset = new Asset('', '', '', '', '', null);
   id = 0;
   edit = false;
+  questions: QuestionBase<any>[] = [];
+  dynData: any = {};
 
   constructor(
     private mainService: MainService,
@@ -24,8 +33,40 @@ export class AssetsModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getQuestions();
   }
 
+  getQuestions(){
+    this.mainService.getForm().subscribe(response => {
+      const rawQuestions = response["result"].data.fields;
+      let newQuestions = rawQuestions.map(question => {
+        let object = null;
+        switch (question.type) {
+          case "dropdown":
+              object = new DropdownQuestion(question.object);
+            break;
+          
+          case "text":
+              object = new TextboxQuestion(question.object);
+            break;
+
+          case "depdrop":
+              object = new DepDropQuestion(question.object);
+            break;
+            
+          default:
+            break;
+        }
+        return object;
+      });
+      this.questions = newQuestions.sort( (a,b) => a.order - b.order );
+    });
+  }
+
+  setDynData(event){
+    this.dynData = event;
+  }
+  
   setFile(files: FileList) {
     this.asset.resource = files.item(0);
   }
@@ -50,6 +91,9 @@ export class AssetsModalComponent implements OnInit {
         continue;
       }
       formData.append(key, this.asset[key]);
+    }
+    for (const key in this.dynData) {
+      formData.append(key, this.dynData[key]);
     }
     this.sendFile(formData);
   }

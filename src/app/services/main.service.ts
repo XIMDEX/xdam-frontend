@@ -50,6 +50,17 @@ export class MainService {
     return this.getResources(params);
   }
 
+  getOptions(end: string, key: string, param: string) {
+    const url = this.settings.getBaseUrl() + end;
+    let params = {};
+    params[key] = param;
+    const heads = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Authorization':  'Bearer ' + this.getToken(),
+      'Accept': 'application/json'});
+    return this.http.get(url, {headers: heads, params: params});
+  }
+
   getResources(params: Object = {}) {
     const url = this.getRoute('list', 'resources');
     this.httpOptions.params = params;
@@ -62,6 +73,11 @@ export class MainService {
   getResource(hash) {
     const url = this.getRoute('get', 'resources');
     return this.http.get(url + '/' + hash, this.httpOptions);
+  }
+
+  getForm(){
+    const url = this.settings.getBaseUrl() + 'forms';
+    return this.http.get(url, this.httpOptions);
   }
 
   postFileForm(form: FormData) {

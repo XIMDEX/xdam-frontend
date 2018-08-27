@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynFieldComponent } from './dyn-field.component';
+import { DynQuestionComponent } from './dyn-question.component';
 
-describe('DynFieldComponent', () => {
-  let component: DynFieldComponent;
-  let fixture: ComponentFixture<DynFieldComponent>;
+describe('DynQuestionComponent', () => {
+  let component: DynQuestionComponent;
+  let fixture: ComponentFixture<DynQuestionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DynFieldComponent ]
+      declarations: [ DynQuestionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DynFieldComponent);
+    fixture = TestBed.createComponent(DynQuestionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

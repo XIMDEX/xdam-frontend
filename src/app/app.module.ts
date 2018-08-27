@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { DynFormModule } from './dyn-form/dyn-form.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { MenuComponent } from './menu/menu.component';
@@ -17,9 +17,7 @@ import { MainService } from './services/main.service';
 import { FormsModule } from '@angular/forms';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 import { AssetsModalComponent } from './modals/assets-modal/assets-modal.component';
-import { DynFormComponent } from './modals/assets-modal/dyn-form/dyn-form.component';
-import { DynFieldComponent } from './modals/assets-modal/dyn-form/dyn-field/dyn-field.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,9 +30,7 @@ import { DynFieldComponent } from './modals/assets-modal/dyn-form/dyn-field/dyn-
     TableSearchComponent,
     TableItemComponent,
     TablePaginatorComponent,
-    AssetsModalComponent,
-    DynFormComponent,
-    DynFieldComponent
+    AssetsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +38,9 @@ import { DynFieldComponent } from './modals/assets-modal/dyn-form/dyn-field/dyn-
     FiltersModule,
     HttpClientModule,
     FormsModule,
-    NgxSmartModalModule.forRoot()
+    NgxSmartModalModule.forRoot(),
+    DynFormModule,
+    ReactiveFormsModule
   ],
   providers: [MainService, NgxSmartModalService],
   bootstrap: [AppComponent]

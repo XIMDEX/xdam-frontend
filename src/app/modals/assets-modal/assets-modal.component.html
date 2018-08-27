@@ -13,6 +13,7 @@
             <div class="form-item">
                 <label>External Resource</label>
                 <input ref="externalUrl" name="url" [(ngModel)]="asset.externalUrl" type="text"> </div>
+            <app-dynamic-form (sendForm)="setDynData($event)" *ngIf="questions.length > 0" [questions]="questions"></app-dynamic-form>
         </div>
         <div class="dam-edit-item-column big">
             <div class="options">

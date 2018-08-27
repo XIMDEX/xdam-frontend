@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
 
   mapItems(data) {
     this.items = data.map((o) => {
-      return new Item(o.id, o.title, o.hash, '100x100', o.type);
+      return new Item(o.id, o.title, o.hash, 'Undefined', o.type);
     });
   }
 
