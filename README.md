@@ -4,7 +4,7 @@ Front end application made with Angular 6 for the Ximdex digital assets manageme
 
 ## Description
 
-Thids front-end provides a flexible and easy-to-use user interface for listing, uploading, editing and managing assets across your indexed resources.
+This front-end provides a flexible and easy-to-use user interface for listing, uploading, editing and managing assets across your indexed resources.
 
 ## Features
 
