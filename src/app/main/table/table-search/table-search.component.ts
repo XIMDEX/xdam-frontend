@@ -15,12 +15,14 @@ export class TableSearchComponent implements OnInit {
   faSync = faSync;
   faTrash = faTrashAlt;
   term = '';
+  buttonsConfig = null;
 
   constructor(
     private mainService: MainService,
     private ngxSmartModalService: NgxSmartModalService) {}
 
   ngOnInit() {
+    this.buttonsConfig = this.mainService.getComponentConfigs("tableSearch").searchButtons;
   }
 
   search() {

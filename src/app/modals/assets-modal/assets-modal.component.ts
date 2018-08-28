@@ -5,7 +5,7 @@ import {MainService} from '../../services/main.service';
 import { Asset } from 'src/models/Asset';
 import { isNil } from 'ramda';
 import { QuestionBase } from '../../dyn-form/questions/question-base';
-import FormMapper from '../../../router-mapper/FormMapper';
+import FormMapper from '../../../mappers/FormMapper';
 
 @Component({
   selector: 'app-assets-modal',

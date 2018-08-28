@@ -22,55 +22,80 @@
             delete: 'resources'
           }
         },
-        forms: {
-			name: "Formulario planetas",
-			id: 1,
-            endpoint: "resources",
-            api: false,
-			fields: [
-				{
-				  type: "dropdown",
-				  object: {
-				      "key": "planet",
-				      label: "Seleccione un planeta",
-				      options: [
-				        {key: "1", value: "TEST3333"},
-				        {key: "2", value: "PRUEBA 1"},
-				        {key: "3", value: "I"}
-				      ],
-				      "order": 1
-				    }
-			    },
-			    { 
-			      type: "depdrop",
-				  object: {
-				      key: "items",
-				      label: "Seleccione una plabara",
-				      ref: "planet",
-			      	  endpoint: "items",
-				      order: 2,
-                      param: "planet_id",
-                      map: {
-                          key: 'id',
-                          value: 'title'
-                      }
-                    }
-                },
-                {
-                    type: "dropdown",
-				    object: {
-                        key: "type",
-                        label: "Seleccione un tipo",
-                        options: [
-                            {key: "1", value: "Activación"},
-                            {key: "2", value: "Investigación"},
-                        ],
-                        order: 3
-				    }
+        configs: {
+          general: {
+            language: "en"
+          },
+          components: {
+             table: {
+
+             },
+             tableItem: {
+
+             },
+             tableSearch: {
+                searchButtons: {
+                  search: {
+                    active: true
+                  },
+                  reset: {
+                    active: true
+                  },
+                  clear: {
+                    active: false
+                  }
                 }
-            ]
-        }
-    }
+              }
+            }
+          },
+        forms: {
+          name: "Formulario planetas",
+          id: 1,
+                endpoint: "resources",
+                api: false,
+          fields: [
+            {
+              type: "dropdown",
+              object: {
+                  "key": "planet",
+                  label: "Seleccione un planeta",
+                  options: [
+                    {key: "1", value: "TEST3333"},
+                    {key: "2", value: "PRUEBA 1"},
+                    {key: "3", value: "I"}
+                  ],
+                  "order": 1
+                }
+              },
+              { 
+                type: "depdrop",
+                object: {
+                  key: "items",
+                  label: "Seleccione una palabra",
+                  ref: "planet",
+                    endpoint: "items",
+                  order: 2,
+                          param: "planet_id",
+                          map: {
+                              key: 'id',
+                              value: 'title'
+                          }
+                        }
+                    },
+                    {
+                type: "dropdown",
+                object: {
+                    key: "type",
+                    label: "Seleccione un tipo",
+                    options: [
+                        {key: "1", value: "Activación"},
+                        {key: "2", value: "Investigación"},
+                    ],
+                    order: 3
+                    }
+              }]
+            }
+          }
     </script>
   </app-root>
 </body>

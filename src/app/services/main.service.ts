@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
 import { hasIn, isNil } from 'ramda';
-import RouterMapper from '../../router-mapper/RouterMapper';
+import RouterMapper from '../../mappers/RouterMapper';
+import ConfigMapper from 'src/mappers/ConfigMapper';
 
 // const API = environment.API;
 // const resourcesAPI = environment.resourcesAPI;
@@ -18,11 +19,13 @@ export class MainService {
 
   private token = '';
   private settings: RouterMapper;
+  private configs: ConfigMapper;
 
   constructor(private http: HttpClient) {
     this.currentPage = new BehaviorSubject<number>(1);
     this.searchTerm = new BehaviorSubject<string>('');
     this.settings = new RouterMapper();
+    this.configs = new ConfigMapper;
 
     this.httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,6 +47,14 @@ export class MainService {
       route =  hasIn(method, route) ? `${this.settings.getBaseUrl()}${(route)[method]}` : null;
     }
     return route;
+  }
+
+  getGeneralConfigs() {
+    return this.configs.getGeneralConfigs();
+  }
+
+  getComponentConfigs(component = null) {
+    return this.configs.getComponentConfigs(component);
   }
 
   list(params: Object = {}) {
