@@ -30,9 +30,7 @@ export class DynQuestionComponent implements OnInit{
         this.question['endpoint'], this.question['param'], value
       ).subscribe(resp => {
           this.question['options'] = [];
-          this.question['options'] = resp['result'].data.map(item =>{
-            return({key: item.id, value: item.title})
-          })
+          this.question['options'] = resp['result'].data.map(item => ({key: item[this.question['map'].key], value: item[this.question['map'].value]}))
         })
     }
   }

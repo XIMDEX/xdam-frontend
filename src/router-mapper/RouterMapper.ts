@@ -6,7 +6,6 @@ export default class RouterMapper {
     baseUrl = '';
     routes = '';
     token = '';
-    forms = null;
 
     constructor() {
         this.init();
@@ -39,15 +38,6 @@ export default class RouterMapper {
         return this.token;
     }
 
-    setForms(forms) {
-        this.forms = forms;
-        return this;
-    }
-
-    getForms() {
-        return this.forms;
-    }
-
     protected urlParams() {
         const url = new URL(window.location.href);
         return url.searchParams;
@@ -61,7 +51,6 @@ export default class RouterMapper {
         const result = Object.assign({}, environment, xdam);
         this.setBaseUrl(result.base_url)
             .setToken(result.token)
-            .setRoutes(result.endpoints)
-            .setForms(result.forms);
+            .setRoutes(result.endpoints);
     }
 }
