@@ -19,11 +19,13 @@ export class TableComponent implements OnInit, OnChanges {
 
   paginator: any[];
   pagShorted: boolean;
+  tableConfig = null;
 
   constructor(private mainService: MainService) {}
 
   ngOnInit() {
     this.currentPage = 1;
+    this.tableConfig = this.mainService.getComponentConfigs("table");
     this.createPaginator();
   }
 

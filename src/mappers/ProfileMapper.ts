@@ -1,13 +1,28 @@
 import { isNil, hasIn } from 'ramda';
-import {environment} from './environment';
+import { light } from 'src/profiles/light';
+import { standard } from '../profiles/standard';
 
 export default class ConfigMapper {
 
     private generalConfigs = null;
     private componentConfigs = null;
+    private currentProfile = 'standard';
+    private profiles: Object = {
+        'standard': standard,
+        'light': light
+    };
 
     constructor(){
         this.init();
+    }
+
+    setCurrentProfile(profile) {
+        let current = 'standard';
+        if (hasIn(profile, this.profiles)) {
+            current  = profile;
+        }
+        this.currentProfile = this.profiles[profile];
+        return this;
     }
 
     setConfigs(configs){
@@ -32,7 +47,12 @@ export default class ConfigMapper {
 
     private init() {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
-        const result = Object.assign({}, environment, xdam);
+        let profile = 'standard';
+        if (hasIn('profile', xdam)) {
+            profile = xdam.profile;
+        }
+        this.setCurrentProfile(profile);
+        const result = Object.assign({}, this.currentProfile, xdam);
 
         this.setConfigs(result.configs)
     }

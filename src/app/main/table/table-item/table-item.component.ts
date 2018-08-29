@@ -4,6 +4,7 @@ import { MainService } from '../../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { Asset } from 'src/models/Asset';
 import { saveAs } from 'file-saver';
+import { Item } from 'src/models/Item';
 
 @Component({
   selector: 'app-table-item',
@@ -15,7 +16,11 @@ export class TableItemComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
   image = '';
-  @Input() item: any;
+  @Input() item: Item;
+  itemConfigs = null;
+  header = '';
+  title = '';
+  subtitle = ''
 
   constructor(
     private mainService: MainService,
@@ -23,6 +28,14 @@ export class TableItemComponent implements OnInit {
 
   ngOnInit() {
     this.image = this.parseImage();
+    this.itemConfigs = this.mainService.getComponentConfigs("tableItem");
+    this.initFields();
+  }
+
+  initFields(){
+    this.header = this.itemConfigs.fields.header.replace('$', this.item.type);
+    this.title = this.itemConfigs.fields.title.replace('$', this.item.title);
+    this.subtitle = this.itemConfigs.fields.subtitle.replace('$', this.item.size);
   }
 
   parseImage() {

@@ -78,6 +78,10 @@ ul.pagination li:last-child{
     color:white;
 }
 
+.justify-end{
+    justify-content: flex-end;
+}
+
 /* MOBILE */
 @media all and (max-width: 599px) { 
     .pagination-nav{

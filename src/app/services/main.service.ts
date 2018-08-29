@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
 import { hasIn, isNil } from 'ramda';
 import RouterMapper from '../../mappers/RouterMapper';
-import ConfigMapper from 'src/mappers/ConfigMapper';
+import ConfigMapper from '../../mappers/ProfileMapper';
 
 // const API = environment.API;
 // const resourcesAPI = environment.resourcesAPI;

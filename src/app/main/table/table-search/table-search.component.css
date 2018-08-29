@@ -65,6 +65,9 @@ input[type="text"]{
     float: right;
 }
 
+.center{
+    justify-content: center;
+}
 
 /* MOBILE */
 @media all and (max-width: 599px) { 

@@ -1,21 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { MainService } from '../services/main.service';
 import { HttpParams} from '@angular/common/http';
-
-class Item {
-  id: number;
-  title: string;
-  hash: string;
-  size: string;
-  type: string;
-  constructor(id, tit, h, siz, tp) {
-    this.id = id;
-    this.title = tit;
-    this.hash = h;
-    this.size = siz;
-    this.type = tp;
-  }
-}
+import { Item } from 'src/models/Item';
 
 @Component({
   selector: 'app-main',
@@ -25,16 +11,22 @@ class Item {
 export class MainComponent implements OnInit {
   items: Item[] = [];
   query: any = {page: 1, search: '', perPage: 20, lastPage: 1, total: 0};
-  limit: number;
+  limit = null;
+  search = null;
+  page: string;
   currentPage = 1;
   searchTerm = '';
+  mainConfig = null;
 
 
   constructor(private mainService: MainService) {
-    console.log(window);
   }
 
   ngOnInit() {
+    this.mainConfig = this.mainService.getComponentConfigs("main");
+    this.limit = this.mainConfig.query.limit;
+    this.search = this.mainConfig.query.search;
+    this.page = this.mainConfig.query.page.name;
     this.getItems();
     this.mainService.getCurrentPage().subscribe( data => {
       this.currentPage = data;
@@ -48,8 +40,9 @@ export class MainComponent implements OnInit {
 
   getItems() {
     let params = new HttpParams();
-    params = params.append('page', String(this.currentPage));
-    params = params.append('title', '%' + this.searchTerm + '%');
+    params = params.append(this.page, String(this.currentPage));
+    params = params.append(this.search.name, this.search.value.replace('$', this.searchTerm));
+    params = params.append(this.limit.name, String(this.limit.value));
     this.mainService.list(params).subscribe(
       response => {
         if (response.hasOwnProperty('result')) {
