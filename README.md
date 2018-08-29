@@ -1,15 +1,15 @@
-# XDam front-end
+# XDAM front-end
 
-Front end application made with Angular 6 for the Ximdex digital assets management Module (XDam).
+Front end application made with Angular 6 for Ximdex Digital Asset Management service (XDAM).
 
 ## Description
 
-This front-end provides a flexible and easy-to-use user interface for listing, uploading, editing and managing assets across your indexed resources.
+This front-end provides a flexible and easy-to-use user interface for listing, uploading, editing and managing assets across your indexed resources from remote repositories (via Ximdex's XDAM backend).
 
 ## Features
 
 * Responsiveness: Optimized to be used with most devices and screen sizes.
-* Modularity: Due to its modular nature It can be integrated in any project with minimum effort.
+* Modularity: Due to its modular nature it can be integrated in any project with minimum effort.
 * Lightness: With almost no external dependencies its load time aims to be minimal.
 
 ## Availability
