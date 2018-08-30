@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'poly-dam';
+  isOpen = false;
+
+  constructor(private cdRef:ChangeDetectorRef){}
+  
+  public toggleOpen(){
+    this.isOpen = !this.isOpen;
+    this.cdRef.detectChanges();
+  }
+
+  handleSelect(event){
+    if (event !== null){
+      alert(event.title)
+    }   
+  }
 }
