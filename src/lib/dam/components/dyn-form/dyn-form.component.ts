@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { QuestionBase } from './questions/question-base';
 import { QuestionControlService } from './questions/question-control.service';
+import { isNil } from 'ramda'
 
 @Component({
   selector: 'app-dynamic-form',

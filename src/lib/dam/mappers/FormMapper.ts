@@ -1,10 +1,11 @@
-import { hasIn, isNil } from 'ramda';
+import { hasIn, isNil, is } from 'ramda';
 import {environment} from './environment';
 import { DropdownQuestion } from '../components/dyn-form/questions/question-dropdown';
 import { TextboxQuestion } from '../components/dyn-form/questions/question-textbox';
 import { DepDropQuestion } from '../components/dyn-form/questions/question-depdrop';
 import { QuestionBase } from '../components/dyn-form/questions/question-base';
 import { MainService } from '../services/main.service';
+import { Asset } from '../models/Asset';
 
 export default class FormMapper {
 
@@ -30,6 +31,10 @@ export default class FormMapper {
         return this.fields;
     }
 
+    setFields(fields) {
+        this.fields = fields;
+    }
+
     private initForm() {
         const localForm = this.getForms();
         if (localForm.api === true) {
@@ -42,24 +47,43 @@ export default class FormMapper {
         }
       }
 
-    handleForm(raw) {
+    private getValue(field: Object, key: string): any {
+        let value = Object.assign({}, field);
+        const keys = key.split('.');
+        for (let i = 0; i < keys.length; i++) {
+            if (is(Object, value) && hasIn(keys[i], value)) {
+                value = value[keys[i]];
+            } else {
+                break;
+            }
+        }
+
+        if (value === field) {
+            value = '';
+        }
+        return value;
+    }
+
+    /**
+     * 
+     * @param raw 
+     * @param asset 
+     */
+    handleForm(raw, asset=null) {
         const newFields = raw.map(field => {
             let object = null;
-            switch (field.type) {
-            case 'dropdown':
+            if(!isNil(asset)){
+                const key = hasIn('realName', field.object) ? field.object.realName : field.object.key; 
+                
+                field.object.val = this.getValue(asset, key);
+                console.log(field.object)
+            }
+            if (field.type === 'dropdown') {
                 object = new DropdownQuestion(field.object);
-                break;
-
-            case 'text':
+            } else if (field.type === 'text') {
                 object = new TextboxQuestion(field.object);
-                break;
-
-            case 'depdrop':
+            } else if (field.type === 'depdrop'){
                 object = new DepDropQuestion(field.object);
-                break;
-
-            default:
-                break;
             }
             return object;
         });

@@ -57,3 +57,7 @@ h2.legend{
     flex-wrap: nowrap;
     margin-bottom: 15px;
 }
+
+.dam-form-item{
+    margin-top: 1em;
+}

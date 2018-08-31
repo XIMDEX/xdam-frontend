@@ -6,7 +6,6 @@ export class DepDropQuestion extends QuestionBase<string> {
   ref: number;
   endpoint: string;
   param: string;
-  map: string;
 
   constructor(options: {} = {}) {
     super(options);
@@ -14,6 +13,5 @@ export class DepDropQuestion extends QuestionBase<string> {
     this.ref = options['ref'] || 0;
     this.endpoint = options['endpoint'] || '';
     this.param = options['param'] || '';
-    this.map = options['map'] || {key: 'id', value: 'id'};
   }
 }

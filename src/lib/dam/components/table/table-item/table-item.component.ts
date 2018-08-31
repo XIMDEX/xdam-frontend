@@ -5,6 +5,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { saveAs } from 'file-saver';
 import { Item } from '../../../models/Item';
 import { Asset } from '../../../models/Asset';
+import { hasIn } from 'ramda';
 
 @Component({
   selector: 'app-table-item',
@@ -99,7 +100,10 @@ export class TableItemComponent implements OnInit {
           itemData.author,
           '',
           null,
-          itemData.extension
+          itemData.extension,
+          itemData.items.length > 0 ? itemData.items : null,
+          itemData.type,
+          itemData.category
         );
         const data: Object = {
           id: this.item.id,

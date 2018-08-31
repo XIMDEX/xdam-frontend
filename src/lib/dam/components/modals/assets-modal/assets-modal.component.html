@@ -1,4 +1,5 @@
 <ngx-smart-modal 
+    (onOpen)="resetForms = false"
     (onClose)="assetForm.reset(); reset();" 
     (onDataAdded)="updateData()"
     (onDismiss)="assetForm.reset(); reset();"
@@ -13,7 +14,7 @@
             <div class="dam-form-item">
                 <label>External Resource</label>
                 <input ref="externalUrl" name="url" [(ngModel)]="asset.externalUrl" type="text"> </div>
-            <app-dynamic-form (sendForm)="setDynData($event)" *ngIf="questions.length > 0" [questions]="questions"></app-dynamic-form>
+            <app-dynamic-form (sendForm)="setDynData($event)" *ngIf="questions.length > 0 && !resetForms" [questions]="questions"></app-dynamic-form>
         </div>
         <div class="dam-edit-item-column big">
             <div class="options">
@@ -24,11 +25,11 @@
             <div class="dam-edit-item">
                 <div class="dam-edit-item-column">
                     <label>Image Format</label>
-                    <div class="dam-edit-line"> </div>
+                    <div class="dam-edit-line"> {{asset.extension}}</div>
                 </div>
                 <div class="dam-edit-item-column">
-                    <label>Image Type</label>
-                    <div class="dam-edit-line"> </div>
+                    <label>Resource Type</label>
+                    <div class="dam-edit-line">{{asset.type}}</div>
                 </div>
                 <div class="dam-edit-item-column">
                     <label>Width</label>
