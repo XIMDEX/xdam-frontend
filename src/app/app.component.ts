@@ -18,7 +18,6 @@ export class AppComponent {
 
   handleSelect(event){
     if (event !== null){
-      // lo que sea
     }   
   }
 }

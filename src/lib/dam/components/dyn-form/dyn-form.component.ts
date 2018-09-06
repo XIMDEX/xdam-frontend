@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { QuestionBase } from './questions/question-base';
 import { QuestionControlService } from './questions/question-control.service';
@@ -9,7 +9,7 @@ import { isNil } from 'ramda'
   templateUrl: './dyn-form.component.html',
   providers: [ QuestionControlService ]
 })
-export class DynFormComponent implements OnInit {
+export class DynFormComponent implements OnInit, OnChanges {
 
   @Input() questions: QuestionBase<any>[] = [];
   form: FormGroup;
@@ -17,14 +17,19 @@ export class DynFormComponent implements OnInit {
   payLoad = {};
   @Output()
   sendForm = new EventEmitter<any>();
+  @Input()
+  reset: boolean = false;
 
   constructor(private qcs: QuestionControlService) { }
 
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions);
     this.form.valueChanges.subscribe(data => {
       this.sendForm.emit(data);
     });
+  }
+  ngOnChanges(){
+    this.form = this.qcs.toFormGroup(this.questions);
+    console.log("hola")
   }
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);

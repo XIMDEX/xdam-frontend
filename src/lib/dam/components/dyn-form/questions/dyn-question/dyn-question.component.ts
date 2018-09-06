@@ -17,7 +17,6 @@ export class DynQuestionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.question)
     if (hasIn('ref', this.question)) {
       this.form.get(this.question['ref']).valueChanges.subscribe(val => {
         this.searchOptions();
