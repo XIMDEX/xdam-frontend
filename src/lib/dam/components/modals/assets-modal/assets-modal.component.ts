@@ -71,8 +71,10 @@ export class AssetsModalComponent implements OnInit {
     }
 
     for (const key in this.asset) {
-      if ((key === 'resource' || key ==='items' || key ==='category') && isNil(this.asset[key])) {
+      if ((key === 'resource') && isNil(this.asset[key])) {
         continue;
+      } else if ((key ==='items' || key ==='category') && isNil(this.asset[key])) {
+        this.asset[key] = '';
       }
       formData.append(key, this.asset[key]);
     }
@@ -109,13 +111,10 @@ export class AssetsModalComponent implements OnInit {
     this.ngxSmartModalService.get('assets').removeData();
     this.id = 0;
     this.edit = false;
-    this.resetDynForm();
   }
 
   resetDynForm() {
-    let fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
-    this.formMapper.setFields(fields);
-    this.questions = this.formMapper.getFields();
+    this.dynData = {};
   }
 
   close() {
