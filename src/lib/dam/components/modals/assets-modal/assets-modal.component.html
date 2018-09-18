@@ -1,7 +1,7 @@
 <ngx-smart-modal 
-    (onOpen)="resetForms = false"
+    (onOpen)="resetForms = false;"
     (onClose)="assetForm.reset(); reset();" 
-    (onDataAdded)="updateData()"
+    (onDataAdded)="dataHandler()"
     (onDismiss)="assetForm.reset(); reset();"
     #assets identifier="assets"
 >

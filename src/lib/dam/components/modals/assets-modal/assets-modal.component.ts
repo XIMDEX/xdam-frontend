@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import { isNil } from 'ramda';
@@ -48,16 +48,20 @@ export class AssetsModalComponent implements OnInit {
     this.asset.resource = files.item(0);
   }
 
-  updateData() {
+  dataHandler() {
     if (this.ngxSmartModalService.getModal('assets').hasData()) {
       this.edit = true;
       const data = this.ngxSmartModalService.getModal('assets').getData();
       this.asset = data.asset;
       this.id = data.id;
-      let fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
-      this.formMapper.setFields(fields);
-      this.questions = fields;
+      this.createQuestions();
     }
+  }
+
+  createQuestions() {
+    let fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
+    this.formMapper.setFields(fields);
+    this.questions = fields;
   }
 
   submit() {
@@ -111,6 +115,7 @@ export class AssetsModalComponent implements OnInit {
     this.ngxSmartModalService.get('assets').removeData();
     this.id = 0;
     this.edit = false;
+    this.createQuestions();
   }
 
   resetDynForm() {

@@ -29,7 +29,7 @@ export class DynFormComponent implements OnInit, OnChanges {
   }
   ngOnChanges(){
     this.form = this.qcs.toFormGroup(this.questions);
-    console.log("hola")
+    
   }
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
