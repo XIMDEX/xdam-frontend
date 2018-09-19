@@ -4,6 +4,7 @@ import { DropdownQuestion } from '../components/dyn-form/questions/question-drop
 import { TextboxQuestion } from '../components/dyn-form/questions/question-textbox';
 import { DepDropQuestion } from '../components/dyn-form/questions/question-depdrop';
 import { QuestionBase } from '../components/dyn-form/questions/question-base';
+import { TextAreaQuestion } from '../components/dyn-form/questions/question-textarea';
 import { MainService } from '../services/main.service';
 import { Asset } from '../models/Asset';
 
@@ -87,6 +88,8 @@ export default class FormMapper {
                 object = new TextboxQuestion(field.object);
             } else if (field.type === 'depdrop'){
                 object = new DepDropQuestion(field.object);
+            } else if (field.type === 'text-area'){
+                object = new TextAreaQuestion(field.object);
             }
             return object;
         });

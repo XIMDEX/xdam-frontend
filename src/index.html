@@ -49,21 +49,29 @@
               }
             },
             {
-              "type": "dropdown",
-              "object": {
-                "key": "category",
-                "label": "Seleccione un tipo",
-                "options": [
+              type: "dropdown",
+              object: {
+                key: "category",
+                label: "Seleccione un tipo",
+                options: [
                   {
-                    "key": "investigation",
-                    "value": "Investigación"
+                    key: "investigation",
+                    value: "Investigación"
                   },
                   {
-                    "key": "activation",
-                    "value": "Activación"
+                    key: "activation",
+                    value: "Activación"
                   }
                 ],
-                "order": 2
+                order: 2
+              }
+            },
+            {
+              type: "text-area",
+              object: {
+                key: "license",
+                label: "Licencia",
+                order: 3
               }
             }
           ]

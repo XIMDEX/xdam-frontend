@@ -25,6 +25,12 @@
     width: 95%;
 }
 
+.dam-textarea {
+    width: 95%;
+    height: 9em;
+    resize: none;
+}
+
 .dam-edit-item label{
     display: block;
     padding: 0;
