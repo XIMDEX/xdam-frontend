@@ -82,6 +82,30 @@ ul.pagination li:last-child{
     justify-content: flex-end;
 }
 
+.dialog-delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.dialog-delete h2.legend {
+    color: #00a397;
+}
+
+.dialog-delete span {
+    font-weight: bold;
+}
+
+.dialog-delete .options {
+    border-top: 1px solid #C8CACC;
+    margin-top: 1em;
+    padding-top: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 /* MOBILE */
 @media all and (max-width: 599px) { 
     .pagination-nav{

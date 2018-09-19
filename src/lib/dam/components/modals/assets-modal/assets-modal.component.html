@@ -4,6 +4,7 @@
     (onDataAdded)="dataHandler()"
     (onDismiss)="assetForm.reset(); reset();"
     #assets identifier="assets"
+    class="assets-modal"
 >
     <form (ngSubmit)="submit()" #assetForm="ngForm" class="dam-form dam-edit-item">
         <div class="dam-edit-item-column">

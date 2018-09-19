@@ -13,8 +13,12 @@
     justify-content: space-between;
 }
 
-.nsm-dialog { 
+.assets-modal .nsm-dialog{ 
     max-width: 100%;
+}
+
+.modal-delete .nsm-dialog{
+    max-width: auto;
 }
 
 .dam-select {

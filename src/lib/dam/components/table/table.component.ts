@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { MainService } from '../../services/main.service';
 import { faStepBackward, faStepForward, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { Item } from '../../models/Item';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-table',
@@ -22,7 +23,10 @@ export class TableComponent implements OnInit, OnChanges {
   pagShorted: boolean;
   tableConfig = null;
 
-  constructor(private mainService: MainService) {}
+  constructor(
+    private mainService: MainService,
+    private ngxSmartModalService: NgxSmartModalService
+  ) {}
 
   ngOnInit() {
     this.currentPage = 1;
@@ -52,6 +56,19 @@ export class TableComponent implements OnInit, OnChanges {
   select(item) {
     this.selectedItem = item;
     this.mainService.setActiveItem(item);
+  }
+
+  deleteItem() {
+    if (this.ngxSmartModalService.getModal('deleteModal').hasData()) {
+      const data = this.ngxSmartModalService.getModal('deleteModal').getData();
+      this.mainService.deleteResource(data.id).subscribe(
+        res => {
+          this.mainService.setCurrentPage(this.mainService.getCurrentPageValue());
+          this.ngxSmartModalService.getModal('deleteModal').removeData();
+          this.ngxSmartModalService.getModal('deleteModal').close();
+        }
+      );
+    }
   }
 
   createPaginator() {

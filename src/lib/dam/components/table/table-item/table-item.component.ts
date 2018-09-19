@@ -5,7 +5,6 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { saveAs } from 'file-saver';
 import { Item } from '../../../models/Item';
 import { Asset } from '../../../models/Asset';
-import { hasIn } from 'ramda';
 
 @Component({
   selector: 'app-table-item',
@@ -81,11 +80,17 @@ export class TableItemComponent implements OnInit {
   }
 
   deleteFile() {
-    this.mainService.deleteResource(this.item.id).subscribe(
+    /*this.mainService.deleteResource(this.item.id).subscribe(
       res => {
         this.mainService.setCurrentPage(this.mainService.getCurrentPageValue());
       }
-    );
+    );*/
+    const data: Object = {
+      id: this.item.id,
+      title: this.title
+    };
+    this.ngxSmartModalService.setModalData(data, "deleteModal");
+    this.ngxSmartModalService.getModal('deleteModal').open();
   }
 
   editFile() {
