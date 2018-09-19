@@ -65,10 +65,6 @@ export default class FormMapper {
         return value;
     }
 
-    resetForms() {
-        this.init();
-    }
-
     /**
      * 
      * @param raw 

@@ -29,6 +29,9 @@ export class DynFormComponent implements OnInit, OnChanges {
   }
   ngOnChanges(){
     this.form = this.qcs.toFormGroup(this.questions);
+    this.form.valueChanges.subscribe(data => {
+      this.sendForm.emit(data);
+    });
     
   }
   onSubmit() {

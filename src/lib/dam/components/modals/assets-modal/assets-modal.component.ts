@@ -118,10 +118,6 @@ export class AssetsModalComponent implements OnInit {
     this.createQuestions();
   }
 
-  resetDynForm() {
-    this.dynData = {};
-  }
-
   close() {
     this.ngxSmartModalService.close('assets');
   }
