@@ -43,6 +43,7 @@ export class QuestionBase<T> {
 
   setVal(val: any = null) {
     this.val = val;
+    console.log(val)
     return this;
   }
 }
