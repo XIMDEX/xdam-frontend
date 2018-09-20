@@ -48,14 +48,21 @@ export default class FormMapper {
         }
       }
 
-    private getValue(field: Object, key: string): any {
+    private getValue(field: Object, key: string, isArray: boolean = true): any {
         let value = Object.assign({}, field);
         const keys = key.split('.');
-        for (let i = 0; i < keys.length; i++) {
-            if (is(Object, value) && hasIn(keys[i], value)) {
-                value = value[keys[i]];
-            } else {
-                break;
+
+        if (!isArray) {
+            if (hasIn(key, value)) {
+                value = value[key];
+            } 
+        } else { 
+            for (let i = 0; i < keys.length; i++) {
+                if (is(Object, value) && hasIn(keys[i], value)) {
+                    value = value[keys[i]];
+                } else {
+                    break;
+                }
             }
         }
 
@@ -75,8 +82,7 @@ export default class FormMapper {
             let object = null;
             if(!isNil(asset)){
                 const key = hasIn('realName', field.object) ? field.object.realName : field.object.key; 
-                
-                field.object.val = this.getValue(asset, key);
+                field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
             }
             if (field.type === 'dropdown') {
                 object = new DropdownQuestion(field.object);
@@ -91,6 +97,16 @@ export default class FormMapper {
         });
         return newFields.sort( (a, b) => a.order - b.order );
     }
+
+    private getProp(obj, prop: string, _default: any = null) {
+        let result = _default;
+
+        if (hasIn(prop, obj)) {
+            result = obj[prop];
+        }
+
+        return result;
+    } 
 
     private init() {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;

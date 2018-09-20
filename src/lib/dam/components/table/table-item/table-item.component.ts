@@ -108,7 +108,8 @@ export class TableItemComponent implements OnInit {
           itemData.extension,
           itemData.items.length > 0 ? itemData.items : null,
           itemData.type,
-          itemData.category
+          itemData.category,
+          itemData.license
         );
         const data: Object = {
           id: this.item.id,

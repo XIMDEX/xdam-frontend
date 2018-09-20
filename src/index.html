@@ -67,11 +67,29 @@
               }
             },
             {
+              type: "dropdown",
+              object: {
+                realName: 'license',
+                key: 'license_id',
+                multi: false,
+                searchable: true,
+                fetchable: true,
+                endpoint: 'licenses?limit=0',
+                label: "Seleccione una licencia",
+                options: [],
+                order: 3,
+                map: {
+                  key: "id",
+                  value: "title"
+                }
+              }
+            },
+            {
               type: "text-area",
               object: {
-                key: "license",
+                key: "license_desc",
                 label: "Licencia",
-                order: 3
+                order: 4
               }
             }
           ]

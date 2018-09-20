@@ -23,6 +23,8 @@ export class AssetsModalComponent implements OnInit {
   dynData: any = {};
   resetForms = false;
   fileDir: string;
+  blocked: boolean = false;
+  error: string = '';
 
   private formMapper: FormMapper;
 
@@ -82,6 +84,7 @@ export class AssetsModalComponent implements OnInit {
       }
       formData.append(key, this.asset[key]);
     }
+    this.blocked = true;
     this.sendFile(formData);
   }
 
@@ -94,6 +97,8 @@ export class AssetsModalComponent implements OnInit {
         },
         err => {
           console.log('error', err);
+          this.handleResponseError(err.status);
+          this.blocked = false;
         }
       );
     } else {
@@ -104,9 +109,30 @@ export class AssetsModalComponent implements OnInit {
         },
         err => {
           console.log('error', err);
+          this.handleResponseError(err.status);
+          this.blocked = false;
         }
       );
     }
+  }
+
+  handleResponseError(code, details='') {
+    let text = '';
+    switch (code) {
+      case 500:
+        text = 'There was an internal server error, please contact your administrator.'
+        break;
+      default:
+        text = 'There was an unknown error, please try again.'
+    }
+    this.raiseError(text);
+  }
+
+  raiseError(text) {
+    this.error = text;
+    setTimeout(()=>{    
+      this.error = '';
+    }, 3000);
   }
 
   reset() {
@@ -115,6 +141,7 @@ export class AssetsModalComponent implements OnInit {
     this.ngxSmartModalService.get('assets').removeData();
     this.id = 0;
     this.edit = false;
+    this.blocked = false;
     this.createQuestions();
   }
 

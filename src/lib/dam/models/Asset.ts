@@ -9,8 +9,9 @@ export class Asset {
     items: Object;
     type: string;
     category: string;
+    license: Object
 
-    constructor(title?, desc?, aut?, url?, f?, ext?,  it?, ty?, cat?) {
+    constructor(title?, desc?, aut?, url?, f?, ext?,  it?, ty?, cat?, lic?) {
       this.title = title || '';
       this.description = desc || '';
       this.author = aut || '';
@@ -20,5 +21,6 @@ export class Asset {
       this.items = it || null;
       this.type = ty || '';
       this.category = cat || '';
+      this.license = lic || null;
     }
 }
