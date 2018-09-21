@@ -79,7 +79,7 @@ export class AssetsModalComponent implements OnInit {
     for (const key in this.asset) {
       if ((key === 'resource') && isNil(this.asset[key])) {
         continue;
-      } else if ((key ==='items' || key ==='category') && isNil(this.asset[key])) {
+      } else if (isNil(this.asset[key])) {
         this.asset[key] = '';
       }
       formData.append(key, this.asset[key]);
