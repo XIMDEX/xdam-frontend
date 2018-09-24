@@ -23,6 +23,7 @@ export class MainService {
   private token = '';
   private settings: RouterMapper;
   private configs: ConfigMapper;
+  private endPoint: string = 'resources';
 
   constructor(private http: HttpClient) {
     this.currentPage = new BehaviorSubject<number>(1);
@@ -77,7 +78,7 @@ export class MainService {
   }
 
   getResources(params: Object = {}) {
-    const url = this.getRoute('list', 'resources');
+    const url = this.getRoute('list', this.endPoint);
     this.httpOptions.params = params;
     if (!hasIn('page', params)) {
       this.getCurrentPage().subscribe(value => { params['page'] = value; });
@@ -86,7 +87,7 @@ export class MainService {
   }
 
   getResource(hash) {
-    const url = this.getRoute('get', 'resources');
+    const url = this.getRoute('get', this.endPoint);
     return this.http.get(url + '/' + hash, this.httpOptions);
   }
 
@@ -96,7 +97,7 @@ export class MainService {
   }
 
   postFileForm(form: FormData) {
-    const url = this.getRoute('post', 'resources');
+    const url = this.getRoute('post', this.endPoint);
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Authorization':  'Bearer ' + this.getToken(),
@@ -105,7 +106,7 @@ export class MainService {
   }
 
   putFileForm(form: FormData, id: number) {
-    const url = this.getRoute('post', 'resources');
+    const url = this.getRoute('post', this.endPoint);
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Authorization':  'Bearer ' + this.getToken(),
@@ -114,7 +115,7 @@ export class MainService {
   }
 
   downloadResource(hash) {
-    const url = this.getRoute('get', 'resources');
+    const url = this.getRoute('get', this.endPoint);
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Authorization': 'Bearer ' + this.getToken()});
@@ -122,7 +123,7 @@ export class MainService {
   }
 
   deleteResource(id) {
-    const url = this.getRoute('delete', 'resources');
+    const url = this.getRoute('delete', this.endPoint);
     return this.http.delete(url + '/' + id, {headers: this.httpOptions.headers});
   }
 
