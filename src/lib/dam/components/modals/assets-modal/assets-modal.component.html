@@ -11,7 +11,7 @@
             <div class="dam-edit-item-img"> <img src=""> </div>
             <div class="dam-form-item">
                 <label>New File</label>
-                <input ref="fileInput" [(ngModel)]="fileDir" (change)="setFile($event.target.files)" name="file" accept="*/*" type="file"> </div>
+                <input ref="fileInput" [(ngModel)]="fileDir" (change)="setFile($event.target.files)" name="file" accept="*/*" type="file" [value]="asset.title"> </div>
             <div class="dam-form-item">
                 <label>External Resource</label>
                 <input ref="externalUrl" name="url" [(ngModel)]="asset.externalUrl" type="text"> </div>
@@ -40,6 +40,10 @@
                 <div class="dam-edit-item-column">
                     <label>Height</label>
                     <div class="dam-edit-line"> </div>
+                </div>
+                <div class="dam-edit-item-column">
+                    <label>File name</label>
+                    <div class="dam-edit-line">{{fileName}}</div>
                 </div>
             </div>
             <div class="dam-form-item">

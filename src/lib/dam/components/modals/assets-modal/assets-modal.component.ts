@@ -25,6 +25,7 @@ export class AssetsModalComponent implements OnInit {
   fileDir: string;
   blocked: boolean = false;
   error: string = '';
+  fileName: string = '';
 
   private formMapper: FormMapper;
 
@@ -56,6 +57,7 @@ export class AssetsModalComponent implements OnInit {
       const data = this.ngxSmartModalService.getModal('assets').getData();
       this.asset = data.asset;
       this.id = data.id;
+      this.fileName = this.asset.title + '.' + this.asset.extension;
       this.createQuestions();
     }
   }
@@ -142,6 +144,7 @@ export class AssetsModalComponent implements OnInit {
     this.id = 0;
     this.edit = false;
     this.blocked = false;
+    this.fileName = '';
     this.createQuestions();
   }
 
