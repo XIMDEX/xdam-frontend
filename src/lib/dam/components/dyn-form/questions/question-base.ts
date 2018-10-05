@@ -1,7 +1,6 @@
 import { hasIn } from 'ramda';
 
 export class QuestionBase<T> {
-  
   value: T;
   key: string;
   label: string;
@@ -38,12 +37,11 @@ export class QuestionBase<T> {
       value = object[field];
     }
     this[field] = value;
-    return this
+    return this;
   }
 
   setVal(val: any = null) {
     this.val = val;
-    console.log(val)
     return this;
   }
 }

@@ -16,16 +16,16 @@ import { Asset } from '../../../models/Asset';
 export class AssetsModalComponent implements OnInit {
   faTimes = faTimes;
   faSave = faSave;
-  asset = new Asset('', '', '', '', '', null);
+  asset = new Asset();
   id = 0;
   edit = false;
   questions: QuestionBase<any>[] = [];
   dynData: any = {};
   resetForms = false;
   fileDir: string;
-  blocked: boolean = false;
-  error: string = '';
-  fileName: string = '';
+  blocked = false;
+  error = '';
+  fileName = '';
 
   private formMapper: FormMapper;
 
@@ -63,7 +63,7 @@ export class AssetsModalComponent implements OnInit {
   }
 
   createQuestions() {
-    let fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
+    const fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
     this.formMapper.setFields(fields);
     this.questions = fields;
   }
@@ -118,28 +118,28 @@ export class AssetsModalComponent implements OnInit {
     }
   }
 
-  handleResponseError(code, details='') {
+  handleResponseError(code, details = '') {
     let text = '';
     switch (code) {
       case 500:
-        text = 'There was an internal server error, please contact your administrator.'
+        text = 'There was an internal server error, please contact your administrator.';
         break;
       default:
-        text = 'There was an unknown error, please try again.'
+        text = 'There was an unknown error, please try again.';
     }
     this.raiseError(text);
   }
 
   raiseError(text) {
     this.error = text;
-    setTimeout(()=>{    
+    setTimeout(() => {
       this.error = '';
     }, 3000);
   }
 
   reset() {
     this.resetForms = true;
-    this.asset = new Asset('', '', '', '', '', null);
+    this.asset = new Asset();
     this.ngxSmartModalService.get('assets').removeData();
     this.id = 0;
     this.edit = false;

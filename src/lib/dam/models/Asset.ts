@@ -12,18 +12,24 @@ export class Asset {
     license: Object;
     license_desc: string;
 
-    constructor(title?, desc?, aut?, url?, f?, ext?,  it?, ty?, cat?, lic?, lic_d?) {
+    constructor(
+      title?: string,
+      description?: string,
+      author?: string,
+      url?: string,
+      resource?: File,
+      extension?: string,
+      items?: Object,
+      type?: string
+      ) {
       this.title = title || '';
-      this.description = desc || '';
-      this.author = aut || '';
+      this.description = description || '';
+      this.author = author || '';
       this.externalUrl = url || '';
-      this.resource = f || null;
-      this.extension = ext || '';
-      this.items = it || null;
-      this.type = ty || '';
-      this.category = cat || '';
-      this.license = lic || null;
-      this.license_desc = lic_d || '';
+      this.resource = resource || null;
+      this.extension = extension || '';
+      this.items = items || null;
+      this.type = type || '';
 
     }
 }

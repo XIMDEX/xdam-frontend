@@ -24,8 +24,8 @@ export class TableSearchComponent implements OnInit {
     this.buttonsConfig = this.mainService.getComponentConfigs('tableSearch').searchButtons;
   }
 
-  search() {  
-    this.mainService.setSearchTerm(this.term); 
+  search() {
+    this.mainService.setSearchTerm(this.term);
     this.mainService.setCurrentPage(1);
   }
 

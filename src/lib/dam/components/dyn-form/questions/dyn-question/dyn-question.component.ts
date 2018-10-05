@@ -22,7 +22,7 @@ export class DynQuestionComponent implements OnInit {
         this.searchOptions();
       });
     }
-    if(this.question.controlType === 'dropdown' && this.question['fetchable']) {
+    if (this.question.controlType === 'dropdown' && this.question['fetchable']) {
       this.getOptions();
     }
   }

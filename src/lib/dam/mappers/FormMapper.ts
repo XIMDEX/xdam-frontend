@@ -55,8 +55,8 @@ export default class FormMapper {
         if (!isArray) {
             if (hasIn(key, value)) {
                 value = value[key];
-            } 
-        } else { 
+            }
+        } else {
             for (let i = 0; i < keys.length; i++) {
                 if (is(Object, value) && hasIn(keys[i], value)) {
                     value = value[keys[i]];
@@ -73,24 +73,23 @@ export default class FormMapper {
     }
 
     /**
-     * 
-     * @param raw 
-     * @param asset 
+     * @param raw
+     * @param asset
      */
-    handleForm(raw, asset=null) {
+    handleForm(raw, asset = null) {
         const newFields = raw.map(field => {
             let object = null;
-            if(!isNil(asset)){
-                const key = hasIn('realName', field.object) ? field.object.realName : field.object.key; 
-                field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
+            if ( !isNil( asset ) ) {
+                const key = hasIn('realName', field.object) ? field.object.realName : field.object.key;
+                                field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
             }
             if (field.type === 'dropdown') {
                 object = new DropdownQuestion(field.object);
             } else if (field.type === 'text') {
                 object = new TextboxQuestion(field.object);
-            } else if (field.type === 'depdrop'){
+            } else if (field.type === 'depdrop') {
                 object = new DepDropQuestion(field.object);
-            } else if (field.type === 'text-area'){
+            } else if (field.type === 'text-area') {
                 object = new TextAreaQuestion(field.object);
             }
             return object;
@@ -106,7 +105,7 @@ export default class FormMapper {
         }
 
         return result;
-    } 
+    }
 
     private init() {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;

@@ -30,10 +30,10 @@ export class DropdownQuestion extends QuestionBase<string> {
     let result: any;
     if (Array.isArray(val)) {
       result = val.map((index) => {
-        return this.valFixer(index)
+        return this.valFixer(index);
       });
     } else {
-      result = this.valFixer(val)
+      result = this.valFixer(val);
     }
 
     this.val = result;
@@ -42,12 +42,12 @@ export class DropdownQuestion extends QuestionBase<string> {
 
   private valFixer (val: any): Object {
     let result = {key: null, value: null};
-    if(is(Object, val)) {
+    if (is(Object, val)) {
       const key = hasIn(this.map['key'], val) ? val[this.map['key']] : null;
       const value = hasIn(this.map['value'], val) ? val[this.map['value']] : null;
-      result = key
+      result = key;
     } else {
-      result = val
+      result = val;
     }
     return result;
   }

@@ -23,7 +23,7 @@ export class MainService {
   private token = '';
   private settings: RouterMapper;
   private configs: ConfigMapper;
-  private endPoint: string = 'resources';
+  private endPoint = 'resources';
 
   constructor(private http: HttpClient) {
     this.currentPage = new BehaviorSubject<number>(1);
@@ -151,7 +151,7 @@ export class MainService {
     this.activeItem.next(item);
   }
 
-  getActiveItem(): Observable<Item>{
+  getActiveItem(): Observable<Item> {
     return this.activeItem.asObservable();
   }
 }

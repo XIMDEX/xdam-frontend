@@ -44,7 +44,7 @@ export class DamComponent  implements OnInit, OnChanges {
       this.searchTerm = data;
       this.getItems();
     });
-    this.mainService.getActiveItem().subscribe( data =>{
+    this.mainService.getActiveItem().subscribe( data => {
       this.activeItem = data;
       this.onSelect.emit(data);
     });

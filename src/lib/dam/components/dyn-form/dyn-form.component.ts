@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angu
 import { FormGroup } from '@angular/forms';
 import { QuestionBase } from './questions/question-base';
 import { QuestionControlService } from './questions/question-control.service';
-import { isNil } from 'ramda'
+import { isNil } from 'ramda';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -18,7 +18,7 @@ export class DynFormComponent implements OnInit, OnChanges {
   @Output()
   sendForm = new EventEmitter<any>();
   @Input()
-  reset: boolean = false;
+  reset = false;
 
   constructor(private qcs: QuestionControlService) { }
 
@@ -27,12 +27,11 @@ export class DynFormComponent implements OnInit, OnChanges {
       this.sendForm.emit(data);
     });
   }
-  ngOnChanges(){
+  ngOnChanges() {
     this.form = this.qcs.toFormGroup(this.questions);
     this.form.valueChanges.subscribe(data => {
       this.sendForm.emit(data);
     });
-    
   }
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);

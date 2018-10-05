@@ -38,7 +38,7 @@ export class TableComponent implements OnInit, OnChanges {
     // this.totalPages = Math.ceil(this.items.length/this.limit);
     this.totalPages = this.query.lastPage;
     const newPage = this.mainService.getCurrentPageValue();
-    if(newPage !== this.currentPage){
+    if (newPage !== this.currentPage) {
       this.changePage(newPage);
     }
     this.createPaginator();

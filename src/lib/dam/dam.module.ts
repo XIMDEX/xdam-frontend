@@ -24,7 +24,7 @@ import { TableItemComponent } from './components/table/table-item/table-item.com
     DynFormModule
   ],
   providers: [
-    MainService, 
+    MainService,
     NgxSmartModalService
   ],
   declarations: [

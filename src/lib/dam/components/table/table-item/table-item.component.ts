@@ -89,7 +89,7 @@ export class TableItemComponent implements OnInit {
       id: this.item.id,
       title: this.title
     };
-    this.ngxSmartModalService.setModalData(data, "deleteModal");
+    this.ngxSmartModalService.setModalData(data, 'deleteModal');
     this.ngxSmartModalService.getModal('deleteModal').open();
   }
 
@@ -99,19 +99,7 @@ export class TableItemComponent implements OnInit {
     this.mainService.getResource(this.item.hash).subscribe(
       response => {
         itemData = response['result'].data;
-        asset = new Asset(
-          itemData.title,
-          itemData.description,
-          itemData.author,
-          '',
-          null,
-          itemData.extension,
-          itemData.items.length > 0 ? itemData.items : null,
-          itemData.type,
-          itemData.category,
-          itemData.license,
-          itemData.license_desc
-        );
+        asset = <Asset> itemData;
         const data: Object = {
           id: this.item.id,
           asset: asset

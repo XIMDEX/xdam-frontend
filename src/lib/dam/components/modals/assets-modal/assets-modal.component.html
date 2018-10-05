@@ -12,9 +12,6 @@
             <div class="dam-form-item">
                 <label>New File</label>
                 <input ref="fileInput" [(ngModel)]="fileDir" (change)="setFile($event.target.files)" name="file" accept="*/*" type="file" [value]="asset.title"> </div>
-            <div class="dam-form-item">
-                <label>External Resource</label>
-                <input ref="externalUrl" name="url" [(ngModel)]="asset.externalUrl" type="text"> </div>
             <app-dynamic-form #dynForm (sendForm)="setDynData($event)" *ngIf="questions.length > 0 && !resetForms" [questions]="questions" [reset]="resetForms"></app-dynamic-form>
         </div>
         <div class="dam-edit-item-column big">
@@ -26,18 +23,18 @@
             <h2 class="legend">Information</h2>
             <div class="dam-edit-item">
                 <div class="dam-edit-item-column">
-                    <label>Image Format</label>
+                    <label>File Format</label>
                     <div class="dam-edit-line"> {{asset.extension}}</div>
                 </div>
                 <div class="dam-edit-item-column">
                     <label>Resource Type</label>
                     <div class="dam-edit-line">{{asset.type}}</div>
                 </div>
-                <div class="dam-edit-item-column">
+                <div *ngIf="asset.type === 'image'" class="dam-edit-item-column">
                     <label>Width</label>
                     <div class="dam-edit-line"> </div>
                 </div>
-                <div class="dam-edit-item-column">
+                <div *ngIf="asset.type === 'image'" class="dam-edit-item-column">
                     <label>Height</label>
                     <div class="dam-edit-line"> </div>
                 </div>
