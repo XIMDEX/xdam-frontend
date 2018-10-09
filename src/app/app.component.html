@@ -1,4 +1,6 @@
 <div id="wrapper">
-  <app-main></app-main>
+  <button *ngIf="false" (click)="toggleOpen()">ABRIR</button>
+  <app-dam [popup]="false" [isOpen]="isOpen" (openEmitter)="toggleOpen();" (onSelect)="handleSelect($event)">
+  </app-dam>
 </div>
 

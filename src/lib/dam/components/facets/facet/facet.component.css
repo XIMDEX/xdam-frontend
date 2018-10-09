@@ -1,0 +1,43 @@
+.facet-title {
+    border-top: 2px solid #c3cbd5 !important;
+    width: 100%;
+    border: none;
+    border-top-color: currentcolor;
+    border-top-style: none;
+    border-top-width: medium;
+    min-width: 100px;
+    text-align: left;
+    transition: .4s;
+    padding: 5px;
+    color: #666;
+    background: #EDEFF2 !important;
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.facet-title span.text {
+    margin: 0 auto;
+}
+
+.facet-title:hover {
+    cursor:pointer;
+}
+
+.facet-option {
+    padding: 1em 2em 0em 2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.facet-option:last-child {
+    margin-bottom: 1em;
+}
+
+.facet-option label{
+    max-width: 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+}

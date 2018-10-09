@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>PolyDam</title>
@@ -8,70 +9,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
   <app-root>
     <script>
       window.$xdam = {
-        token: "ssdfksj856erfh3vs634pldaskg",
-        base_url: 'http://universo.lh/api/v1/',
+        token: '49b5d089bd56fd4eae7059e526a3fc39f17d49f962304decbcbfc5032c1e',
+        base_url: 'http://universo.lab14/api/v1/',
         profile: 'light',
         endpoints: {
           resources: {
-            list: 'resources?context_resource=resource',
+            list: 'resources/dam',
             get: 'resources',
             post: 'resources',
             delete: 'resources'
           }
         },
         forms: {
-          name: "Formulario planetas",
-          id: 1,
-                endpoint: "resources",
-                api: false,
+          name: "resource-form",
+          endpoint: "resources",
+          api: false,
           fields: [
             {
               type: "dropdown",
               object: {
-                  "key": "planet",
-                  label: "Seleccione un planeta",
-                  options: [
-                    {key: "1", value: "TEST3333"},
-                    {key: "2", value: "PRUEBA 1"},
-                    {key: "3", value: "I"}
-                  ],
-                  "order": 1
+                key: "items",
+                multi: true,
+                searchable: true,
+                fetchable: true,
+                endpoint: 'items?limit=0',
+                label: "Seleccione una palabra",
+                options: [],
+                order: 1,
+                realName: 'items',
+                map: {
+                  key: "id",
+                  value: "title"
                 }
-              },
-              { 
-                type: "depdrop",
-                object: {
-                  key: "items",
-                  label: "Seleccione una palabra",
-                  ref: "planet",
-                    endpoint: "items",
-                  order: 2,
-                          param: "planet_id",
-                          map: {
-                              key: 'id',
-                              value: 'title'
-                          }
-                        }
-                    },
-                    {
-                type: "dropdown",
-                object: {
-                    key: "type",
-                    label: "Seleccione un tipo",
-                    options: [
-                        {key: "1", value: "Activación"},
-                        {key: "2", value: "Investigación"},
-                    ],
-                    order: 3
-                    }
-              }]
+              }
+            },
+            {
+              type: "dropdown",
+              object: {
+                key: "category",
+                label: "Seleccione un tipo",
+                options: [
+                  {
+                    key: "investigation",
+                    value: "Investigación"
+                  },
+                  {
+                    key: "activation",
+                    value: "Activación"
+                  }
+                ],
+                order: 2
+              }
+            },
+            {
+              type: "dropdown",
+              object: {
+                realName: 'license',
+                key: 'license_id',
+                multi: false,
+                searchable: true,
+                fetchable: true,
+                endpoint: 'licenses?limit=0',
+                label: "Seleccione una licencia",
+                options: [],
+                order: 3,
+                map: {
+                  key: "id",
+                  value: "title"
+                }
+              }
+            },
+            {
+              type: "text-area",
+              object: {
+                realName: 'license_desc',
+                key: "license_desc",
+                label: "Licencia",
+                order: 4
+              }
             }
-          }
+          ]
+        }
+      }
     </script>
   </app-root>
 </body>
+
 </html>
