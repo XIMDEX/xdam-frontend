@@ -19,6 +19,7 @@ export class MainService {
   private currentPage: BehaviorSubject<number>;
   private searchTerm: BehaviorSubject<string>;
   private activeItem: BehaviorSubject<Item>;
+  private activeFacets: BehaviorSubject<Object>;
 
   private token = '';
   private settings: RouterMapper;
@@ -29,6 +30,7 @@ export class MainService {
     this.currentPage = new BehaviorSubject<number>(1);
     this.searchTerm = new BehaviorSubject<string>('');
     this.activeItem = new BehaviorSubject<Item>(null);
+    this.activeFacets = new BehaviorSubject<Object>({});
     this.settings = new RouterMapper();
     this.configs = new ConfigMapper;
 
@@ -153,5 +155,13 @@ export class MainService {
 
   getActiveItem(): Observable<Item> {
     return this.activeItem.asObservable();
+  }
+
+  setActiveFacets(newFacets: Object) {
+    this.activeFacets.next(newFacets);
+  }
+
+  getActiveFacets(): Observable<Object> {
+    return this.activeFacets.asObservable();
   }
 }

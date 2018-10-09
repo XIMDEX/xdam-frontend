@@ -1,3 +1,7 @@
+:host {
+    margin: 0 1em;
+}
+
 .items{
     display: -ms-flexbox;
     display: flex;
@@ -105,6 +109,10 @@ ul.pagination li:last-child{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.limit-selector {
+    width: 4em;
 }
 
 /* MOBILE */

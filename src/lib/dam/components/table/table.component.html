@@ -4,6 +4,13 @@
     <div class="pagination-found"> 
         <span class="label label-default">Found <span class="badge">{{query.total}}</span> items</span>
     </div>
+    <ng-select
+            class="limit-selector dam-select"
+            (change)="changeLimit($event)"
+            [(ngModel)]="limitSelect"
+            [items]="tableConfig.paginator.limits"
+            [clearable]="false"
+    ></ng-select>
     <nav *ngIf="tableConfig.paginator.top" class="pagination-nav">
         <ul class="pagination shadow-panel">
             <li [ngClass]="{'active': page.active == true}" *ngFor="let page of paginator">

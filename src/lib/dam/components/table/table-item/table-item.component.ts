@@ -42,7 +42,7 @@ export class TableItemComponent implements OnInit {
     let img = '';
     switch (this.item.type) {
       case 'image':
-        img = this.getResourceImage(this.item.hash);
+        img = this.getResourceImage(this.item.image);
         break;
       case 'audio':
         img = 'https://via.placeholder.com/200/ef680e/ffffff?text=Audio';
@@ -51,7 +51,7 @@ export class TableItemComponent implements OnInit {
         img = 'https://via.placeholder.com/200/af8282/ffffff?text=Video';
         break;
       case 'pdf':
-        img = this.getResourceImage(this.item.hash);
+        img = this.getResourceImage(this.item.image);
         break;
       case 'other':
         img = 'https://via.placeholder.com/200/5ab1c9/ffffff?text=Other';
@@ -60,10 +60,9 @@ export class TableItemComponent implements OnInit {
     return img;
   }
 
-  getResourceImage(hash) {
+  getResourceImage(image) {
     const token = this.mainService.getToken();
-    return this.mainService.getRoute(
-      'get', 'resources') + '/' + hash + '/image?api_token=' + token + '&size=mini';
+    return image + '&api_token=' + token;
   }
 
   downloadFile() {
@@ -96,7 +95,7 @@ export class TableItemComponent implements OnInit {
   editFile() {
     let itemData;
     let asset;
-    this.mainService.getResource(this.item.hash).subscribe(
+    this.mainService.getResource(this.item.id).subscribe(
       response => {
         itemData = response['result'].data;
         asset = <Asset> itemData;

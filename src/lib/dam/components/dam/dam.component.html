@@ -8,7 +8,8 @@
             </ngx-smart-modal>
         </ng-container>
         <ng-template #nopup>
-            <app-table [items]="items" [(query)]="query"></app-table> 
+            <app-facets [facets]="facets"></app-facets>
+            <app-table style="flex-grow: 1;" [items]="items" [(query)]="query"></app-table> 
         </ng-template>
     </div>
 </div>

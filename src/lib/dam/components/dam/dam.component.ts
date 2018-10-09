@@ -3,6 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Item } from '../../models/Item';
 import { MainService } from '../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { isNil } from 'ramda';
 
 @Component({
   selector: 'app-dam',
@@ -19,6 +20,8 @@ export class DamComponent  implements OnInit, OnChanges {
   searchTerm = '';
   mainConfig = null;
   activeItem = null;
+  activeFacets = {};
+  facets = [];
 
   @Input() popup = false;
   @Input() isOpen = false;
@@ -35,6 +38,7 @@ export class DamComponent  implements OnInit, OnChanges {
     this.limit = this.mainConfig.query.limit;
     this.search = this.mainConfig.query.search;
     this.page = this.mainConfig.query.page.name;
+    this.query.perPage = this.mainConfig.query.limit.value;
     this.getItems();
     this.mainService.getCurrentPage().subscribe( data => {
       this.currentPage = data;
@@ -48,6 +52,10 @@ export class DamComponent  implements OnInit, OnChanges {
       this.activeItem = data;
       this.onSelect.emit(data);
     });
+    this.mainService.getActiveFacets().subscribe( data => {
+      this.activeFacets = data;
+      this.getItems();
+    })
   }
 
   ngOnChanges() {
@@ -58,14 +66,22 @@ export class DamComponent  implements OnInit, OnChanges {
     let params = new HttpParams();
     params = params.append(this.page, String(this.currentPage));
     params = params.append(this.search.name, this.search.value.replace('$', this.searchTerm));
-    params = params.append(this.limit.name, String(this.limit.value));
+    params = params.append(this.limit.name, String(this.query.perPage));
+
+    if (!isNil(this.activeFacets)) {
+      for(let key in this.activeFacets) {
+        params = params.append(key, this.activeFacets[key]);
+      }
+    }
+
     this.mainService.list(params).subscribe(
       response => {
-        if (response.hasOwnProperty('result')) {
-          this.query.perPage = response['result'].per_page;
-          this.query.lastPage = response['result'].last_page;
-          this.query.total = response['result'].total;
-          this.mapItems(response['result'].data);
+        if (response.hasOwnProperty('pager')) {
+          this.query.perPage = response['pager'].per_page;
+          this.query.lastPage = response['pager'].pages;
+          this.query.total = response['pager'].total;
+          this.facets = response['facets'];
+          this.mapItems(response['docs']);
         }
       },
       err => console.error(err),
@@ -76,7 +92,7 @@ export class DamComponent  implements OnInit, OnChanges {
 
   mapItems(data) {
     this.items = data.map((o) => {
-      return new Item(o.id, o.title, o.hash, 'Undefined', o.type);
+      return new Item(o.id, o.name, o.hash, 'Undefined', o.type, o.preview);
     });
   }
 

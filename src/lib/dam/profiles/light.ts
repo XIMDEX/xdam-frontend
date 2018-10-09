@@ -8,13 +8,14 @@ export const light = {
                 query: {
                     page: {name: 'page'},
                     limit: {name: 'limit', value: 20},
-                    search: {name: 'title', value: '$'}
+                    search: {name: 'name', value: '$'}
                 }
             },
             table: {
                 paginator: {
                     top: true,
-                    bottom: false
+                    bottom: false,
+                    limits: [10, 20, 50, 100]
                 }
             },
             tableItem: {

@@ -1,6 +1,11 @@
 @import url('node_modules/ngx-smart-modal/ngx-smart-modal.css');
 @import url("~@ng-select/ng-select/themes/default.theme.css");
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 .dam-main{
     height: 100%;
     margin: 0;

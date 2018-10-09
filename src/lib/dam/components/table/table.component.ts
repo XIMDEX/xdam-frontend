@@ -13,6 +13,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() items: Item[];
   @Input() query: any = {};
   @Output() queryChange = new EventEmitter<any>();
+  limitSelect: Object;
   limit: number;
   currentPage: number;
   totalPages: number;
@@ -31,6 +32,7 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.currentPage = 1;
     this.tableConfig = this.mainService.getComponentConfigs('table');
+    this.limitSelect = {label: this.query.perPage, value: this.query.perPage};
     this.createPaginator();
   }
 
@@ -51,6 +53,14 @@ export class TableComponent implements OnInit, OnChanges {
       this.queryChange.emit(this.query);
       this.mainService.setCurrentPage(newPage);
     }
+  }
+
+  changeLimit(newLimit: number) {
+    this.limit = newLimit;
+    this.query.perPage = newLimit;
+    this.limitSelect = {label: newLimit, value: newLimit};
+    this.queryChange.emit(this.query);
+    this.mainService.setCurrentPage(1)
   }
 
   select(item) {

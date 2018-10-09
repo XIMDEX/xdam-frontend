@@ -4,11 +4,13 @@ export class Item {
   hash: string;
   size: string;
   type: string;
-  constructor(id, tit?, h?, siz?, tp?) {
+  image: string;
+  constructor(id, tit?, h?, siz?, tp?, img?) {
     this.id = id;
     this.title = tit || '';
     this.hash = h || '';
     this.size = siz || '';
     this.type = tp || '';
+    this.image = img || '';
   }
 }
