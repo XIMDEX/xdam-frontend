@@ -1,3 +1,6 @@
+/**
+ * The item model used by the table component to show info about every single resource.
+ */
 export class Item {
   id: number;
   title: string;

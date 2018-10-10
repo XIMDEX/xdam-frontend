@@ -55,7 +55,7 @@ export class DamComponent  implements OnInit, OnChanges {
     this.mainService.getActiveFacets().subscribe( data => {
       this.activeFacets = data;
       this.getItems();
-    })
+    });
   }
 
   ngOnChanges() {
@@ -69,7 +69,7 @@ export class DamComponent  implements OnInit, OnChanges {
     params = params.append(this.limit.name, String(this.query.perPage));
 
     if (!isNil(this.activeFacets)) {
-      for(let key in this.activeFacets) {
+      for (const key in this.activeFacets) {
         params = params.append(key, this.activeFacets[key]);
       }
     }

@@ -1,5 +1,5 @@
 {
-  "name": "poly-dam",
+  "name": "x-dam",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "package": "ng-packagr -p ng-package.json"
+    "package": "ng-packagr -p ng-package.json",
+    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json"
   },
   "private": true,
   "dependencies": {

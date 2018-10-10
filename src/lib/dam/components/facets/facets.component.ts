@@ -16,16 +16,18 @@ export class FacetsComponent implements OnInit, OnChanges {
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
   isOpen = false;
+  facetsConfig = null;
 
   constructor(private mainService: MainService) { }
 
   ngOnInit() {
+    this.facetsConfig = this.mainService.getComponentConfigs('facets');
     this.buildQuery();
   }
 
   ngOnChanges(changes) {
     this.setSelectedFacets();
-  }  
+  }
 
   togglePanel() {
     this.isOpen = !this.isOpen;
@@ -33,7 +35,7 @@ export class FacetsComponent implements OnInit, OnChanges {
 
   buildQuery() {
     this.facets.map((facet) => {
-      this.facetsQuery[facet.key] = ''
+      this.facetsQuery[facet.key] = '';
     });
   }
 
@@ -44,11 +46,11 @@ export class FacetsComponent implements OnInit, OnChanges {
 
   setSelectedFacets() {
     this.selectedFacets = [];
-    for(let index in this.facets) {
-      const values = this.facets[index].values; 
-      const key = this.facets[index].key; 
-      for(let option in values) {
-        if(hasIn(key, this.facetsQuery) && this.facetsQuery[key].indexOf(option) !== -1) {
+    for (const index in this.facets) {
+      const values = this.facets[index].values;
+      const key = this.facets[index].key;
+      for (const option in values) {
+        if (hasIn(key, this.facetsQuery) && this.facetsQuery[key].indexOf(option) !== -1) {
           this.selectedFacets.push(option);
         }
       }

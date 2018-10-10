@@ -25,10 +25,8 @@
 }
 
 .facet-option {
-    padding: 1em 2em 0em 2em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 1em 1em 0em 1em;
+  
 }
 
 .facet-option:last-child {
@@ -37,7 +35,12 @@
 
 .facet-option label{
     max-width: 1em;
-    text-overflow: ellipsis;
+}
+
+.facet-option label span {
     white-space: nowrap;
-    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 9em;
 }

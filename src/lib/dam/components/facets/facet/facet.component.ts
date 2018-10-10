@@ -21,13 +21,13 @@ export class FacetComponent implements OnInit {
   ngOnInit() {}
 
   toggleFacet(event, option) {
-    if(event.target.checked) {
-      if(!this.valuesArray.includes(option.key)) {
+    if (event.target.checked) {
+      if (!this.valuesArray.includes(option.key)) {
         this.valuesArray.push(option.key);
       }
     } else {
-      let index = this.valuesArray.indexOf(option.key);
-      if(index !== -1) {
+      const index = this.valuesArray.indexOf(option.key);
+      if (index !== -1) {
         this.valuesArray.splice(index, 1);
       }
     }

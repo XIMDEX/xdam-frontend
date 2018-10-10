@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const light = {
     configs: {
         general: {
@@ -17,6 +20,9 @@ export const light = {
                     bottom: false,
                     limits: [10, 20, 50, 100]
                 }
+            },
+            facets : {
+                active: true
             },
             tableItem: {
                 clickView: true,

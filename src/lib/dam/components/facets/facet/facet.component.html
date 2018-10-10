@@ -10,7 +10,7 @@
     <ng-container *ngIf="item.value > 0">
       <div class="facet-option" [title]="item.key">
           <input type="checkbox" (change)="toggleFacet($event, item)" [checked]="isActive(item)"/>
-          <label>{{ item.key }} ({{item.value}})</label>
+          <label><span>{{ item.key }}</span> ({{item.value}})</label>
       </div>
     </ng-container>
   </ng-container>

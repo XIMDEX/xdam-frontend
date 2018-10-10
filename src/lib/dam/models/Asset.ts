@@ -1,3 +1,6 @@
+/**
+ * The Asset model used by the resources modal to show or store the resources parameters.
+ */
 export class Asset {
 
     title: string;
