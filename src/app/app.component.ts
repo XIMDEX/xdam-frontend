@@ -1,5 +1,8 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-
+/**
+ * @class
+ * @ignore
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

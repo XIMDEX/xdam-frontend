@@ -5,7 +5,8 @@ import { Item } from '../../models/Item';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 
 /**
- * Component that holds the resources as table items and manages pagination, actions and some additional options.
+ * Component that holds the resources as table items and manages pagination, 
+ * actions and some additional options.
  */
 @Component({
   selector: 'app-table',
@@ -57,6 +58,10 @@ export class TableComponent implements OnInit, OnChanges {
    * Config object for this component extracted using the Profile mapper
    */
   tableConfig = null;
+  /**
+   * Mapper for IDs for multiple requests methods
+   */
+  requestsModel = null;
 
   /**
    * @ignore
@@ -72,6 +77,7 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.currentPage = 1;
     this.tableConfig = this.mainService.getComponentConfigs('table');
+    this.requestsModel = this.mainService.getModel('requests');
     this.limitSelect = {label: this.query.perPage, value: this.query.perPage};
     this.createPaginator();
   }
@@ -132,7 +138,7 @@ export class TableComponent implements OnInit, OnChanges {
   deleteItem() {
     if (this.ngxSmartModalService.getModal('deleteModal').hasData()) {
       const data = this.ngxSmartModalService.getModal('deleteModal').getData();
-      this.mainService.deleteResource(data.id).subscribe(
+      this.mainService.deleteResource(data[this.requestsModel.delete]).subscribe(
         res => {
           this.mainService.setCurrentPage(this.mainService.getCurrentPageValue());
           this.ngxSmartModalService.getModal('deleteModal').removeData();

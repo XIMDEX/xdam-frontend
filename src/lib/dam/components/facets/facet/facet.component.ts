@@ -42,7 +42,7 @@ export class FacetComponent implements OnInit {
     this.selectedValue.emit(this.valuesArray.join(','));
   }
 
-  isActive(facet: Object) {
+  isActive(facet: any) {
     const active = this.selected.indexOf(facet.key) >= 0;
     return active;
   }

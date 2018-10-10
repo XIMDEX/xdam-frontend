@@ -7,6 +7,10 @@ export class TextAreaQuestion extends QuestionBase<string> {
   constructor(options: {} = {}) {
     super(options);
     this.type = options['type'] || '';
-    this.value = this.val;
+    if(this.val instanceof Object) {
+      this.value = '';
+    } else {
+      this.value = this.val;
+    }
   }
 }

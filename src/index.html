@@ -16,6 +16,8 @@
       window.$xdam = {
         token: '49b5d089bd56fd4eae7059e526a3fc39f17d49f962304decbcbfc5032c1e',
         base_url: 'http://universo.lab14/api/v1/',
+        base_params: {
+        },
         profile: 'light',
         endpoints: {
           resources: {
@@ -23,6 +25,21 @@
             get: 'resources',
             post: 'resources',
             delete: 'resources'
+          }
+        },
+        models: {
+          item: {
+            id: 'resource_id',
+            title: 'name',
+            hash: 'id',
+            size: '',
+            type: 'type',
+            image: 'preview'
+          },
+          requests: {
+            get: 'hash',
+            delete: 'id',
+            put: 'id'
           }
         },
         forms: {

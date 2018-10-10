@@ -5,36 +5,85 @@ import { MainService } from '../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { isNil } from 'ramda';
 
+/**
+ * Entry point component for the application, is the component in charge of the
+ * observation of parameters changes and requests.
+ */
 @Component({
   selector: 'app-dam',
   templateUrl: './dam.component.html',
   styleUrls: ['./dam.component.css']
 })
 export class DamComponent  implements OnInit, OnChanges {
+  /**
+   * An array containing all the resources from the response as Item instances
+   */
   items: Item[] = [];
+  /**
+   * A dict with the current query
+   */
   query: any = {page: 1, search: '', perPage: 20, lastPage: 1, total: 0};
+  /**@ignore */
   limit = null;
+  /**@ignore */
   search = null;
+  /**@ignore */
   page: string;
+  /**
+   * The current selected page
+   */
   currentPage = 1;
+  /**
+   * The current selected search string
+   */
   searchTerm = '';
+  /**
+   * A dict containing the main configurations for the application
+   */
   mainConfig = null;
+  /**
+   * The active item currently selected
+   */
   activeItem = null;
+  /**
+   * A dict containing info about the active facets
+   */
   activeFacets = {};
+  /**
+   * An array of all available facets
+   */
   facets = [];
-
+  /**
+   * An instance of the mapper for Item model
+   */
+  imap = null;
+  /**
+   * Input property for switching the app to a modal
+   */
   @Input() popup = false;
+  /**
+   * Property to hide or show app when in modal state
+   */
   @Input() isOpen = false;
+  /**
+   * Output that emits a boolean every time the app open/closes when in modal state
+   */
   @Output() openEmitter = new EventEmitter<boolean>();
+  /**
+   * Output that emits when a item has been selected
+   */
   @Output() onSelect = new EventEmitter<Item>();
 
+  /**@ignore */
   constructor(
     private mainService: MainService,
     private ngxSmartModalService: NgxSmartModalService) {
   }
 
+  /**@ignore */
   ngOnInit() {
     this.mainConfig = this.mainService.getComponentConfigs('main');
+    this.imap = this.mainService.getModel('item');
     this.limit = this.mainConfig.query.limit;
     this.search = this.mainConfig.query.search;
     this.page = this.mainConfig.query.page.name;
@@ -58,10 +107,15 @@ export class DamComponent  implements OnInit, OnChanges {
     });
   }
 
+  /**@ignore */
   ngOnChanges() {
     this.openModal();
   }
 
+  /**
+   * Appends all current params to query and makes a request storing all resources in 
+   * the items array
+   */
   getItems() {
     let params = new HttpParams();
     params = params.append(this.page, String(this.currentPage));
@@ -90,12 +144,19 @@ export class DamComponent  implements OnInit, OnChanges {
     );
   }
 
+  /**
+   * Map every raw row of data as a typed model class Item
+   * @param data The model instance
+   */
   mapItems(data) {
     this.items = data.map((o) => {
-      return new Item(o.id, o.name, o.hash, 'Undefined', o.type, o.preview);
+      return new Item(o[this.imap.id], o[this.imap.title], o[this.imap.hash], o[this.imap.size] || '', o[this.imap.type], o[this.imap.image]);
     });
   }
 
+  /**
+   * Opens himself when in modal state
+   */
   openModal() {
     if (this.isOpen) {
       this.ngxSmartModalService.getModal('dam').open();

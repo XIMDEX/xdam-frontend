@@ -51,6 +51,10 @@ export class TableItemComponent implements OnInit {
    * The string displayed as a subtitle for the item.
    */
   subtitle = '';
+  /**
+   * Mapper for IDs for multiple requests methods
+   */
+  requestsModel = null;
 
   /**
    * @ignore
@@ -65,6 +69,7 @@ export class TableItemComponent implements OnInit {
   ngOnInit() {
     this.image = this.parseImage();
     this.itemConfigs = this.mainService.getComponentConfigs('tableItem');
+    this.requestsModel = this.mainService.getModel('requests');
     this.initFields();
   }
 
@@ -119,7 +124,7 @@ export class TableItemComponent implements OnInit {
     this.mainService.getResource(this.item.hash).subscribe(
       res => {
         const ext = res['result'].data.extension;
-        this.mainService.downloadResource(this.item.hash).subscribe(
+        this.mainService.downloadResource(this.item[this.requestsModel.get]).subscribe(
           response => {
             saveAs(response, this.item.title + '.' + ext);
           }
@@ -138,7 +143,7 @@ export class TableItemComponent implements OnInit {
       }
     );*/
     const data: Object = {
-      id: this.item.id,
+      id: this.item[this.requestsModel.delete],
       title: this.title
     };
     this.ngxSmartModalService.setModalData(data, 'deleteModal');
@@ -151,12 +156,12 @@ export class TableItemComponent implements OnInit {
   editFile() {
     let itemData;
     let asset;
-    this.mainService.getResource(this.item.id).subscribe(
+    this.mainService.getResource(this.item[this.requestsModel.get]).subscribe(
       response => {
         itemData = response['result'].data;
         asset = <Asset> itemData;
         const data: Object = {
-          id: this.item.id,
+          id: this.item[this.requestsModel.put],
           asset: asset
         };
         this.ngxSmartModalService.setModalData(data, 'assets');

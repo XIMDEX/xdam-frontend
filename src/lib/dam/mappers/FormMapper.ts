@@ -8,34 +8,55 @@ import { TextAreaQuestion } from '../components/dyn-form/questions/question-text
 import { MainService } from '../services/main.service';
 import { Asset } from '../models/Asset';
 
+/**
+ * This class extracts and maps data about the additional form 
+ * for uploading or editing resources.
+ */
 export default class FormMapper {
 
+    /**
+     * The extracted forms as a dict
+     */
     forms = null;
+    /**
+     * The extracted Questions instances for every field of the form
+     */
     private fields: QuestionBase<Object>[] = null;
+    /**
+     * The instance of the mainService
+     */
     private mainService: MainService;
 
+    /**@ignore */
     constructor(mainService: MainService) {
         this.mainService = mainService;
         this.init();
     }
 
+    /**@ignore */
     setForms(forms) {
         this.forms = forms;
         return this;
     }
 
+    /**@ignore */
     getForms() {
         return this.forms;
     }
 
+    /**@ignore */
     getFields() {
         return this.fields;
     }
 
+    /**@ignore */
     setFields(fields) {
         this.fields = fields;
     }
 
+    /**
+     * Initializes and process the form to obtain que question fields
+     */
     private initForm() {
         const localForm = this.getForms();
         if (localForm.api === true) {
@@ -47,7 +68,8 @@ export default class FormMapper {
             this.fields = this.handleForm(localForm.fields);
         }
       }
-
+    
+    /**@ignore */
     private getValue(field: Object, key: string, isArray: boolean = true): any {
         let value = Object.assign({}, field);
         const keys = key.split('.');
@@ -73,8 +95,9 @@ export default class FormMapper {
     }
 
     /**
-     * @param raw
-     * @param asset
+     * Evaluates every field in the form and creates the questions
+     * @param raw The raw data from the form
+     * @param asset Some asset to use its data
      */
     handleForm(raw, asset = null) {
         const newFields = raw.map(field => {
@@ -97,6 +120,12 @@ export default class FormMapper {
         return newFields.sort( (a, b) => a.order - b.order );
     }
 
+    /**
+     * Gets a property from the selected object
+     * @param obj The object to be inspected (The haystack)
+     * @param prop The property to be found (The needle)
+     * @param _default The default value if the needle is not found
+     */
     private getProp(obj, prop: string, _default: any = null) {
         let result = _default;
 
@@ -107,6 +136,10 @@ export default class FormMapper {
         return result;
     }
 
+    /**
+     * Initializes the mapper extracting values from the environment and the active window,
+     * prioritising the window object.
+     */
     private init() {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
 

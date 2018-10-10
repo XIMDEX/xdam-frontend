@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
 import { hasIn, isNil } from 'ramda';
 import RouterMapper from '../mappers/RouterMapper';
@@ -99,6 +99,25 @@ export class MainService {
   }
 
   /**
+   * Get the mappers between api model and front model.
+   * @returns {Object} The models dict
+   */
+  getModels() {
+    return this.settings.getModels();
+  }
+  
+  /**
+   * Get a specified model mapper.
+   * @param name The model mapper name
+   */
+  getModel(name) {
+    const models = this.getModels();
+    if (hasIn(name, models)) {
+      return models[name];
+    }
+  }
+
+  /**
    * Gets general profile configs from the active profile.
    */
   getGeneralConfigs() {
@@ -118,7 +137,7 @@ export class MainService {
    * @param params The parameters
    * @returns {Observable} The response of getResources
    */
-  list(params: Object = {}) {
+  list(params: HttpParams = null) {
     return this.getResources(params);
   }
 
@@ -145,8 +164,9 @@ export class MainService {
    * @param {Object} params The parameters dict for the query
    * @returns {Observable} The response as a observable
    */
-  getResources(params: Object = {}) {
+  getResources(params: HttpParams = null) {
     const url = this.getRoute('list', this.endPoint);
+    params = this.settings.getBaseParams(params);
     this.httpOptions.params = params;
     if (!hasIn('page', params)) {
       this.getCurrentPage().subscribe(value => { params['page'] = value; });
@@ -156,12 +176,12 @@ export class MainService {
 
   /**
    * Gets a single resource from the API.
-   * @param hash The identifier of the resource 
+   * @param id The identifier of the resource 
    * @returns {Observable} The response as a observable
    */
-  getResource(hash) {
+  getResource(id) {
     const url = this.getRoute('get', this.endPoint);
-    return this.http.get(url + '/' + hash, this.httpOptions);
+    return this.http.get(url + '/' + id, this.httpOptions);
   }
 
   /**
@@ -203,15 +223,15 @@ export class MainService {
 
   /**
    * Downloads a resource as a blob given its ID.
-   * @param hash The resource ID
+   * @param id The resource ID
    * @returns {Observable} The response as a observable
    */
-  downloadResource(hash) {
+  downloadResource(id) {
     const url = this.getRoute('get', this.endPoint);
     const heads = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Authorization': 'Bearer ' + this.getToken()});
-    return this.http.get(url + '/' + hash + '/file', {headers: heads, responseType: 'blob'});
+    return this.http.get(url + '/' + id + '/file', {headers: heads, responseType: 'blob'});
   }
 
   /**
