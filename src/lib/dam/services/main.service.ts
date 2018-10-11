@@ -105,7 +105,7 @@ export class MainService {
   getModels() {
     return this.settings.getModels();
   }
-  
+
   /**
    * Get a specified model mapper.
    * @param name The model mapper name
@@ -123,7 +123,7 @@ export class MainService {
   getGeneralConfigs() {
     return this.configs.getGeneralConfigs();
   }
-  
+
   /**
    * Gets the desired component profile config from the active profile.
    * @param component The desired component
@@ -176,7 +176,7 @@ export class MainService {
 
   /**
    * Gets a single resource from the API.
-   * @param id The identifier of the resource 
+   * @param id The identifier of the resource
    * @returns {Observable} The response as a observable
    */
   getResource(id) {
@@ -208,8 +208,8 @@ export class MainService {
 
   /**
    * Receives a FormData object and a resource ID and makes a put request.
-   * @param {FormData} form The form to be sent 
-   * @param {number} id The resource ID 
+   * @param {FormData} form The form to be sent
+   * @param {number} id The resource ID
    * @returns {Observable} The response as a observable
    */
   putFileForm(form: FormData, id: number) {
@@ -246,7 +246,7 @@ export class MainService {
 
   /**
    * Modifies current page and notifies every subscribed component.
-   * @param {number} newPage The new active page 
+   * @param {number} newPage The new active page
    */
   setCurrentPage(newPage: number) {
     this.currentPage.next(newPage);
@@ -302,7 +302,7 @@ export class MainService {
 
   /**
    * Sets the current selected facets and notifies every subscribed component.
-   * @param {Object} newFacets The facets currently selected 
+   * @param {Object} newFacets The facets currently selected
    */
   setActiveFacets(newFacets: Object) {
     this.activeFacets.next(newFacets);

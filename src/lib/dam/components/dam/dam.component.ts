@@ -58,6 +58,10 @@ export class DamComponent  implements OnInit, OnChanges {
    */
   imap = null;
   /**
+   * Property used to show loading component
+   */
+  isLoading = false;
+  /**
    * Input property for switching the app to a modal
    */
   @Input() popup = false;
@@ -113,7 +117,7 @@ export class DamComponent  implements OnInit, OnChanges {
   }
 
   /**
-   * Appends all current params to query and makes a request storing all resources in 
+   * Appends all current params to query and makes a request storing all resources in
    * the items array
    */
   getItems() {
@@ -127,7 +131,7 @@ export class DamComponent  implements OnInit, OnChanges {
         params = params.append(key, this.activeFacets[key]);
       }
     }
-
+    this.isLoading = true;
     this.mainService.list(params).subscribe(
       response => {
         if (response.hasOwnProperty('pager')) {
@@ -139,7 +143,7 @@ export class DamComponent  implements OnInit, OnChanges {
         }
       },
       err => console.error(err),
-      () => console.log('Done loading')
+      () => this.isLoading = false
 
     );
   }

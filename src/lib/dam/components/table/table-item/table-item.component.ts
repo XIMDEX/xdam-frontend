@@ -166,7 +166,7 @@ export class TableItemComponent implements OnInit {
         };
         this.ngxSmartModalService.setModalData(data, 'assets');
         this.ngxSmartModalService.getModal('assets').open();
-        this.mainService.setCurrentPage(this.mainService.getCurrentPageValue());
+        // this.mainService.setCurrentPage(this.mainService.getCurrentPageValue());
       }
     );
   }

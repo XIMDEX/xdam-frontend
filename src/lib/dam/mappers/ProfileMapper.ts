@@ -3,7 +3,7 @@ import { standard } from '../profiles/standard';
 import { light } from '../profiles/light';
 
 /**
- * This class extracts and maps data about the components 
+ * This class extracts and maps data about the components
  * configuration given the active profile.
  */
 export default class ConfigMapper {

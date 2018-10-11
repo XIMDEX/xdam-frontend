@@ -7,7 +7,7 @@
 </button>
 <div *ngIf="!hidden">
   <ng-container  *ngFor="let item of facet.values | keyvalue">
-    <ng-container *ngIf="item.value > 0">
+    <ng-container *ngIf="item.value > 0 || isActive(item)">
       <div class="facet-option" [title]="item.key">
           <input type="checkbox" (change)="toggleFacet($event, item)" [checked]="isActive(item)"/>
           <label><span>{{ item.key }}</span> ({{item.value}})</label>

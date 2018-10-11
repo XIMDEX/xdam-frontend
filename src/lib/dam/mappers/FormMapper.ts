@@ -9,7 +9,7 @@ import { MainService } from '../services/main.service';
 import { Asset } from '../models/Asset';
 
 /**
- * This class extracts and maps data about the additional form 
+ * This class extracts and maps data about the additional form
  * for uploading or editing resources.
  */
 export default class FormMapper {
@@ -68,7 +68,7 @@ export default class FormMapper {
             this.fields = this.handleForm(localForm.fields);
         }
       }
-    
+
     /**@ignore */
     private getValue(field: Object, key: string, isArray: boolean = true): any {
         let value = Object.assign({}, field);

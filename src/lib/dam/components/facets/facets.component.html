@@ -10,7 +10,7 @@
     </div>
     <div *ngIf="isOpen">
       <div *ngFor="let facet of facets; index as i" class="facets-panel">
-        <app-facet [facet]="facet" [selected]="selectedFacets" [hidden]="(i === 0 || selectedFacets.length > 0) ? false : true" (selectedValue)="updateFacetsQuery($event, facet.key)"></app-facet>
+        <app-facet [facet]="facet" [selected]="selectedFacets" [hidden]="(i === 0) ? false : true" (selectedValue)="updateFacetsQuery($event, facet.key)"></app-facet>
       </div>
     </div>
   </div>

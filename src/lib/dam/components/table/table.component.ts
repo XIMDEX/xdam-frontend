@@ -5,7 +5,7 @@ import { Item } from '../../models/Item';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 
 /**
- * Component that holds the resources as table items and manages pagination, 
+ * Component that holds the resources as table items and manages pagination,
  * actions and some additional options.
  */
 @Component({

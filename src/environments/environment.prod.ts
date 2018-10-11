@@ -1,6 +1,6 @@
 /**
  * @class
- * @ignore 
+ * @ignore
  */
 export const environment = {
   production: true

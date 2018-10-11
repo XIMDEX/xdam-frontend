@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
 
 /**
  * @class
- * @ignore 
+ * @ignore
  */
 @Component({
   selector: 'app-filter-item',

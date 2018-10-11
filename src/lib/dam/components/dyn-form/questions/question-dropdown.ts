@@ -1,14 +1,22 @@
 import { QuestionBase } from './question-base';
 import { hasIn, is } from 'ramda';
 
+/** This components extends a dropdown field question from a question base */
 export class DropdownQuestion extends QuestionBase<string> {
+  /**The field type */
   controlType = 'dropdown';
+  /** The available options for the dropdown */
   options: {key: string, value: string}[] | string;
+  /** If is multi-selectable */
   multi: boolean;
+  /** If the field is searchable */
   searchable: boolean;
+  /** If the field needs its data from a API endpoint */
   fetchable: boolean;
+  /** The endpoint from where the data is fetched */
   endpoint: string;
 
+  /**@ignore */
   constructor (
     options: {} = {},
     multi?: boolean,
@@ -26,6 +34,7 @@ export class DropdownQuestion extends QuestionBase<string> {
 
   }
 
+  /** Sets the value(s) checking whether the value is an array or not */
   setVal(val: any = null) {
     let result: any;
     if (Array.isArray(val)) {
@@ -40,6 +49,7 @@ export class DropdownQuestion extends QuestionBase<string> {
     return this;
   }
 
+  /**@ignore */
   private valFixer (val: any): Object {
     let result = {key: null, value: null};
     if (is(Object, val)) {

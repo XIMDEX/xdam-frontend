@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 /**
  * @class
- * @ignore 
+ * @ignore
  */
 @Component({
   selector: 'app-filters',

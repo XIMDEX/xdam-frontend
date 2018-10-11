@@ -56,7 +56,7 @@ export default class RouterMapper {
     getRoutes() {
         return this.routes;
     }
-    
+
     /**@ignore */
     setToken(token) {
         this.token = token;

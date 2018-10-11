@@ -15,6 +15,7 @@ import { TableItemComponent } from './components/table/table-item/table-item.com
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FacetsComponent } from './components/facets/facets.component';
 import { FacetComponent } from './components/facets/facet/facet.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { FacetComponent } from './components/facets/facet/facet.component';
     AssetsModalComponent,
     FacetsComponent,
     FacetComponent,
+    LoadingComponent,
   ],
   exports: [
     DamComponent
