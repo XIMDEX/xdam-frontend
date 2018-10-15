@@ -75,6 +75,7 @@ export class FacetsComponent implements OnInit, OnChanges {
    */
   updateFacetsQuery(evt, key) {
     this.facetsQuery[key] = evt;
+    this.mainService.setCurrentPage(1);
     this.mainService.setActiveFacets(this.facetsQuery);
   }
 
