@@ -15,6 +15,14 @@
     background-color: #EDEFF2;
 }
 
+.dam-main-back .nsm-dialog > .nsm-content {
+    background-color: #EDEFF2;
+}
+
+.dam-main-back .assets-modal .nsm-dialog > .nsm-content {
+    background-color: #ffffff;
+}
+
 .dam-item{
     font-size: 13px;
     background: #FFF;

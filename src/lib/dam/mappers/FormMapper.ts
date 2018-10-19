@@ -104,7 +104,7 @@ export default class FormMapper {
             let object = null;
             if ( !isNil( asset ) ) {
                 const key = hasIn('realName', field.object) ? field.object.realName : field.object.key;
-                                field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
+                field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
             }
             if (field.type === 'dropdown') {
                 object = new DropdownQuestion(field.object);

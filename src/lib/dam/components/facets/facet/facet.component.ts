@@ -31,6 +31,10 @@ export class FacetComponent implements OnInit {
    * An array with the values
    */
   valuesArray = [];
+  /**
+   * The selected options filter
+   */
+  filter = ""
   /**@ignore */
   faPlus = faPlus;
   /**@ignore */

@@ -24,6 +24,30 @@
     cursor:pointer;
 }
 
+.facet-title:focus {
+    outline: none;
+}
+
+.facet-content {
+    max-height: 25rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.facet-search {
+    width: 100%;
+    border-top: 0px;
+    border-left: 0px;
+    padding: 0.3em 1em;
+}
+
+.facet-search:focus {
+    outline: 0;
+    background-color: rgba(0,163,151,.05);
+    border-color: rgba(0,163,151,.5);
+    box-shadow: 0 0 10px 0 rgba(0,163,151,.05);
+}
+
 .facet-option {
     padding: 1em 1em 0em 1em;
   

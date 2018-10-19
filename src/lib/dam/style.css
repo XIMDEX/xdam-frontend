@@ -74,3 +74,7 @@ html, body {
 .dam-form-item{
     margin-top: 1em;
 }
+
+.nsm-dialog {
+    max-width: 100%;
+}

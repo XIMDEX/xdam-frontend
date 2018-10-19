@@ -46,7 +46,7 @@ export class DynQuestionComponent implements OnInit {
   get isValid() { return this.form.controls[this.question.key].valid; }
 
   /**
-   * Gets the options for the dropdown or depdrop component
+   * Gets the options for the depdrop component
    */
   searchOptions() {
     const value = this.form.get(this.question['ref']).value;
@@ -66,7 +66,7 @@ export class DynQuestionComponent implements OnInit {
   }
 
   /**
-   * Gets the options for the dropdown or depdrop component
+   * Gets the options for the dropdown component
    */
   getOptions() {
       this.mainService.getOptions(this.question['endpoint'], '', '').subscribe(
