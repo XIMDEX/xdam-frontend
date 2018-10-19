@@ -92,14 +92,20 @@ export class DamComponent  implements OnInit, OnChanges {
     this.search = this.mainConfig.query.search;
     this.page = this.mainConfig.query.page.name;
     this.query.perPage = this.mainConfig.query.limit.value;
-    this.getItems();
+    //this.getItems();
     this.mainService.getCurrentPage().subscribe( data => {
+      let oldPage = this.currentPage;
       this.currentPage = data;
-      this.getItems();
+      if(this.currentPage !== oldPage) {
+        this.getItems();
+      }
     });
     this.mainService.getSearchTerm().subscribe( data => {
+      let oldSearch = this.searchTerm;
       this.searchTerm = data;
-      this.getItems();
+      if(this.searchTerm !== oldSearch) {
+        this.getItems();
+      }
     });
     this.mainService.getActiveItem().subscribe( data => {
       this.activeItem = data;

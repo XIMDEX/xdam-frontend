@@ -94,4 +94,8 @@ export class FacetComponent implements OnInit {
     return active;
   }
 
+  length(object) {
+    return Object.keys(object).length;
+  }
+
 }
