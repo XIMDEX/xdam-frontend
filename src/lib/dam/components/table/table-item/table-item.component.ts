@@ -151,6 +151,34 @@ export class TableItemComponent implements OnInit {
   }
 
   /**
+   * Changes the image to a placeholder if image is broken
+   */
+  imgError(image) {
+    let config = {};
+    switch (this.item.type) {
+      case 'image':
+        config = {
+          color: '7ec9b8',
+          text: 'Image'
+        }
+        break;
+      case 'pdf':
+        config = {
+          color: '5273a8',
+          text: 'Pdf'
+        }
+        break;
+      default:
+        config = {
+          color: '87619b',
+          text: ''
+        }
+        break;
+    }
+    this.image = `https://via.placeholder.com/200/${config.color}/ffffff?text=${config.text}`;
+  }
+
+  /**
    * Fetch data from server using the item id, sets up the assets modal and opens it.
    */
   editFile() {

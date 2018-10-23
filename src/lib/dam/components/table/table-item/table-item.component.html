@@ -2,7 +2,7 @@
   <div class="dam-type"> {{header}}</div>
   <div class="dam-preview">
       <div class="prueba"> 
-          <img class="dam-image" [src]="image"> 
+          <img class="dam-image" [src]="image" (error)="imgError()"> 
         </div>
       <div (title)="item.title" class="dam-info"> <strong>{{title}}</strong>
           <div> {{subtitle}} </div>
