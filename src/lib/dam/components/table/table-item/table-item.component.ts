@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faDownload, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { MainService } from '../../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
@@ -35,6 +35,14 @@ export class TableItemComponent implements OnInit {
    * The item data as a Item model instance.
    */
   @Input() item: Item;
+  /**
+   * Boolean that emits if item is checked
+   */
+  @Output() checked = new EventEmitter<Boolean>();
+  /**
+   * Boolean that checks if item is selected
+   */
+  isChecked = false;
   /**
    * Config object for this component extracted using the Profile mapper.
    */
@@ -134,6 +142,13 @@ export class TableItemComponent implements OnInit {
   }
 
   /**
+   * Emits the checked value to the table.
+   */
+  setChecked() {
+    this.checked.emit(this.isChecked);
+  }
+
+  /**
    * Opens delete modal to confirm permanent item deletion from the server.
    */
   deleteFile() {
@@ -153,7 +168,7 @@ export class TableItemComponent implements OnInit {
   /**
    * Changes the image to a placeholder if image is broken
    */
-  imgError(image) {
+  imgError() {
     let config = {};
     switch (this.item.type) {
       case 'image':

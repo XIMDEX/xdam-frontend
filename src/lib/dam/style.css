@@ -23,7 +23,7 @@ html, body {
 }
 
 .modal-delete .nsm-dialog{
-    max-width: auto;
+    max-width: auto !important;
 }
 
 .dam-select {
@@ -75,6 +75,3 @@ html, body {
     margin-top: 1em;
 }
 
-.nsm-dialog {
-    max-width: 100%;
-}

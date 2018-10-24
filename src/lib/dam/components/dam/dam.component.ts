@@ -115,6 +115,9 @@ export class DamComponent  implements OnInit, OnChanges {
       this.activeFacets = data;
       this.getItems();
     });
+    this.mainService.getReload().subscribe( data => {
+      this.getItems();
+    });
   }
 
   /**@ignore */
