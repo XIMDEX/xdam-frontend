@@ -20,5 +20,5 @@ This project is open source with AGPL v3 (see 'LICENSE')
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Additional Documentation for XDAM
-[Documentation for XDAM](https://www.ximdex.com/en/documentation/xdam/)
+## Additional Documentation
+[Technical Documentation for XDAM at Ximdex website](https://www.ximdex.com/en/documentation/xdam/){:target="_blank"}
