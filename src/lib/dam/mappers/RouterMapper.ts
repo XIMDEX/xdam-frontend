@@ -87,7 +87,7 @@ export default class RouterMapper {
 
     /**@ignore */
     getBaseParams(params: HttpParams) {
-        for (let key in this.baseParams) {
+        for (const key of Object.keys(this.baseParams)) {
             params = params.append(key, String(this.baseParams[key]));
         }
         return params;

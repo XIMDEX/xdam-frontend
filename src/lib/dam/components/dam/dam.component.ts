@@ -92,18 +92,17 @@ export class DamComponent  implements OnInit, OnChanges {
     this.search = this.mainConfig.query.search;
     this.page = this.mainConfig.query.page.name;
     this.query.perPage = this.mainConfig.query.limit.value;
-    //this.getItems();
     this.mainService.getCurrentPage().subscribe( data => {
-      let oldPage = this.currentPage;
+      const oldPage = this.currentPage;
       this.currentPage = data;
-      if(this.currentPage !== oldPage) {
+      if (this.currentPage !== oldPage) {
         this.getItems();
       }
     });
     this.mainService.getSearchTerm().subscribe( data => {
-      let oldSearch = this.searchTerm;
+      const oldSearch = this.searchTerm;
       this.searchTerm = data;
-      if(this.searchTerm !== oldSearch) {
+      if (this.searchTerm !== oldSearch) {
         this.getItems();
       }
     });
@@ -136,7 +135,7 @@ export class DamComponent  implements OnInit, OnChanges {
     params = params.append(this.limit.name, String(this.query.perPage));
 
     if (!isNil(this.activeFacets)) {
-      for (const key in this.activeFacets) {
+      for (const key of Object.keys(this.activeFacets)) {
         params = params.append(key, this.activeFacets[key]);
       }
     }
@@ -163,7 +162,8 @@ export class DamComponent  implements OnInit, OnChanges {
    */
   mapItems(data) {
     this.items = data.map((o) => {
-      return new Item(o[this.imap.id], o[this.imap.title], o[this.imap.hash], o[this.imap.size] || '', o[this.imap.type], o[this.imap.image]);
+      return new Item(o[this.imap.id], o[this.imap.title], o[this.imap.hash], o[this.imap.size] || '',
+        o[this.imap.type], o[this.imap.image]);
     });
   }
 

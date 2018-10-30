@@ -85,7 +85,7 @@ export class FacetsComponent implements OnInit, OnChanges {
   setSelectedFacets() {
     this.selectedFacets = {};
     let valuesArray = [];
-    for (const index in this.facets) {
+    for (const index of Object.keys(this.facets)) {
       const values = this.facets[index].values;
       const key = this.facets[index].key;
       valuesArray = [];

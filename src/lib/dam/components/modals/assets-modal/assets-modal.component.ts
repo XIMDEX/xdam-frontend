@@ -94,7 +94,7 @@ export class AssetsModalComponent implements OnInit {
    * Sets the file name
    */
   setFileName() {
-    if(this.asset.filename == '' || isNil(this.asset.filename)) {
+    if (this.asset.filename === '' || isNil(this.asset.filename)) {
       this.fileName = 'None';
     } else {
       this.fileName = this.asset.filename;
@@ -149,11 +149,11 @@ export class AssetsModalComponent implements OnInit {
       formData.append('_method', 'PUT');
     }
 
-    for (const key in this.dynData) {
+    for (const key of Object.keys(this.dynData)) {
       this.asset[key] = this.dynData[key];
     }
 
-    for (const key in this.asset) {
+    for (const key of Object.keys(this.asset)) {
       if ((key === 'resource') && isNil(this.asset[key])) {
         continue;
       } else if (isNil(this.asset[key])) {

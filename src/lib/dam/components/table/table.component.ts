@@ -65,7 +65,7 @@ export class TableComponent implements OnInit, OnChanges {
   /**
    * Array with the checked items
    */
-  checkArray = []
+  checkArray = [];
 
   /**
    * @ignore
@@ -130,7 +130,7 @@ export class TableComponent implements OnInit, OnChanges {
    * Add or remove an item to the checked items array.
    */
   handleChecked(value, item) {
-    if(value && this.checkArray.filter((element) => element.id === item.id).length === 0) {
+    if (value && this.checkArray.filter((element) => element.id === item.id).length === 0) {
       this.checkArray.push({id: item.id, hash: item.hash});
     } else {
       this.checkArray = this.checkArray.filter((element) => element.id !== item.id);
@@ -207,5 +207,3 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
 }
-
-

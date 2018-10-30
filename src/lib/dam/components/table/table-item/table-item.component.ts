@@ -175,19 +175,19 @@ export class TableItemComponent implements OnInit {
         config = {
           color: '7ec9b8',
           text: 'Image'
-        }
+        };
         break;
       case 'pdf':
         config = {
           color: '5273a8',
           text: 'Pdf'
-        }
+        };
         break;
       default:
         config = {
           color: '87619b',
           text: ''
-        }
+        };
         break;
     }
     this.image = `https://via.placeholder.com/200/${config.color}/ffffff?text=${config.text}`;
