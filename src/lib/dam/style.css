@@ -1,4 +1,4 @@
-@import url('node_modules/ngx-smart-modal/ngx-smart-modal.css');
+@import url('~ngx-smart-modal/ngx-smart-modal.css');
 @import url("~@ng-select/ng-select/themes/default.theme.css");
 
 html, body {
@@ -23,7 +23,7 @@ html, body {
 }
 
 .modal-delete .nsm-dialog{
-    max-width: auto;
+    max-width: auto !important;
 }
 
 .dam-select {
@@ -75,6 +75,3 @@ html, body {
     margin-top: 1em;
 }
 
-.nsm-dialog {
-    max-width: 100%;
-}

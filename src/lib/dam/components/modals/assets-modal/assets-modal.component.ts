@@ -91,6 +91,17 @@ export class AssetsModalComponent implements OnInit {
   }
 
   /**
+   * Sets the file name
+   */
+  setFileName() {
+    if(this.asset.filename == '' || isNil(this.asset.filename)) {
+      this.fileName = 'None';
+    } else {
+      this.fileName = this.asset.filename;
+    }
+  }
+
+  /**
    * Sets the dynamic data received from the dynamic form
    * @param event The dynamic data sent by the form component
    */
@@ -115,7 +126,7 @@ export class AssetsModalComponent implements OnInit {
       const data = this.ngxSmartModalService.getModal('assets').getData();
       this.asset = data.asset;
       this.id = data.id;
-      this.fileName = this.asset.title + '.' + this.asset.extension;
+      this.setFileName();
       this.createQuestions();
     }
   }
@@ -162,7 +173,7 @@ export class AssetsModalComponent implements OnInit {
     if (!this.edit) {
       this.mainService.postFileForm(form).subscribe(
         suc => {
-          this.mainService.setCurrentPage(1);
+          this.mainService.setReload(true);
           this.close();
         },
         err => {
@@ -174,7 +185,7 @@ export class AssetsModalComponent implements OnInit {
     } else {
       this.mainService.putFileForm(form, this.id).subscribe(
         suc => {
-          this.mainService.setCurrentPage(1);
+          this.mainService.setReload(true);
           this.close();
         },
         err => {

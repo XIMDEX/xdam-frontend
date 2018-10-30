@@ -5,8 +5,8 @@
       <fa-icon style="float:right;" [icon]="faMinus"></fa-icon>
   </ng-template>
 </button>
+<input *ngIf="!hidden && length(facet.values) > 5" class="facet-search" type="text" [(ngModel)]="filter" placeholder="Filter options..."/>
 <div class="facet-content" *ngIf="!hidden">
-  <input class="facet-search" type="text" [(ngModel)]="filter" placeholder="Filter options..."/>
   <ng-container  *ngFor="let item of facet.values | keyvalue">
     <ng-container *ngIf="(item.value > 0 && item.key.toLowerCase().includes(filter.toLowerCase())) || isActive(item)">
       <div class="facet-option" [title]="item.key">

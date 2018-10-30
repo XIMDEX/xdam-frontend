@@ -75,7 +75,7 @@ export class FacetsComponent implements OnInit, OnChanges {
    */
   updateFacetsQuery(evt, key) {
     this.facetsQuery[key] = evt;
-    this.mainService.setCurrentPage(1);
+    this.mainService.setReload(true);
     this.mainService.setActiveFacets(this.facetsQuery);
   }
 
@@ -90,8 +90,7 @@ export class FacetsComponent implements OnInit, OnChanges {
       const key = this.facets[index].key;
       valuesArray = [];
       for (const option in values) {
-        if (hasIn(key, this.facetsQuery) && this.facetsQuery[key].indexOf(option) !== -1) {
-          // this.selectedFacets.push(option);
+        if (hasIn(key, this.facetsQuery) && this.facetsQuery[key] === option) {
           valuesArray.push(option);
         }
       }

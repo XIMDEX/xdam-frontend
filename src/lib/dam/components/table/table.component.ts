@@ -62,6 +62,10 @@ export class TableComponent implements OnInit, OnChanges {
    * Mapper for IDs for multiple requests methods
    */
   requestsModel = null;
+  /**
+   * Array with the checked items
+   */
+  checkArray = []
 
   /**
    * @ignore
@@ -123,6 +127,17 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Add or remove an item to the checked items array.
+   */
+  handleChecked(value, item) {
+    if(value && this.checkArray.filter((element) => element.id === item.id).length === 0) {
+      this.checkArray.push({id: item.id, hash: item.hash});
+    } else {
+      this.checkArray = this.checkArray.filter((element) => element.id !== item.id);
+    }
+  }
+
+  /**
    * Changes the current selected table item and sets its value in the main service.
    *
    * @param {Item} item The selected item
@@ -140,12 +155,26 @@ export class TableComponent implements OnInit, OnChanges {
       const data = this.ngxSmartModalService.getModal('deleteModal').getData();
       this.mainService.deleteResource(data[this.requestsModel.delete]).subscribe(
         res => {
-          this.mainService.setCurrentPage(this.mainService.getCurrentPageValue());
+          this.mainService.setReload(true);
           this.ngxSmartModalService.getModal('deleteModal').removeData();
           this.ngxSmartModalService.getModal('deleteModal').close();
         }
       );
     }
+  }
+
+  /**
+   * Deletes all the items checked.
+   */
+  deleteBatchItems() {
+    this.checkArray.filter((item) => {
+      this.mainService.deleteResource(item[this.requestsModel.delete]).subscribe(
+        res => {
+          this.mainService.setReload(true);
+        }
+      );
+    });
+    this.checkArray = [];
   }
 
   /**
