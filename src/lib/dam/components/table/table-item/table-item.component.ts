@@ -169,7 +169,7 @@ export class TableItemComponent implements OnInit {
    * Changes the image to a placeholder if image is broken
    */
   imgError() {
-    let config = {};
+    let config = {color: '', text: ''};
     switch (this.item.type) {
       case 'image':
         config = {

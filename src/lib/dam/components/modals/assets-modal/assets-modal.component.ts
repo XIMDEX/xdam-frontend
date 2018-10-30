@@ -173,7 +173,7 @@ export class AssetsModalComponent implements OnInit {
     if (!this.edit) {
       this.mainService.postFileForm(form).subscribe(
         suc => {
-          this.mainService.setCurrentPage(1);
+          this.mainService.setReload(true);
           this.close();
         },
         err => {
@@ -185,7 +185,7 @@ export class AssetsModalComponent implements OnInit {
     } else {
       this.mainService.putFileForm(form, this.id).subscribe(
         suc => {
-          this.mainService.setCurrentPage(1);
+          this.mainService.setReload(true);
           this.close();
         },
         err => {
