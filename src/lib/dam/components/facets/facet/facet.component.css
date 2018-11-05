@@ -68,3 +68,7 @@
     display: inline-block;
     width: 9em;
 }
+
+.f-label {
+    cursor: pointer;
+}
