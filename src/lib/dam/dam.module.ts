@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DamComponent } from './components/dam/dam.component';
 import { DynFormModule } from './components/dyn-form/dyn-form.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
@@ -16,6 +16,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FacetsComponent } from './components/facets/facets.component';
 import { FacetComponent } from './components/facets/facet/facet.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { TabComponent } from './components/tabs/tab.component';
+import { DynTabformComponent } from './components/dyn-tabform/dyn-tabform.component';
+import { DynQuestionComponent } from './components/dyn-form/questions/dyn-question/dyn-question.component';
 
 
 @NgModule({
@@ -26,7 +30,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     FormsModule,
     NgxSmartModalModule.forRoot(),
     DynFormModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveFormsModule
   ],
   providers: [
     MainService,
@@ -42,6 +47,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     FacetsComponent,
     FacetComponent,
     LoadingComponent,
+    TabsComponent,
+    TabComponent,
+    DynTabformComponent
   ],
   exports: [
     DamComponent

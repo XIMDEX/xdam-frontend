@@ -75,3 +75,14 @@ html, body {
     margin-top: 1em;
 }
 
+div.dam-form-item input {
+    width: 92%;
+    height: 2em;
+}
+
+.tabs-q .dam-select {
+    width: 95%;
+    margin-left: 1em;
+}
+
+

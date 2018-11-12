@@ -190,10 +190,18 @@ export class MainService {
   }
 
   /**
-   * @ignore
+   * Gets the form for the dynamic form from a remote API.
    */
   getForm() {
     const url = this.settings.getBaseUrl() + 'forms';
+    return this.http.get(url, this.httpOptions);
+  }
+
+  /**
+   * Gets the form for the dynamic tabsform from a remote API.
+   */
+  getTabForm() {
+    const url = this.settings.getBaseUrl() + 'tabform';
     return this.http.get(url, this.httpOptions);
   }
 
