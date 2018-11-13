@@ -18,7 +18,7 @@ import { TabComponent } from './tab.component';
   template: `
     <ul class="nav nav-tabs">
       <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
-        <a href="#">{{tab.title}}</a>
+        <span>{{ tab.title }}</span>
       </li>
     </ul>
     <ng-content></ng-content>
@@ -51,7 +51,7 @@ import { TabComponent } from './tab.component';
     .nav > li {
       display: block;
     }
-    .nav-tabs > li.active > a {
+    .nav-tabs > li.active > span {
       color: #fff;
       cursor: default;
       background-color: #00a397;
@@ -59,18 +59,22 @@ import { TabComponent } from './tab.component';
       border-bottom-color: rgb(221, 221, 221);
       border-bottom-color: transparent;
     }
-    .nav-tabs > li > a {
+    .nav-tabs > li > span {
       margin-right: 2px;
       line-height: 1.42857143;
       border: 1px solid transparent;
       border-radius: 4px 4px 0 0;
+      cursor: ponter;
+      user-select: none;
       color: #666;
     }
-    .nav > li > a {
+    .nav > li > span {
       position: relative;
       display: block;
       padding: 10px 15px;
       text-decoration: none;
+      cursor: ponter;
+      user-select: none;
     }
     `
   ]

@@ -52,6 +52,7 @@
     justify-content: flex-end;
     margin-bottom: 15px;
     text-align: right;
+    margin-left: auto;
 }
 h2.legend{
     margin: 0 0 15px;
