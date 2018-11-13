@@ -59,14 +59,15 @@ export default class FormMapper {
      */
     private initForm() {
         const localForm = this.getForms();
-        if (localForm.api === true) {
+        /*if (localForm.api === true) {
             this.mainService.getForm().subscribe(response => {
                 const rawFields = response['result'].data.fields;
                 this.fields = this.handleForm(rawFields);
             });
         } else {
             this.fields = this.handleForm(localForm.fields);
-        }
+        }*/
+        this.fields = this.handleForm(localForm.fields);
       }
 
     /**@ignore */

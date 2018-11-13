@@ -79,7 +79,7 @@ export default class TabsFormMapper {
      */
     private initForm() {
         const localForm = this.getForms();
-        if (localForm.api === true) {
+        /*if (localForm.api === true) {
             this.mainService.getTabForm().subscribe(response => {
                 const rawTabs= response['result'].data.tabs;
                 this.title = response['result'].data.title;
@@ -88,7 +88,9 @@ export default class TabsFormMapper {
         } else {
             this.title = localForm.title;
             this.tabs = this.handleTabs(localForm.tabs);
-        }
+        }*/
+        this.title = localForm.title;
+        this.tabs = this.handleTabs(localForm.tabs);
       }
 
     /**@ignore */
@@ -105,7 +107,7 @@ export default class TabsFormMapper {
             }
         }
 
-        if (JSON.stringify(value) === JSON.stringify(field)) {
+        if (typeof value === 'object') {
             value = _default;
         }
         return value;
