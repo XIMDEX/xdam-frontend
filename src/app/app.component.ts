@@ -16,8 +16,7 @@ export class AppComponent {
         this.cdRef.detectChanges();
     }
 
-    // handleSelect(event) {
-    //     if (event !== null) {
-    //     }
-    // }
+    handleSelect(event) {
+        console.log(event);
+    }
 }

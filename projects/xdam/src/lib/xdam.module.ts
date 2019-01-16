@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DamComponent } from './components/dam/dam.component';
-import { DynFormModule } from './components/dyn-form/dyn-form.module';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+
 import { MainService } from './services/main.service';
+
+import { DamComponent } from './components/dam/dam.component';
+import { DynFormModule } from './components/dyn-form/dyn-form.module';
 import { SearchComponent } from './components/search/search.component';
 import { AssetsModalComponent } from './components/modals/assets-modal/assets-modal.component';
 import { TableComponent } from './components/table/table.component';

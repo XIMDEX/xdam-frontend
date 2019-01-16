@@ -1,7 +1,7 @@
 <div class="tab-cont">
   <form #dynTabForm (ngSubmit)="onSubmit()" [formGroup]="tabform">
     <dam-tabs>
-      <dam-tab *ngFor="let tab of tabs" [tabTitle]="tab.title" class="tab-container">
+      <dam-tab *ngFor="let tab of tabs" [title]="tab.title" class="tab-container">
           <app-question 
             *ngFor="let question of tab.questions" 
             class="tabs-q" 

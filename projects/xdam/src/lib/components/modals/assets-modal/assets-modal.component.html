@@ -13,7 +13,7 @@
             <button [disabled]="!assetForm.form.valid || blocked" type="submit" class="dam-btn-base"> <fa-icon [icon]="faSave"></fa-icon> Save </button>
         </div>
         <dam-tabs>
-            <dam-tab class="tabs-container" tabTitle="General">
+            <dam-tab class="tabs-container" title="General">
                 <div class="dam-edit-item-column alt-form no-right">
                     <div class="dam-edit-item-img"> <img src=""> </div>
                     <div class="dam-form-item">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </dam-tab>
-            <dam-tab tabTitle="LOMES">
+            <dam-tab title="LOMES">
                 <div class="dam-edit-item-column alt-form dam-tabs">
                     <app-dyn-tabform class="dam-form dam-edit-item" #dynTabForm (sendForm)="setTabData($event)" [tabs]="tabs" [title]="tabTitle"></app-dyn-tabform>
                 </div>
