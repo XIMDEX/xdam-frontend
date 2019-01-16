@@ -6,6 +6,7 @@ import { QuestionBase } from '../../dyn-form/questions/question-base';
 import FormMapper from '../../../mappers/FormMapper';
 import { MainService } from '../../../services/main.service';
 import { Asset } from '../../../models/Asset';
+import TabsFormMapper from '../../../mappers/TabsFormMapper';
 
 /**
  * Modal component used as a single instance for all the application lifecycle that holds the data
@@ -66,6 +67,13 @@ export class AssetsModalComponent implements OnInit {
    * Instance of a FormMapper used to build the dynamic form questions
    */
   private formMapper: FormMapper;
+   /**
+   * Instance of a TabMapper used to build the dynamic tab form questions
+   */
+  private TabMapper: TabsFormMapper;
+  tabData: any = {};
+  tabs: any[] = [];
+  tabTitle = '';
 
   /**
    *@ignore
@@ -80,7 +88,10 @@ export class AssetsModalComponent implements OnInit {
    */
   ngOnInit() {
     this.formMapper = new FormMapper(this.mainService);
+    this.TabMapper = new TabsFormMapper(this.mainService);
     this.getQuestions();
+    this.getTabs();
+    this.getTabTitle();
   }
 
   /**
@@ -88,6 +99,14 @@ export class AssetsModalComponent implements OnInit {
    */
   getQuestions() {
     this.questions = this.formMapper.getFields();
+  }
+
+  getTabs() {
+    this.tabs = this.TabMapper.getTabs();
+  }
+
+  getTabTitle() {
+    this.tabTitle = this.TabMapper.getTitle();
   }
 
   /**
@@ -107,6 +126,10 @@ export class AssetsModalComponent implements OnInit {
    */
   setDynData(event) {
     this.dynData = event;
+  }
+
+  setTabData(event) {
+    this.tabData = event;
   }
 
   /**
@@ -136,8 +159,12 @@ export class AssetsModalComponent implements OnInit {
    */
   createQuestions() {
     const fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
+    const newTabs= this.TabMapper.handleTabs(this.TabMapper.getForms().tabs, this.asset);
     this.formMapper.setFields(fields);
+    this.TabMapper.setTabs(newTabs);
     this.questions = fields;
+    newTabs[0].active = true;
+    this.tabs = newTabs;
   }
 
   /**
@@ -151,6 +178,10 @@ export class AssetsModalComponent implements OnInit {
 
     for (const key of Object.keys(this.dynData)) {
       this.asset[key] = this.dynData[key];
+    }
+
+    for (const key of Object.keys(this.tabData)) {
+      this.asset[key] = this.tabData[key];
     }
 
     for (const key of Object.keys(this.asset)) {

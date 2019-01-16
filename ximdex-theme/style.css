@@ -1,0 +1,51 @@
+@import "./reset.css";
+@import "./bootstrap.min.css";
+@import "./bootstrap-card.css";
+@import "./prism.css";
+@import "./ionicons.min.css";
+@import "./compodoc.css";
+@import "./tablesort.css";
+
+.main .menu {
+	background-color: #e4e7ea !important;
+}
+
+.menu ul.list li a.active {
+	color: white;
+	background-color: #00a397;
+}
+
+.btn-default {
+	background: linear-gradient(180deg,#00a397 0,#009E92 100%);
+	color: white;
+	font-size: 10px;
+	box-shadow: none;
+	border-left: 1px dotted #E0E4E6;
+	font-size: 12px;
+	border: 0;
+}
+
+.card-header{
+	border-top: 2px solid #c3cbd5 !important;
+	color: #666;
+	background: #EDEFF2 !important;
+}
+
+.overview .card-title .icon {
+    color: #00a397;
+}
+
+table.table-bordered tbody tr:first-child td.col-md-4 {
+	background-color: #00a397;
+	color: white;
+}
+
+ul.nav-tabs li.active a{
+	background-color: #00a397;
+	color: white;
+}
+
+.nav-tabs > li.active > a:focus {
+	background-color: #00a397;
+	color: white;
+}

@@ -4,7 +4,7 @@
   <div [ngSwitch]="question.controlType">
 
     <input *ngSwitchCase="'text'" [formControlName]="question.key"
-            [id]="question.key" [type]="question.type">
+            [id]="question.key" [ngModel]="question.val" [type]="question.type">
 
     <textarea *ngSwitchCase="'text-area'" class="dam-textarea" [formControlName]="question.key"
       [id]="question.key">{{question.val}}</textarea>
