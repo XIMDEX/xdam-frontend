@@ -1,8 +1,29 @@
 {
-  "name": "@ximdex/xdam",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
-  }
+    "name": "@ximdex/xdam",
+    "version": "0.0.1",
+    "author": {
+        "name": "ximdex"
+    },
+    "contributors": [
+        {
+            "name": "Pablo Huet",
+            "email": "pablohc44@gmail.com"
+        },
+        {
+            "name": "Alejandro de Tovar",
+            "email": "venespana159@gmail.com"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "peerDependencies": {
+        "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+        "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+    },
+    "dependencies": {
+        "@fortawesome/angular-fontawesome": "^0.3.0",
+        "@fortawesome/fontawesome-svg-core": "^1.2.12",
+        "@fortawesome/free-solid-svg-icons": "^5.6.3",
+        "ngx-smart-modal": "^7.1.1",
+        "ramda": "^0.26.1"
+    }
 }
