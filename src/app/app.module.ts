@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import {DamModule} from './../lib/dam';
+import { XDamModule } from 'projects/xdam/src/public_api';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    DamModule,
+    XDamModule,
     BrowserModule
   ],
   providers: [
