@@ -7,7 +7,7 @@ import { hasIn } from 'ramda';
  * This component lists all the availables facets given by the API server
  */
 @Component({
-  selector: 'app-facets',
+  selector: 'dam-facets',
   templateUrl: './facets.component.html',
   styleUrls: ['./facets.component.css']
 })
@@ -16,7 +16,8 @@ export class FacetsComponent implements OnInit, OnChanges {
   /**
    * The available facets
    */
-  @Input() facets = [];
+  @Input() facets: Array<any> = [];
+
   /**
    * An array list with all the currently selected facets
    */

@@ -8,7 +8,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
  * options.
  */
 @Component({
-  selector: 'app-table-search',
+  selector: 'dam-table-search',
   templateUrl: './table-search.component.html',
   styleUrls: ['./table-search.component.css']
 })

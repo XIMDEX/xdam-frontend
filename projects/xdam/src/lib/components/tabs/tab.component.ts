@@ -7,26 +7,24 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'dam-tab',
-  styles: [
+    selector: 'dam-tab',
+    styles: [
+        `div.pane {
+            width:100%;
+            padding-top: 1em;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content:left;
+        }`
+    ],
+    template: `
+        <div *ngIf="active" class="pane">
+            <ng-content></ng-content>
+        </div>
     `
-    div.pane {
-      width:100%;
-      padding-top: 1em;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content:left;
-    }
-  `
-  ],
-  template: `
-    <div *ngIf="active" class="pane">
-      <ng-content></ng-content>
-    </div>
-  `
 })
 export class TabComponent {
-  @Input('tabTitle') title: string;
-  @Input() active = false;
+    @Input() title: string;
+    @Input() active: boolean = false;
 }

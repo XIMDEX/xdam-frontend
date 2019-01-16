@@ -1,4 +1,4 @@
-<app-table-search></app-table-search>
+<dam-table-search></dam-table-search>
 <!--PAGINATOR-->
 <div class="flex-row-container">
     <div class="pagination-found"> 
@@ -29,7 +29,7 @@
 <!--END PAGINATOR-->
 <div class="items">
     <ng-container *ngFor="let item of items">
-        <app-table-item [item]="item" (click)="select(item)" (checked)="handleChecked($event, item)"></app-table-item>
+        <dam-table-item [item]="item" (click)="select(item)" (checked)="handleChecked($event, item)"></dam-table-item>
     </ng-container>
 </div>
 <div *ngIf="tableConfig.paginator.bottom" class="flex-row-container justify-end">

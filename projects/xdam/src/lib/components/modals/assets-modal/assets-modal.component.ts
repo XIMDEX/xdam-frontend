@@ -13,7 +13,7 @@ import TabsFormMapper from '../../../mappers/TabsFormMapper';
  * of the currently selected resource or allows the creation of a new one.
  */
 @Component({
-  selector: 'app-assets-modal',
+  selector: 'dam-assets-modal',
   templateUrl: './assets-modal.component.html',
   styleUrls: ['./assets-modal.component.css']
 })
@@ -159,7 +159,7 @@ export class AssetsModalComponent implements OnInit {
    */
   createQuestions() {
     const fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
-    const newTabs= this.TabMapper.handleTabs(this.TabMapper.getForms().tabs, this.asset);
+    const newTabs = this.TabMapper.handleTabs(this.TabMapper.getForms().tabs, this.asset);
     this.formMapper.setFields(fields);
     this.TabMapper.setTabs(newTabs);
     this.questions = fields;

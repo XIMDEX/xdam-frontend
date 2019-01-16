@@ -10,7 +10,7 @@ import { Asset } from '../../../models/Asset';
  * Component used as a item in the table list for displaying the data of the assigned record.
  */
 @Component({
-  selector: 'app-table-item',
+  selector: 'dam-table-item',
   templateUrl: './table-item.component.html',
   styleUrls: ['./table-item.component.css']
 })
