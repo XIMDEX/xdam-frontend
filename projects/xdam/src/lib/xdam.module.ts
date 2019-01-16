@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DamComponent } from './components/dam/dam.component';
 import { DynFormModule } from './components/dyn-form/dyn-form.module';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
@@ -19,7 +19,6 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TabComponent } from './components/tabs/tab.component';
 import { DynTabformComponent } from './components/dyn-tabform/dyn-tabform.component';
-import { DynQuestionComponent } from './components/dyn-form/questions/dyn-question/dyn-question.component';
 
 
 @NgModule({
@@ -55,4 +54,4 @@ import { DynQuestionComponent } from './components/dyn-form/questions/dyn-questi
     DamComponent
   ]
 })
-export class DamModule { }
+export class XDamModule { }

@@ -10,69 +10,86 @@ import { isNil } from 'ramda';
  * observation of parameters changes and requests.
  */
 @Component({
-  selector: 'app-dam',
+  selector: 'ximdex-dam',
   templateUrl: './dam.component.html',
   styleUrls: ['./dam.component.css']
 })
 export class DamComponent  implements OnInit, OnChanges {
+
   /**
    * An array containing all the resources from the response as Item instances
    */
   items: Item[] = [];
+
   /**
    * A dict with the current query
    */
   query: any = {page: 1, search: '', perPage: 20, lastPage: 1, total: 0};
+  
   /**@ignore */
   limit = null;
+  
   /**@ignore */
   search = null;
+  
   /**@ignore */
   page: string;
+  
   /**
    * The current selected page
    */
   currentPage = 1;
+  
   /**
    * The current selected search string
    */
   searchTerm = '';
+  
   /**
    * A dict containing the main configurations for the application
    */
   mainConfig = null;
+  
   /**
    * The active item currently selected
    */
   activeItem = null;
+  
   /**
    * A dict containing info about the active facets
    */
   activeFacets = {};
+  
   /**
    * An array of all available facets
    */
   facets = [];
+  
   /**
    * An instance of the mapper for Item model
    */
   imap = null;
+  
   /**
    * Property used to show loading component
    */
   isLoading = false;
+  
   /**
    * Input property for switching the app to a modal
    */
   @Input() popup = false;
+  
   /**
    * Property to hide or show app when in modal state
    */
   @Input() isOpen = false;
+  
   /**
    * Output that emits a boolean every time the app open/closes when in modal state
    */
   @Output() openEmitter = new EventEmitter<boolean>();
+  
   /**
    * Output that emits when a item has been selected
    */
