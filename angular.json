@@ -121,6 +121,41 @@
           }
         }
       }
+    },
+    "XDam": {
+      "root": "projects/xdam",
+      "sourceRoot": "projects/xdam/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/xdam/tsconfig.lib.json",
+            "project": "projects/xdam/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xdam/src/test.ts",
+            "tsConfig": "projects/xdam/tsconfig.spec.json",
+            "karmaConfig": "projects/xdam/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/xdam/tsconfig.lib.json",
+              "projects/xdam/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "poly-dam"
