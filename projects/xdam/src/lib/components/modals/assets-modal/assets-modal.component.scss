@@ -1,4 +1,4 @@
-.dam-edit-item{
+.dam-edit-item {
     margin-top: 2em;
     display: -ms-flexbox;
     display: flex;
@@ -10,7 +10,7 @@
     flex-wrap: wrap !important;
     justify-content: end;
 }
-.dam-edit-item-column{
+.dam-edit-item-column {
     -ms-flex: 1 auto;
     flex: 1 auto;
     width: 45%;
@@ -18,28 +18,28 @@
     margin-bottom: 15px;
     padding: 0;
 }
-.big{
+.big {
     -ms-flex: 3 auto;
     flex: 3 auto;
     padding: 25px 28px;
-    background-color: #FFF;
-    border: 1px solid #C8CACC;
+    background-color: #fff;
+    border: 1px solid #c8cacc;
     box-shadow: none;
 }
 .alt-form {
     flex: 3 auto;
     padding: 25px 28px;
-    background-color: #FFF;
-    border: 1px solid #C8CACC;
-        border-right-color: rgb(200, 202, 204);
-        border-right-style: solid;
-        border-right-width: 1px;
+    background-color: #fff;
+    border: 1px solid #c8cacc;
+    border-right-color: #c8cacc;
+    border-right-style: solid;
+    border-right-width: 1px;
     box-shadow: none;
 }
 .no-right {
     border-right: 0px;
 }
-.options{
+.options {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: end;
@@ -54,14 +54,14 @@
     text-align: right;
     margin-left: auto;
 }
-h2.legend{
+h2.legend {
     margin: 0 0 15px;
     padding: 0;
     font-size: 18px;
     font-weight: 700;
     color: #00a397;
 }
-.dam-edit-item{
+.dam-edit-item {
     display: -ms-flexbox;
     display: flex;
     -ms-flex: 1 auto;
@@ -73,7 +73,7 @@ h2.legend{
     margin-bottom: 15px;
 }
 
-.dam-form-item{
+.dam-form-item {
     margin-top: 1em;
 }
 
@@ -87,9 +87,9 @@ button:disabled {
 }
 
 .assets-error {
-    color: #FFF;
+    color: #fff;
     text-align: center;
-    background-color: rgb(227, 93, 93, 0.8);
+    background-color: #e35d5dcc;
     border-radius: 5px;
     padding: 0.5em 0.5em;
     margin: auto;

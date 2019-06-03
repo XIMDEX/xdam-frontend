@@ -15,7 +15,7 @@ import TabsFormMapper from '../../../mappers/TabsFormMapper';
 @Component({
     selector: 'xdam-assets-modal',
     templateUrl: './assets-modal.component.html',
-    styleUrls: ['./assets-modal.component.css']
+    styleUrls: ['./assets-modal.component.scss']
 })
 export class AssetsModalComponent implements OnInit {
     /**
