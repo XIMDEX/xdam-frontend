@@ -7,7 +7,7 @@ import { hasIn } from 'ramda';
  * This component lists all the availables facets given by the API server
  */
 @Component({
-  selector: 'dam-facets',
+  selector: 'xdam-facets',
   templateUrl: './facets.component.html',
   styleUrls: ['./facets.component.css']
 })

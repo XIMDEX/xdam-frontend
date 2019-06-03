@@ -1,5 +1,5 @@
 import { hasIn, isNil, is } from 'ramda';
-import {environment} from './environment';
+import { environment } from './environment';
 import { DropdownQuestion } from '../components/dyn-form/questions/question-dropdown';
 import { TextboxQuestion } from '../components/dyn-form/questions/question-textbox';
 import { DepDropQuestion } from '../components/dyn-form/questions/question-depdrop';
@@ -13,7 +13,6 @@ import { Asset } from '../models/Asset';
  * for uploading or editing resources.
  */
 export default class FormMapper {
-
     /**
      * The extracted forms as a dict
      */
@@ -68,7 +67,7 @@ export default class FormMapper {
             this.fields = this.handleForm(localForm.fields);
         }*/
         this.fields = this.handleForm(localForm.fields);
-      }
+    }
 
     /**@ignore */
     private getValue(field: Object, key: string, isArray: boolean = true): any {
@@ -103,7 +102,7 @@ export default class FormMapper {
     handleForm(raw, asset = null) {
         const newFields = raw.map(field => {
             let object = null;
-            if ( !isNil( asset ) ) {
+            if (!isNil(asset)) {
                 const key = hasIn('realName', field.object) ? field.object.realName : field.object.key;
                 field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
             }
@@ -118,7 +117,7 @@ export default class FormMapper {
             }
             return object;
         });
-        return newFields.sort( (a, b) => a.order - b.order );
+        return newFields.sort((a, b) => a.order - b.order);
     }
 
     /**
@@ -145,7 +144,6 @@ export default class FormMapper {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
 
         const result = Object.assign({}, environment, xdam);
-        this.setForms(result.forms)
-            .initForm();
+        this.setForms(result.forms).initForm();
     }
 }

@@ -9,7 +9,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
  * actions and some additional options.
  */
 @Component({
-  selector: 'dam-table',
+  selector: 'xdam-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })

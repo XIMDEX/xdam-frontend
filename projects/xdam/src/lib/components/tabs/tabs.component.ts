@@ -3,12 +3,12 @@
  * instances.
  */
 
-import { Component, ContentChildren, QueryList, AfterContentInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, ContentChildren, QueryList, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 
 import { TabComponent } from './tab.component';
 
 @Component({
-    selector: 'dam-tabs',
+    selector: 'xdam-tabs',
     template: `
         <ul class="nav nav-tabs">
             <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active">
