@@ -1,6 +1,6 @@
 /* Base theme */
 @import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('../style.css');
+@import url('../style.scss');
 
 .dam-main{
     font-family: 'Lato', sans-serif;
@@ -29,18 +29,18 @@
     color: #FFF;
 }
 
-.dam-btn-base{  
+.dam-btn-base{
     background: linear-gradient(180deg,#666 0,#555 100%);
-    color: white; 
+    color: white;
     font-size: 10px;
-    box-shadow: none;  
+    box-shadow: none;
     border-left: 1px dotted #E0E4E6;
     font-size: 12px;
 }
 
 .dam-btn-base:hover {
     background: #00a397;
-    background: linear-gradient(180deg,#00a89b 0,#00a397 100%); 
+    background: linear-gradient(180deg,#00a89b 0,#00a397 100%);
 }
 
 .dam-search-bar{

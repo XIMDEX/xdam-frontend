@@ -6,16 +6,14 @@ import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@an
  * @ignore
  */
 @Component({
-  selector: 'app-filter-item',
-  templateUrl: './filter-item.component.html',
-  styleUrls: ['./filter-item.component.css']
+    selector: 'app-filter-item',
+    templateUrl: './filter-item.component.html',
+    styleUrls: ['./filter-item.component.scss']
 })
 export class FilterItemComponent implements OnInit {
-  form: FormGroup;
-  options: [{}];
-  constructor() { }
+    form: FormGroup;
+    options: [{}];
+    constructor() {}
 
-  ngOnInit() {
-  }
-
+    ngOnInit() {}
 }

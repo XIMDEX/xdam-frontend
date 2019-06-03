@@ -1,4 +1,9 @@
 <div id="wrapper">
     <button *ngIf="false" (click)="toggleOpen()">ABRIR</button>
-    <ximdex-dam [popup]="false" [isOpen]="isOpen" (openEmitter)="toggleOpen();" (onSelect)="handleSelect($event)"></ximdex-dam>
+    <xdam-main
+        [popup]="false"
+        [isOpen]="isOpen"
+        (openEmitter)="toggleOpen()"
+        (onSelect)="handleSelect($event)"
+    ></xdam-main>
 </div>

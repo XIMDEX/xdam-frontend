@@ -6,18 +6,15 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
     selector: 'xdam-loading',
     templateUrl: './loading.component.html',
-    styleUrls: ['./loading.component.css']
+    styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit {
-
     /** True if loading component should render, False otherwise */
     @Input() show: boolean = false;
 
     /**@ignore */
-    constructor() { }
+    constructor() {}
 
     /**@ignore */
-    ngOnInit() {
-    }
-
+    ngOnInit() {}
 }

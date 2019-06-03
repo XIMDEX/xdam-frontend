@@ -12,7 +12,7 @@ import { isNil } from 'ramda';
 @Component({
     selector: 'xdam-main',
     templateUrl: './dam.component.html',
-    styleUrls: ['./dam.component.css']
+    styleUrls: ['./dam.component.scss']
 })
 export class DamComponent implements OnInit, OnChanges {
     /**
