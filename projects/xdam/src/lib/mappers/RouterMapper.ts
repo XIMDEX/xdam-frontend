@@ -1,11 +1,18 @@
 import { hasIn, isNil } from 'ramda';
-import {environment} from './environment';
+import { environment } from './environment';
 import { HttpParams } from '@angular/common/http';
+import { Settings } from '../models/Settings.interface';
+import { isFunction } from 'util';
 
 /**
  * Mapper class for routes and models configurations in index or environment file
  */
 export default class RouterMapper {
+    protected readonly loadType = {
+        window: () => (hasIn('$xdam', window) ? (<any>window).$xdam : null),
+        property: null,
+        url: null
+    };
 
     /**
      * The base URL for all requests
@@ -104,15 +111,25 @@ export default class RouterMapper {
      * prioritising the window object.
      */
     private init() {
-        const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
-        if (isNil(xdam)) {
-            xdam.token = this.urlParams().get('token');
-        }
+        const xdam = this.loadProperties();
+
         const result = Object.assign({}, environment, xdam);
         this.setBaseUrl(result.base_url)
             .setToken(result.token)
             .setRoutes(result.endpoints)
             .setModels(result.models)
             .setBaseParams(result.base_params);
+    }
+
+    private loadProperties(props: Settings | null = null) {
+        if (isNil(props)) {
+            for (const type of Object.values(this.loadType)) {
+                props = isFunction(type) ? type() : type;
+                if (!isNil(props)) {
+                    break;
+                }
+            }
+        }
+        return props;
     }
 }
