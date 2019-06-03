@@ -1,7 +1,7 @@
-<dam-table-search></dam-table-search>
+<xdam-table-search></xdam-table-search>
 <!--PAGINATOR-->
 <div class="flex-row-container">
-    <div class="pagination-found"> 
+    <div class="pagination-found">
         <span class="label label-default">Found <span class="badge">{{query.total}}</span> items</span>
     </div>
     <ng-select
@@ -29,7 +29,7 @@
 <!--END PAGINATOR-->
 <div class="items">
     <ng-container *ngFor="let item of items">
-        <dam-table-item [item]="item" (click)="select(item)" (checked)="handleChecked($event, item)"></dam-table-item>
+        <xdam-table-item [item]="item" (click)="select(item)" (checked)="handleChecked($event, item)"></xdam-table-item>
     </ng-container>
 </div>
 <div *ngIf="tableConfig.paginator.bottom" class="flex-row-container justify-end">
@@ -58,7 +58,7 @@
 </div>
 <ngx-smart-modal [closable]="false" (onDismiss)="deleteModal.removeData()" #deleteModal identifier="deleteModal" class="modal-delete">
     <div class="dialog-delete">
-        <h2 class="legend">Confirm deletion</h2> 
+        <h2 class="legend">Confirm deletion</h2>
         <span *ngIf="deleteModal.hasData()">{{deleteModal.getData().title}}</span>
         <p>Do you really want to delete this asset? This action cannot be undone.</p>
         <div class="options">

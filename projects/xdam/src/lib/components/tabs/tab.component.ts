@@ -7,7 +7,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'dam-tab',
+    selector: 'xdam-tab',
     styles: [
         `div.pane {
             width:100%;

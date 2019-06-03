@@ -1,6 +1,6 @@
-<ngx-smart-modal 
+<ngx-smart-modal
     (onOpen)="resetForms = false;"
-    (onClose)="assetForm.reset(); reset();" 
+    (onClose)="assetForm.reset(); reset();"
     (onDataAdded)="dataHandler()"
     (onDismiss)="assetForm.reset(); reset();"
     #assets identifier="assets"
@@ -12,8 +12,8 @@
             <button (click)="close()" class="dam-btn-base red"> <fa-icon [icon]="faTimes"></fa-icon> Cancel </button>
             <button [disabled]="!assetForm.form.valid || blocked" type="submit" class="dam-btn-base"> <fa-icon [icon]="faSave"></fa-icon> Save </button>
         </div>
-        <dam-tabs>
-            <dam-tab class="tabs-container" title="General">
+        <xdam-tabs>
+            <xdam-tab class="tabs-container" title="General">
                 <div class="dam-edit-item-column alt-form no-right">
                     <div class="dam-edit-item-img"> <img src=""> </div>
                     <div class="dam-form-item">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="dam-form-item">
                         <label>Name</label>
-                        <input ref="nameField" name="title" required [(ngModel)]="asset.title" type="text"> </div>     
+                        <input ref="nameField" name="title" required [(ngModel)]="asset.title" type="text"> </div>
                     <div class="dam-form-item">
                         <label>Description</label>
                         <input ref="descriptionField" name="desc" [(ngModel)]="asset.description" type="text"></div>
@@ -58,12 +58,12 @@
                         <label>Tags</label>
                     </div>
                 </div>
-            </dam-tab>
-            <dam-tab title="LOMES">
+            </xdam-tab>
+            <xdam-tab title="LOMES">
                 <div class="dam-edit-item-column alt-form dam-tabs">
                     <app-dyn-tabform class="dam-form dam-edit-item" #dynTabForm (sendForm)="setTabData($event)" [tabs]="tabs" [title]="tabTitle"></app-dyn-tabform>
                 </div>
-            </dam-tab>
-        </dam-tabs>
+            </xdam-tab>
+        </xdam-tabs>
     </form>
 </ngx-smart-modal>

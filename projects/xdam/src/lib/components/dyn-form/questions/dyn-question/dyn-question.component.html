@@ -1,37 +1,22 @@
 <div class="dam-form-item dam-edit-item" [formGroup]="form">
-  <label [attr.for]="question.key">{{question.label}}</label>
+    <label [attr.for]="question.key">{{question.label}}</label>
 
-  <div [ngSwitch]="question.controlType">
+    <div [ngSwitch]="question.controlType">
 
-    <input *ngSwitchCase="'text'" [formControlName]="question.key"
-            [id]="question.key" [ngModel]="question.val" [type]="question.type">
+        <input *ngSwitchCase="'text'" [formControlName]="asTextbox().key" [id]="asTextbox().key" [ngModel]="asTextbox().val"
+            [type]="asTextbox().type">
 
-    <textarea *ngSwitchCase="'text-area'" class="dam-textarea" [formControlName]="question.key"
-      [id]="question.key">{{question.val}}</textarea>
-    
-    <ng-select
-      class="dam-select"
-      [id]="question.key"
-      [(ngModel)]="question.val"
-      *ngSwitchCase="'dropdown'"
-      [formControlName]="question.key"
-      [items]="question.options"
-      bindValue='key'
-      bindLabel='value'
-      [multiple]='question.multi'
-    >
-    </ng-select>
-    <ng-select
-      class="dam-select"
-      [id]="question.key"
-      [ngModel]="question.val"
-      *ngSwitchCase="'depdrop'"
-      [formControlName]="question.key"
-      [items]="question.options"
-    >    
-    </ng-select>
- 
-  </div> 
- 
-  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+        <textarea *ngSwitchCase="'text-area'" class="dam-textarea" [formControlName]="asTextArea().key" [id]="asTextArea().key">{{ asTextArea().val}}</textarea>
+
+        <ng-select class="dam-select" [id]="asDropDown().key" [(ngModel)]="asDropDown().val" *ngSwitchCase="'dropdown'"
+            [formControlName]="asDropDown().key" [items]="asDropDown().options" bindValue='key' bindLabel='value' [multiple]='asDropDown().multi'>
+        </ng-select>
+
+        <ng-select class="dam-select" [id]="asDepDrop().key" [ngModel]="asDepDrop().val" *ngSwitchCase="'depdrop'"
+            [formControlName]="asDepDrop().key" [items]="asDepDrop().options">
+        </ng-select>
+
+    </div>
+
+    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
 </div>

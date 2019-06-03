@@ -7,7 +7,6 @@ import { light } from '../profiles/light';
  * configuration given the active profile.
  */
 export default class ConfigMapper {
-
     /**
      * The general configuration for the application
      */
@@ -24,8 +23,8 @@ export default class ConfigMapper {
      * The available profiles
      */
     private profiles: Object = {
-        'standard': standard,
-        'light': light
+        standard: standard,
+        light: light
     };
 
     /**@ignore */
@@ -58,9 +57,9 @@ export default class ConfigMapper {
     /**
      * Gets the configs for a particular component
      * @param component The component requested
-     * @returns {Object} The configs object
+     * @returns {any | null} The configs object
      */
-    getComponentConfigs(component = null) {
+    getComponentConfigs(component = null): any | null {
         if (isNil(component)) {
             return this.componentConfigs;
         } else if (hasIn(component, this.componentConfigs)) {
@@ -85,5 +84,4 @@ export default class ConfigMapper {
 
         this.setConfigs(result.configs);
     }
-
 }

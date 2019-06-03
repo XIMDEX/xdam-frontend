@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
  * Component that renders a loading screen when requested
  */
 @Component({
-    selector: 'dam-loading',
+    selector: 'xdam-loading',
     templateUrl: './loading.component.html',
     styleUrls: ['./loading.component.css']
 })
