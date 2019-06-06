@@ -5,6 +5,7 @@ import { XDamData } from '../../projects/xdam/src/lib/models/ItemModel.interface
 import { HttpParams } from '@angular/common/http';
 import { Pager } from 'projects/xdam/src/lib/models/Pager';
 import { PagerModelSchema } from 'projects/xdam/src/lib/models/PagerModel.interface';
+import { SearchModel } from 'projects/xdam/src/lib/models/SarchModel';
 
 @Component({
     selector: 'app-root',
@@ -148,11 +149,9 @@ export class AppComponent implements OnInit {
         );
     }
 
-    toggleOpen() {
-        this.cdRef.detectChanges();
-    }
-
-    handleSelect(event) {
-        console.log(event);
+    sendSearch(data: SearchModel) {
+        this.query.perPage = data.limit;
+        this.currentPage = data.page;
+        this.getItems();
     }
 }
