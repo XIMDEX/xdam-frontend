@@ -1,9 +1,14 @@
-<div id="wrapper">
-    <button *ngIf="false" (click)="toggleOpen()">ABRIR</button>
-    <xdam-main
-        [popup]="false"
-        [isOpen]="isOpen"
-        (openEmitter)="toggleOpen()"
-        (onSelect)="handleSelect($event)"
-    ></xdam-main>
-</div>
+<xdam-main [items]="items"></xdam-main>
+
+<!-- {
+    name: "Owner",
+    default:  12,
+    values: [
+    {
+        id: "12",
+        label: "pepe",
+        atcive: true
+    }
+    ],
+
+} -->
