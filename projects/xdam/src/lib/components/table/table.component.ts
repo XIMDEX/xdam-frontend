@@ -78,7 +78,7 @@ export class TableComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.currentPage = 1;
         this.tableConfig = this.mainService.getComponentConfigs('table');
-        this.requestsModel = this.mainService.getModel('requests');
+        // this.requestsModel = this.mainService.getModel('requests');
         this.limitSelect = { label: this.query.perPage, value: this.query.perPage };
         this.createPaginator();
     }

@@ -1,14 +1,10 @@
 .dam-edit-item {
     margin-top: 2em;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex: 1 auto;
     flex: 1 auto;
-    -ms-flex-direction: row;
     flex-direction: row;
-    -ms-flex-wrap: wrap !important;
     flex-wrap: wrap !important;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .dam-edit-item-column {
     -ms-flex: 1 auto;

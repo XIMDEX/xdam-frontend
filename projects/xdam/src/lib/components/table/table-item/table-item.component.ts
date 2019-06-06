@@ -75,7 +75,7 @@ export class TableItemComponent implements OnInit {
     ngOnInit() {
         this.image = this.parseImage();
         this.itemConfigs = this.mainService.getComponentConfigs('tableItem');
-        this.requestsModel = this.mainService.getModel('requests');
+        // this.requestsModel = this.mainService.getModel('requests');
         this.initFields();
     }
 

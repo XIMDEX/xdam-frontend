@@ -9,11 +9,11 @@ export const environment = {
     token: 'ssdfksj856erfh3vs634pldaskg',
     base_url: 'http://universo.lh/api/v1/',
     endpoints: {
-      resources: {
-        get: 'resources',
-        post: 'resources',
-        delete: 'resources'
-      }
+        resources: {
+            get: 'resources',
+            post: 'resources',
+            delete: 'resources'
+        }
     }
 };
 
