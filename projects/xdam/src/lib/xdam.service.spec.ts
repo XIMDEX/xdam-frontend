@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { XDamService } from './xdam.service';
+import { XDamService } from './component.service';
 
 describe('XDamService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -1,8 +1,9 @@
 import { hasIn, isNil } from 'ramda';
-import { environment } from './environment';
 import { HttpParams } from '@angular/common/http';
-import { Settings } from '../models/Settings.interface';
 import { isFunction } from 'util';
+
+import { Settings } from '../models/Settings.interface';
+import { ItemModel } from '../models/ItemModel.interface';
 
 /**
  * Mapper class for routes and models configurations in index or environment file
@@ -17,23 +18,35 @@ export default class RouterMapper {
     /**
      * The base URL for all requests
      */
-    baseUrl = '';
+    private _baseUrl = '';
+
     /**
      * The availables routes in API for the requests
      */
-    routes = '';
+    private _routes = null;
+
     /**
      * The auth token for requests
      */
-    token = '';
+    private _token = '';
+
     /**
      * The backend to frontend model mappers
      */
-    models = null;
+    private _itemModel: ItemModel = {
+        id: 'id',
+        title: 'title',
+        hash: 'hash',
+        size: 'size',
+        type: 'type',
+        image: 'image',
+        context: 'context'
+    };
+
     /**
      * The base parameters for all queries
      */
-    baseParams = null;
+    private _baseParams = null;
 
     /**
      * @ignore
@@ -43,58 +56,53 @@ export default class RouterMapper {
     }
 
     /**@ignore */
-    setBaseUrl(url: string) {
-        this.baseUrl = url;
-        return this;
+    set baseUrl(url: string) {
+        this._baseUrl = url;
     }
 
     /**@ignore */
-    getBaseUrl() {
-        return this.baseUrl;
+    get baseUrl(): string {
+        return this._baseUrl;
     }
 
     /**@ignore */
-    setRoutes(routes) {
-        this.routes = routes;
-        return this;
+    set routes(routes: { SettingsEdpoint } | null) {
+        this._routes = routes;
     }
 
     /**@ignore */
-    getRoutes() {
-        return this.routes;
+    get routes(): { SettingsEdpoint } | null {
+        return this._routes;
     }
 
     /**@ignore */
-    setToken(token) {
-        this.token = token;
-        return this;
+    set token(token: string | null) {
+        this._token = token;
     }
 
     /**@ignore */
-    getToken() {
-        return this.token;
+    get token(): string | null {
+        return this._token;
     }
 
     /**@ignore */
-    setModels(models) {
-        this.models = models;
-        return this;
+    set itemModel(itemModel: ItemModel | null) {
+        this._itemModel = { ...this._itemModel, ...itemModel };
     }
 
     /**@ignore */
-    getModels() {
-        return this.models;
+    get itemModel(): ItemModel | null {
+        return this._itemModel;
     }
 
     /**@ignore */
-    setBaseParams(params) {
-        this.baseParams = params;
-        return this;
+    set baseParams(baseParams) {
+        this._baseParams = baseParams;
     }
 
     /**@ignore */
     getBaseParams(params: HttpParams) {
-        for (const key of Object.keys(this.baseParams)) {
+        for (const key of Object.keys(this._baseParams)) {
             params = params.append(key, String(this.baseParams[key]));
         }
         return params;
@@ -111,17 +119,20 @@ export default class RouterMapper {
      * prioritising the window object.
      */
     private init() {
-        const xdam = this.loadProperties();
+        const xdam: Settings = this.loadProperties();
 
-        const result = Object.assign({}, environment, xdam);
-        this.setBaseUrl(result.base_url)
-            .setToken(result.token)
-            .setRoutes(result.endpoints)
-            .setModels(result.models)
-            .setBaseParams(result.base_params);
+        if (isNil(xdam)) {
+            throw new Error('Failed to load Dam settings');
+        }
+
+        this.baseUrl = xdam.base_url;
+        this.token = xdam.token;
+        this.routes = xdam.endpoints;
+        this.itemModel = xdam.item_model;
+        this.baseParams = xdam.base_params;
     }
 
-    private loadProperties(props: Settings | null = null) {
+    private loadProperties(props: Settings | null = null): Settings {
         if (isNil(props)) {
             for (const type of Object.values(this.loadType)) {
                 props = isFunction(type) ? type() : type;

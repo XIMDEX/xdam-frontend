@@ -1,0 +1,12 @@
+<!-- <xdam-loading [show]="isLoading"></xdam-loading> -->
+<div class="dam-main shadow-panel dam-main-back">
+    <pre>{{ pager | json }}</pre>
+    <!-- <xdam-facets [facets]="facets"></xdam-facets> -->
+    <xdam-paginator
+        *ngIf="pager"
+        [total]="pager.total"
+        [perPage]="pager.perPage"
+        (changeLimit)="prepareSearch($event)"
+    ></xdam-paginator>
+    <xdam-table [items]="elements"></xdam-table>
+</div>
