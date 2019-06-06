@@ -6,7 +6,8 @@
         *ngIf="pager"
         [total]="pager.total"
         [perPage]="pager.perPage"
-        (changeLimit)="prepareSearch($event)"
+        [pager]="pager"
+        (change)="prepareSearch($event)"
     ></xdam-paginator>
     <xdam-table [items]="elements"></xdam-table>
 </div>
