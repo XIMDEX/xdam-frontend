@@ -1,5 +1,5 @@
 import { faStepBackward, faCaretLeft, faCaretRight, faStepForward } from '@fortawesome/free-solid-svg-icons';
-import { PerPageModel, PagerModel } from './../../models/PagerModel.interface';
+import { PerPageModel, PagerModel } from '../../models/interfaces/PagerModel.interface';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SearchModel } from '../../models/SarchModel';
 
