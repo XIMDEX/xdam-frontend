@@ -1,28 +1,29 @@
 @import url('~ngx-smart-modal/ngx-smart-modal.css');
-@import url("~@ng-select/ng-select/themes/default.theme.css");
+@import url('~@ng-select/ng-select/themes/default.theme.css');
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
-.dam-main{
+.dam-main {
     height: 100%;
     margin: 0;
 }
 
-.flex-row-container{
+.flex-row-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.assets-modal .nsm-dialog{
+.assets-modal .nsm-dialog {
     max-width: 100%;
 }
 
-.modal-delete .nsm-dialog{
+.modal-delete .nsm-dialog {
     max-width: auto !important;
 }
 
@@ -36,7 +37,7 @@ html, body {
     resize: none;
 }
 
-.dam-edit-item label{
+.dam-edit-item label {
     display: block;
     padding: 0;
     border: 0;
@@ -46,22 +47,15 @@ html, body {
     text-transform: uppercase;
 }
 
-.dam-btn-base.group:first-child {
-    border-right: unset;
-}
-
-.dam-btn-base.group:last-child {
-    border-left: unset;
-}
-
-.dam-form input[type="text"], select{
+.dam-form input[type='text'],
+select {
     height: 34px;
     width: 90%;
     padding: 0 10px;
     border-radius: 3px;
 }
 
-.dam-btn-base{
+.dam-btn-base {
     display: inline-block;
     height: 28px;
     padding: 0 8px;
@@ -69,9 +63,22 @@ html, body {
     cursor: pointer;
     padding: 0 10px;
     border: unset;
+
+    &.group:first-child {
+        border-right: unset;
+    }
+
+    &.group:last-child {
+        border-left: unset;
+    }
+
+    &:active,
+    &:focus {
+        outline: 0 !important;
+    }
 }
 
-.dam-form-item{
+.dam-form-item {
     margin-top: 1em;
 }
 

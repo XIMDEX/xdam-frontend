@@ -1,15 +1,16 @@
 :host {
     display: flex;
     flex-grow: 1;
-    
-    .dam-main{
+
+    .dam-main {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        padding: 0 15px;
 
         /* MOBILE */
-        @media all and (max-width: 599px) { 
-            padding:0.5rem;
+        @media all and (max-width: 599px) {
+            padding: 0.5rem;
         }
     }
 }
