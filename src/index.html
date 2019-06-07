@@ -14,10 +14,9 @@
     <app-root>
         <script>
             window.$xdam = {
-                "token": "c0b0b2c7f297873d612439671ddf07e9b2fbb5a71475de7dbbe3abc5c952",
-                "base_url": "http://universo.lab14/api/v1/",
+                "token": "cf9df7454c204555fc240b48a4094b724fd075a276e9b2ff86a02fad88bb",
+                "base_url": "http://universo.lab03/api/v1/",
                 "base_params": {},
-                "profile": "light",
                 "endpoints": {
                     "resources": {
                         "list": "resources\/dam",
@@ -26,7 +25,26 @@
                         "delete": "resources"
                     }
                 },
-                "models": {
+                'settings': {
+                    'search': {
+                        'input': {
+                            'hasSearch': true,
+                            'hasClear': true,
+                            'hasReset': false
+                        }
+                    }
+                },
+                "profile": "light",
+                "item_model": {
+                    "id": "resource_id",
+                    "title": "name",
+                    "hash": "id",
+                    "size": null,
+                    "type": "type",
+                    "image": "preview",
+                    "context": "context"
+                },
+                "models_old": {
                     "item": {
                         "id": "resource_id",
                         "title": "name",
@@ -34,7 +52,7 @@
                         "size": "",
                         "type": "type",
                         "image": "preview",
-                        "context": "context"
+                        "context": "context",
                     },
                     "requests": {
                         "get": "hash",
@@ -42,7 +60,7 @@
                         "put": "id"
                     }
                 },
-                "forms": {
+                "forms1": {
                     "name": "resource-form",
                     "endpoint": "resources",
                     "api": false,
@@ -112,7 +130,7 @@
                         }
                     ]
                 },
-                "tabsform": {
+                "tabsform1": {
                     "name": "lomes",
                     "title": "LOMES",
                     "api": false,
