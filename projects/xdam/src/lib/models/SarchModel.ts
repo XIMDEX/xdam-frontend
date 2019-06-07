@@ -1,7 +1,8 @@
 import { hasIn, isNil } from 'ramda';
 import { SearchModel as SearchModelI } from './interfaces/SearchModel.interface';
+import BaseModel from './Base';
 
-export class SearchModel implements SearchModelI {
+export class SearchModel extends BaseModel implements SearchModelI {
     private _limit: number = 20;
     private _page: number = 1;
 
@@ -23,18 +24,5 @@ export class SearchModel implements SearchModelI {
     }
     get page(): number | null {
         return this._page;
-    }
-
-    update(params: SearchModel) {
-        Object.keys(params).forEach(key => {
-            let method = key;
-            if (key.startsWith('_')) {
-                method = method.slice(1);
-            }
-
-            if (hasIn(method, this)) {
-                this[method] = params[key];
-            }
-        });
     }
 }

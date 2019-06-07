@@ -1,6 +1,7 @@
+// TODO @atovar remove RouterMapper dependencies
 import { isNil, hasIn } from 'ramda';
-import { ItemModel } from './ItemModel.interface';
-import RouterMapper from '../mappers/RouterMapper';
+import { ItemModel } from './interfaces/ItemModel.interface';
+import RouterMapper from '../../../../../src/app/mappers/RouterMapper';
 
 /**
  * The item model used by the table component to show info about every single resource.
