@@ -1,5 +1,7 @@
+// TODO @atovar remove enviroment dependencies
+
+import { environment } from './../../../../../src/environments/environment';
 import { hasIn, isNil, is } from 'ramda';
-import { environment } from './environment';
 import { DropdownQuestion } from '../components/dyn-form/questions/question-dropdown';
 import { TextboxQuestion } from '../components/dyn-form/questions/question-textbox';
 import { DepDropQuestion } from '../components/dyn-form/questions/question-depdrop';
