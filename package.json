@@ -35,6 +35,7 @@
         "ngx-smart-modal": "^7.1.1",
         "ramda": "^0.26.1",
         "rxjs": "~6.3.3",
+        "sprintf-js": "^1.1.2",
         "typedjson-npm": "^0.1.7",
         "zone.js": "^0.8.27"
     },
