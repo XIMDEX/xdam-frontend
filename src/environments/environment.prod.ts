@@ -3,5 +3,8 @@
  * @ignore
  */
 export const environment = {
-  production: true
+    production: true,
+    base_url: '',
+    token: '',
+    endpoints: {}
 };
