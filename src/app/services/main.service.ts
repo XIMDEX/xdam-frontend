@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { hasIn, isNil } from 'ramda';
 import { Item } from '../../../projects/xdam/src/lib/models/Item';
-import RouterMapper from '../../../projects/xdam/src/lib/mappers/RouterMapper';
-import ConfigMapper from 'projects/xdam/src/lib/mappers/ProfileMapper';
+import RouterMapper from '../mappers/RouterMapper';
+import SettingsMapper from '../mappers/SettingsMapper';
 
 // const API = environment.API;
 // const resourcesAPI = environment.resourcesAPI;
@@ -39,11 +39,11 @@ export class MainService {
     /**
      * An instance of the RouterMapper
      */
-    private settings: RouterMapper;
+    private router: RouterMapper;
     /**
      * An instance of the ConfigMapper
      */
-    private configs: ConfigMapper;
+    private configs: SettingsMapper;
     /**
      * The application endpoint for queries
      */
@@ -62,8 +62,8 @@ export class MainService {
         this.activeItem = new BehaviorSubject<Item>(null);
         this.activeFacets = new BehaviorSubject<Object>({});
         this.reload = new BehaviorSubject<boolean>(true);
-        this.settings = new RouterMapper();
-        this.configs = new ConfigMapper();
+        this.router = new RouterMapper();
+        this.configs = new SettingsMapper();
 
         this.httpOptions.headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -72,21 +72,21 @@ export class MainService {
     }
 
     getBaseUrl() {
-        return this.settings.baseUrl;
+        return this.router.baseUrl;
     }
 
     /**
      * Gets the token parsed by the mapper.
      */
     getToken() {
-        return this.settings.token;
+        return this.router.token;
     }
 
     /**
      * Gets the queries routes parsed by the mapper.
      */
     getRoutes() {
-        return this.settings.routes;
+        return this.router.routes;
     }
 
     /**
@@ -97,7 +97,7 @@ export class MainService {
     getRoute(method: string, name: string) {
         let route = hasIn(name, this.getRoutes()) ? (<any>this.getRoutes())[name] : null;
         if (!isNil(route)) {
-            route = hasIn(method, route) ? `${this.settings.baseUrl}${route[method]}` : null;
+            route = hasIn(method, route) ? `${this.router.baseUrl}${route[method]}` : null;
         }
         return route;
     }
@@ -107,14 +107,14 @@ export class MainService {
      * @returns {Object} The models dict
      */
     get itemModel() {
-        return this.settings.itemModel;
+        return this.router.itemModel;
     }
 
     /**
      * Gets general profile configs from the active profile.
      */
     getGeneralConfigs() {
-        return this.configs.getGeneralConfigs();
+        return this.configs;
     }
 
     /**
@@ -122,7 +122,7 @@ export class MainService {
      * @param component The desired component
      */
     getComponentConfigs(component = null) {
-        return this.configs.getComponentConfigs(component);
+        return this.configs.get(component);
     }
 
     /**
@@ -160,7 +160,7 @@ export class MainService {
      */
     getResources(params: HttpParams = null) {
         const url = this.getRoute('list', this.endPoint);
-        params = this.settings.getBaseParams(params);
+        params = this.router.getBaseParams(params);
         this.httpOptions.params = params;
         if (!hasIn('page', params)) {
             this.getCurrentPage().subscribe(value => {
