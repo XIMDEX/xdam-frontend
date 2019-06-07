@@ -1,5 +1,6 @@
+// TODO @atovar remove enviroment dependencies
+import { environment } from './../../../../../src/environments/environment';
 import { hasIn, isNil, is } from 'ramda';
-import {environment} from './environment';
 import { DropdownQuestion } from '../components/dyn-form/questions/question-dropdown';
 import { TextboxQuestion } from '../components/dyn-form/questions/question-textbox';
 import { DepDropQuestion } from '../components/dyn-form/questions/question-depdrop';
@@ -12,7 +13,6 @@ import { MainService } from '../services/main.service';
  * for uploading or editing resources.
  */
 export default class TabsFormMapper {
-
     /**
      * The extracted forms as a dict
      */
@@ -91,7 +91,7 @@ export default class TabsFormMapper {
         }*/
         this.title = localForm.title;
         this.tabs = this.handleTabs(localForm.tabs);
-      }
+    }
 
     /**@ignore */
     private getValue(field: Object, key: string, _default: any = ''): any {
@@ -120,9 +120,9 @@ export default class TabsFormMapper {
     handleTabs(rawTabs, asset = null) {
         let tabs;
         let fields: QuestionBase<Object>[] = null;
-        tabs = rawTabs.map( (tab) => {
+        tabs = rawTabs.map(tab => {
             fields = this.handleForm(tab.fields, asset);
-            return {title: tab.title, questions: fields};
+            return { title: tab.title, questions: fields };
         });
         return tabs;
     }
@@ -135,7 +135,7 @@ export default class TabsFormMapper {
     handleForm(raw, asset = null) {
         const newFields = raw.map(field => {
             let object = null;
-            if ( !isNil( asset ) ) {
+            if (!isNil(asset)) {
                 const key = hasIn('realName', field.object) ? field.object.realName : field.object.key;
                 field.object.val = this.getValue(asset, key);
             }
@@ -150,7 +150,7 @@ export default class TabsFormMapper {
             }
             return object;
         });
-        return newFields.sort( (a, b) => a.order - b.order );
+        return newFields.sort((a, b) => a.order - b.order);
     }
 
     /**
@@ -177,7 +177,6 @@ export default class TabsFormMapper {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
 
         const result = Object.assign({}, environment, xdam);
-        this.setForms(result.tabsform)
-            .initForm();
+        this.setForms(result.tabsform).initForm();
     }
 }
