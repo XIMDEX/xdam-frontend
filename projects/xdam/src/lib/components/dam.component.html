@@ -2,6 +2,7 @@
 <div class="dam-main shadow-panel dam-main-back">
     <pre>{{ pager | json }}</pre>
     <!-- <xdam-facets [facets]="facets"></xdam-facets> -->
+    <xdam-search [searchOptions]="settings.search"></xdam-search>
     <xdam-paginator
         *ngIf="pager"
         [total]="pager.total"

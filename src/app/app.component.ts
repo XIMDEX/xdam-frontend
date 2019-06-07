@@ -1,11 +1,12 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { MainService } from './services/main.service';
-import { XDamData } from '../../projects/xdam/src/lib/models/ItemModel.interface';
+import { XDamData } from '../../projects/xdam/src/lib/models/interfaces/ItemModel.interface';
 import { HttpParams } from '@angular/common/http';
 import { Pager } from 'projects/xdam/src/lib/models/Pager';
-import { PagerModelSchema } from 'projects/xdam/src/lib/models/PagerModel.interface';
+import { PagerModelSchema } from 'projects/xdam/src/lib/models/interfaces/PagerModel.interface';
 import { SearchModel } from 'projects/xdam/src/lib/models/SarchModel';
+import { XDamSettingsInterface } from 'projects/xdam/src/lib/models/interfaces/Settings.interface';
 
 @Component({
     selector: 'app-root',
@@ -32,6 +33,8 @@ export class AppComponent implements OnInit {
     search = null;
 
     items: XDamData;
+
+    settings: XDamSettingsInterface;
 
     /**
      * A dict with the current query
@@ -75,13 +78,13 @@ export class AppComponent implements OnInit {
     constructor(private mainService: MainService, private cdRef: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.mainConfig = this.mainService.getComponentConfigs('main');
         this.imap = this.mainService.itemModel;
+        this.settings = this.mainService.getGeneralConfigs();
 
-        this.limit = this.mainConfig.query.limit;
-        this.search = this.mainConfig.query.search;
-        this.page = this.mainConfig.query.page.name;
-        this.query.perPage = this.mainConfig.query.limit.value;
+        this.limit = { name: 'limit', value: 20 }; // this.mainConfig.query.limit;
+        this.search = { name: 'name', value: '$' }; // this.mainConfig.query.search;
+        this.page = 'page'; // this.mainConfig.query.page.name;
+        this.query.perPage = 20; // this.mainConfig.query.limit.value;
         this.mainService.getCurrentPage().subscribe(data => {
             const oldPage = this.currentPage;
             this.currentPage = data;

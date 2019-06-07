@@ -2,9 +2,11 @@ import { Component, OnInit, Output, EventEmitter, Input, DoCheck, IterableDiffer
 import { isNil, hasIn, is } from 'ramda';
 import { Item } from '../models/Item';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { XDamData, ItemModel } from '../models/ItemModel.interface';
+import { XDamData, ItemModel } from '../models/interfaces/ItemModel.interface';
 import { Pager } from '../models/Pager';
 import { SearchModel } from '../models/SarchModel';
+import { SearchOptions } from '../models/interfaces/SearchModel.interface';
+import { XDamSettings } from '../models/XdamSettings';
 
 /**
  * Entry point component for the application, is the component in charge of the
@@ -17,6 +19,7 @@ import { SearchModel } from '../models/SarchModel';
 })
 export class DamComponent implements OnInit, DoCheck {
     @Input() items: XDamData;
+    @Input() settings: XDamSettings;
 
     @Output() onSearch = new EventEmitter<any>();
 
@@ -30,6 +33,8 @@ export class DamComponent implements OnInit, DoCheck {
     pager: Pager;
 
     elementDiffers;
+
+    searchOptions: SearchOptions;
 
     /**@ignore */
     constructor(private ngxSmartModalService: NgxSmartModalService, private _iterableDiff: IterableDiffers) {
