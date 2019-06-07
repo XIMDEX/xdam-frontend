@@ -1,5 +1,5 @@
 import { hasIn, isNil } from 'ramda';
-import { SearchModel as SearchModelI } from './SearchModel.interface';
+import { SearchModel as SearchModelI } from './interfaces/SearchModel.interface';
 
 export class SearchModel implements SearchModelI {
     private _limit: number = 20;

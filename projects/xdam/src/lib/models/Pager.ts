@@ -1,6 +1,6 @@
 import { PerPage } from './PerPage';
 import { isNil, hasIn, is } from 'ramda';
-import { PagerModelSchema, PagerModel, PerPageModel, PerPageModelSchema } from './PagerModel.interface';
+import { PagerModelSchema, PagerModel, PerPageModel, PerPageModelSchema } from './interfaces/PagerModel.interface';
 
 export class Pager implements PagerModel {
     private total_items: number | null = null;

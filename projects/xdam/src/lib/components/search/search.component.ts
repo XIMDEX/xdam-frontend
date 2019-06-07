@@ -1,7 +1,7 @@
 import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input } from '@angular/core';
 import { hasIn, isNil } from 'ramda';
-import { SearchOptions } from '../../models/SearchModel.interface';
+import { SearchOptions } from '../../models/interfaces/SearchModel.interface';
 /**@ignore */
 @Component({
     selector: 'xdam-search',

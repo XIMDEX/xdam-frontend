@@ -1,5 +1,5 @@
 import { isNil, hasIn } from 'ramda';
-import { PerPageModel, PerPageModelSchema } from './PagerModel.interface';
+import { PerPageModel, PerPageModelSchema } from './interfaces/PagerModel.interface';
 
 export class PerPage implements PerPageModel {
     private current: number = 20;
