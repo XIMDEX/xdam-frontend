@@ -1,7 +1,7 @@
 import { ItemModel } from './ItemModel.interface';
 import { SearchOptions } from './SearchModel.interface';
 export interface Settings {
-    token: string;
+    token?: string;
     base_url: string;
     endpoints: { SettingsEdpoint };
     item_model?: ItemModel;
@@ -11,7 +11,7 @@ export interface Settings {
 export interface SettingsEndpoint {
     get?: string;
     post?: string;
-    delete: string;
+    delete?: string;
 }
 
 export interface XDamSettingsInterface {
