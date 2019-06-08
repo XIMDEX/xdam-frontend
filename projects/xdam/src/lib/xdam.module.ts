@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 
 import { MainService } from 'src/app/services/main.service';
@@ -16,9 +16,8 @@ import { AssetsModalComponent } from './components/modals/assets-modal/assets-mo
 import { TableComponent } from './components/table/table.component';
 import { TableSearchComponent } from './components/table/table-search/table-search.component';
 import { TableItemComponent } from './components/table/table-item/table-item.component';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FacetsComponent } from './components/facets/facets.component';
-import { FacetComponent } from './components/facets/facet/facet.component';
+import { FacetComponent } from './components/facets-old/facet/facet.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TabComponent } from './components/tabs/tab.component';
