@@ -27,14 +27,12 @@ export class DamComponent implements OnInit, DoCheck {
      * The active item currently selected
      */
     activeItem = null;
-
     elements: Item[] = [];
     search: SearchModel;
     pager: Pager;
-
     elementDiffers;
-
     searchOptions: SearchOptions;
+    loading: boolean;
 
     /**@ignore */
     constructor(private ngxSmartModalService: NgxSmartModalService, private _iterableDiff: IterableDiffers) {
@@ -43,6 +41,7 @@ export class DamComponent implements OnInit, DoCheck {
 
     /**@ignore */
     ngOnInit() {
+        this.loading = true;
         this.search = new SearchModel();
 
         if (!isNil(this.items) && hasIn('data', this.items) && this.items.data.length > 0) {
@@ -73,6 +72,7 @@ export class DamComponent implements OnInit, DoCheck {
 
         result = (this.items.data as [ItemModel?]).map(item => new Item(item));
         this.elements = result;
+        this.loading = false;
     }
 
     preparePager() {
@@ -83,6 +83,7 @@ export class DamComponent implements OnInit, DoCheck {
         if (is(Object, parameters)) {
             this.search.update(parameters);
         }
+        this.loading = true;
         this.onSearch.emit(this.search);
     }
 }

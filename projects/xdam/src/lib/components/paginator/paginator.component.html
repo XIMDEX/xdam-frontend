@@ -1,10 +1,10 @@
 <div class="found-items">
-    <span *ngIf="total">
+    <span *ngIf="hasTotal && total">
         Found <strong>{{ total }}</strong> items
     </span>
 </div>
 <div class="pager">
-    <ul *ngIf="pager" class="pagination shadow-panel">
+    <ul *ngIf="hasPager && pager" class="pagination shadow-panel">
         <li [ngClass]="{ active: page.active == true }" *ngFor="let page of paginator" (click)="updatePage(page.value)">
             <ng-container *ngIf="page.icon !== null; else number">
                 <fa-icon [icon]="page.icon"></fa-icon>
@@ -17,7 +17,7 @@
 </div>
 <div class="limit">
     <ng-select
-        *ngIf="perPage"
+        *ngIf="hasLimit && perPage"
         class="dam-select"
         (change)="updateLimit($event)"
         [(ngModel)]="perPage.value"

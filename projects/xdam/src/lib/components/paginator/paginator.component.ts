@@ -2,6 +2,8 @@ import { faStepBackward, faCaretLeft, faCaretRight, faStepForward } from '@forta
 import { PerPageModel, PagerModel } from '../../models/interfaces/PagerModel.interface';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SearchModel } from '../../models/SarchModel';
+import { PagerOptionsItems } from '../../models/interfaces/PagerOptions.interface';
+import { isNil, hasIn } from 'ramda';
 
 @Component({
     selector: 'xdam-paginator',
@@ -10,10 +12,9 @@ import { SearchModel } from '../../models/SarchModel';
 })
 export class PaginatorComponent {
     @Input() total: number | null = null;
-
     @Input() perPage: PerPageModel | null = null;
-
     @Input() pager: PagerModel | null = null;
+    @Input() settings: PagerOptionsItems;
 
     @Output() change = new EventEmitter<SearchModel>();
 
@@ -48,6 +49,18 @@ export class PaginatorComponent {
             paginator.push({ value: this.pager.lastPage, active: false, icon: faStepForward });
         }
         return paginator;
+    }
+
+    get hasTotal() {
+        return !isNil(this.settings) && hasIn('total', this.settings) ? this.settings.total : false;
+    }
+
+    get hasPager() {
+        return !isNil(this.settings) && hasIn('pager', this.settings) ? this.settings.pager : false;
+    }
+
+    get hasLimit() {
+        return !isNil(this.settings) && hasIn('limit', this.settings) ? this.settings.limit : false;
     }
 
     updateLimit(value: number) {
