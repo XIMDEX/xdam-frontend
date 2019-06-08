@@ -1,4 +1,5 @@
 export interface SearchModel {
+    content?: string;
     limit?: number;
     page?: number;
 }

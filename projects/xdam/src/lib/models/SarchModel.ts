@@ -3,8 +3,17 @@ import { SearchModel as SearchModelI } from './interfaces/SearchModel.interface'
 import BaseModel from './Base';
 
 export class SearchModel extends BaseModel implements SearchModelI {
-    private _limit: number = 20;
-    private _page: number = 1;
+    private _content = '';
+    private _limit = 20;
+    private _page = 1;
+
+    set content(content: string | null) {
+        this._content = content;
+    }
+
+    get content(): string | null {
+        return this._content;
+    }
 
     set limit(limit: number | null) {
         if (!isNil(limit) && limit <= 0) {
