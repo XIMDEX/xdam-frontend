@@ -3,7 +3,7 @@
     <!-- <xdam-facets [facets]="facets"></xdam-facets> -->
     <pre>{{ settings | json }}</pre>
     <div>
-        <xdam-search [settings]="settings.search"></xdam-search>
+        <xdam-search [settings]="settings.search" (search)="prepareSearch($event)"></xdam-search>
         <xdam-paginator
             *ngIf="pager && settings.pager.top"
             [settings]="settings.pager.top"

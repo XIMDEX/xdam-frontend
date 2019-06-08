@@ -1,8 +1,9 @@
 import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { hasIn, isNil } from 'ramda';
 import { SearchOptions } from '../../models/interfaces/SearchModel.interface';
 /**@ignore */
+import { SearchModel } from '../../models/SarchModel';
 @Component({
     selector: 'xdam-search',
     templateUrl: './search.component.html',
@@ -10,6 +11,7 @@ import { SearchOptions } from '../../models/interfaces/SearchModel.interface';
 })
 export class SearchComponent implements OnInit {
     @Input() settings: SearchOptions = null;
+    @Output() search = new EventEmitter<SearchModel>();
 
     /**@ignore */
     faSearch = faSearch;
@@ -23,6 +25,9 @@ export class SearchComponent implements OnInit {
     /**@ignore */
     faTrash = faTrashAlt;
 
+    content: string;
+    lastContent: string;
+
     constructor() {}
 
     ngOnInit() {}
@@ -33,5 +38,14 @@ export class SearchComponent implements OnInit {
             result = this.settings.input;
         }
         return result;
+    }
+
+    updateSearch() {
+        if (this.lastContent !== this.content && !isNil(this.content)) {
+            const params = new SearchModel();
+            params.content = this.content;
+            this.search.emit(params.only('content', 'page'));
+            this.lastContent = this.content;
+        }
     }
 }

@@ -1,10 +1,10 @@
 <div class="found-items">
-    <span *ngIf="hasTotal && total">
+    <span *ngIf="hasTotal">
         Found <strong>{{ total }}</strong> items
     </span>
 </div>
 <div class="pager">
-    <ul *ngIf="hasPager && pager" class="pagination shadow-panel">
+    <ul *ngIf="hasPager && pager && pager.last_page > pager.current_page" class="pagination shadow-panel">
         <li [ngClass]="{ active: page.active == true }" *ngFor="let page of paginator" (click)="updatePage(page.value)">
             <ng-container *ngIf="page.icon !== null; else number">
                 <fa-icon [icon]="page.icon"></fa-icon>
