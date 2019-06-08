@@ -4,9 +4,9 @@ import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import { isNil } from 'ramda';
 import { QuestionBase } from '../../dyn-form/questions/question-base';
 import FormMapper from '../../../mappers/FormMapper';
-import { MainService } from '../../../services/main.service';
 import { Asset } from '../../../models/Asset';
 import TabsFormMapper from '../../../mappers/TabsFormMapper';
+import { MainService } from '../../../../../../../src/app/services/main.service';
 
 /**
  * Modal component used as a single instance for all the application lifecycle that holds the data

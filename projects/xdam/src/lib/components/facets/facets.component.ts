@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, OnChanges } from '@angular/core';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { MainService } from '../../services/main.service';
 import { hasIn } from 'ramda';
+import { MainService } from '../../../../../../src/app/services/main.service';
 
 /**
  * This component lists all the availables facets given by the API server

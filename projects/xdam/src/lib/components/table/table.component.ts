@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { MainService } from '../../../../../../src/app/services/main.service';
 import { faStepBackward, faStepForward, faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { Item } from '../../models/Item';
 import { NgxSmartModalService } from 'ngx-smart-modal';

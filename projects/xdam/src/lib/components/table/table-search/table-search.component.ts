@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { MainService } from '../../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { MainService } from '../../../../../../../src/app/services/main.service';
 
 /**
  * Component that holds the search input for the application and some other buttons and

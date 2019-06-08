@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faDownload, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { MainService } from '../../../services/main.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { saveAs } from 'file-saver';
 import { Item } from '../../../models/Item';
 import { Asset } from '../../../models/Asset';
+import { MainService } from '../../../../../../../src/app/services/main.service';
 
 /**
  * Component used as a item in the table list for displaying the data of the assigned record.
