@@ -1,6 +1,10 @@
-$font_size_small: 10px;
-$font_size_normal: 12px;
-$font_size_medium: 14px;
+@at-root {
+    @import url('https://fonts.googleapis.com/css?family=Lato');
+}
 
-$font_weight_bold: 700;
-$font_weight_normal: normal;
+$font_size_small: 10px !default;
+$font_size_normal: 12px !default;
+$font_size_medium: 14px !default;
+
+$font_weight_bold: 700 !default;
+$font_weight_normal: normal !default;

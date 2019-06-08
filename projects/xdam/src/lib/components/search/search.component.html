@@ -1,13 +1,13 @@
 <div class="search-bar shadow-panel">
     <div class="search-input" *ngIf="input">
         <input type="text" ref="inputSearch" />
-        <button class="dam-btn-base group btn-tool" *ngIf="input.hasSearch">
+        <button class="dam-btn-base group btn-tool" *ngIf="input.search">
             <fa-icon [icon]="faSearch"></fa-icon>
         </button>
-        <button class="dam-btn-base group btn-tool" *ngIf="input.hasReset">
+        <button class="dam-btn-base group btn-tool" *ngIf="input.reset">
             <fa-icon [icon]="faEraser"></fa-icon>
         </button>
-        <button class="dam-btn-base group btn-tool" *ngIf="input.hasClear">
+        <button class="dam-btn-base group btn-tool" *ngIf="input.clear">
             <fa-icon [icon]="faTrash"></fa-icon>
         </button>
     </div>

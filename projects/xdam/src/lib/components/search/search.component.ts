@@ -9,7 +9,7 @@ import { SearchOptions } from '../../models/interfaces/SearchModel.interface';
     styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-    @Input() searchOptions: SearchOptions = null;
+    @Input() settings: SearchOptions = null;
 
     /**@ignore */
     faSearch = faSearch;
@@ -29,8 +29,8 @@ export class SearchComponent implements OnInit {
 
     get input() {
         let result = null;
-        if (!isNil(this.searchOptions) && hasIn('input', this.searchOptions)) {
-            result = this.searchOptions.input;
+        if (!isNil(this.settings) && hasIn('input', this.settings)) {
+            result = this.settings.input;
         }
         return result;
     }
