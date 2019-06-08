@@ -4,11 +4,8 @@
         <button class="dam-btn-base group btn-tool" *ngIf="input.search" (click)="updateSearch()">
             <fa-icon [icon]="faSearch"></fa-icon>
         </button>
-        <button class="dam-btn-base group btn-tool" *ngIf="input.reset">
+        <button class="dam-btn-base group btn-tool" *ngIf="input.reset" (click)="resetSearch()">
             <fa-icon [icon]="faEraser"></fa-icon>
-        </button>
-        <button class="dam-btn-base group btn-tool" *ngIf="input.clear">
-            <fa-icon [icon]="faTrash"></fa-icon>
         </button>
     </div>
     <div class="search-actions" *ngIf="false">
