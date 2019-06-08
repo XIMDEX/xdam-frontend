@@ -66,13 +66,13 @@ export class PaginatorComponent {
     updateLimit(value: number) {
         const params = new SearchModel();
         params.limit = value;
-        this.change.emit(params);
+        this.change.emit(params.only('limit', 'page'));
     }
 
     updatePage(value: number) {
         const params = new SearchModel();
         params.limit = this.perPage.value;
         params.page = value;
-        this.change.emit(params);
+        this.change.emit(params.only('limit', 'page'));
     }
 }

@@ -30,13 +30,14 @@ export class DamComponent implements OnInit, DoCheck {
     elements: Item[] = [];
     search: SearchModel;
     pager: Pager;
-    elementDiffers;
     searchOptions: SearchOptions;
     loading: boolean;
 
+    elementDiffers: any;
+
     /**@ignore */
     constructor(private ngxSmartModalService: NgxSmartModalService, private _iterableDiff: IterableDiffers) {
-        this.elementDiffers = this._iterableDiff.find(this.elements).create(null);
+        this.elementDiffers = this._iterableDiff.find([]).create(null);
     }
 
     /**@ignore */
@@ -56,8 +57,9 @@ export class DamComponent implements OnInit, DoCheck {
     ngDoCheck() {
         if (!isNil(this.items)) {
             const data: any[] = (this.items.data as []) || [];
-            this.preparePager();
-            if (this.elementDiffers.diff(data)) {
+            const change = this.elementDiffers.diff(data);
+            if (change) {
+                this.preparePager();
                 this.perpareData();
             }
         }
@@ -79,10 +81,14 @@ export class DamComponent implements OnInit, DoCheck {
         this.pager = this.items.pager as Pager;
     }
 
-    prepareSearch(parameters: any) {
+    prepareSearch(parameters: SearchModel) {
         if (is(Object, parameters)) {
             this.search.update(parameters);
         }
+        this.sendSearch();
+    }
+
+    sendSearch() {
         this.loading = true;
         this.onSearch.emit(this.search);
     }
