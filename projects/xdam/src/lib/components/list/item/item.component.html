@@ -1,0 +1,22 @@
+<div class="dam-item">
+    <div class="dam-type">{{ type }}</div>
+    <div class="dam-preview">
+        <div class="dam-preview-img">
+            <img class="dam-image" alt="{{ title }}" [src]="img" (error)="imgError()">
+        </div>
+        <div class="dam-preview-title" [title]="title">
+            {{ title }}
+        </div>
+    </div>
+    <div class="dam-item-actions" *ngIf="actions">
+        <button *ngIf="actions.edit" class="dam-btn-base group" title="Edit">
+            <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <button *ngIf="actions.download" class="dam-btn-base group" title="Download">
+            <fa-icon [icon]="faDownload"></fa-icon>
+        </button>
+        <button *ngIf="actions.delete" class="dam-btn-base group" title="Delete">
+            <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+    </div>
+</div>
