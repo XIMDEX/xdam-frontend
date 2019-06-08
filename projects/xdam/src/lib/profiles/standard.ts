@@ -8,6 +8,16 @@ export const standard: XDamSettingsInterface = {
             clear: true
         }
     },
+    pager: {
+        top: {
+            total: true,
+            pager: true,
+            limit: true
+        },
+        bottom: {
+            pager: true
+        }
+    },
     list: {
         items: {
             type: '%s',
