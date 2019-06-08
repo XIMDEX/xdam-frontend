@@ -7,6 +7,7 @@ import { Pager } from 'projects/xdam/src/lib/models/Pager';
 import { PagerModelSchema } from 'projects/xdam/src/lib/models/interfaces/PagerModel.interface';
 import { SearchModel } from 'projects/xdam/src/lib/models/SarchModel';
 import { XDamSettingsInterface } from 'projects/xdam/src/lib/models/interfaces/Settings.interface';
+import { isNil } from 'ramda';
 
 @Component({
     selector: 'app-root',
@@ -29,17 +30,9 @@ export class AppComponent implements OnInit {
     /**@ignore */
     limit = null;
 
-    /**@ignore */
-    search = null;
-
+    search: SearchModel;
     items: XDamData;
-
     settings: XDamSettingsInterface;
-
-    /**
-     * A dict with the current query
-     */
-    query: any = { page: 1, search: '', perPage: 20, lastPage: 1, total: 0 };
 
     /**@ignore */
     page: string;
@@ -59,11 +52,6 @@ export class AppComponent implements OnInit {
      */
     facets = {};
 
-    /**
-     * Property used to show loading component
-     */
-    isLoading = false;
-
     private pagerSchema: PagerModelSchema = {
         total: 'total',
         currentPage: 'page',
@@ -80,26 +68,34 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.imap = this.mainService.itemModel;
         this.settings = this.mainService.getGeneralConfigs();
+        this.search = new SearchModel();
 
-        this.limit = { name: 'limit', value: 20 }; // this.mainConfig.query.limit;
-        this.search = { name: 'name', value: '$' }; // this.mainConfig.query.search;
-        this.page = 'page'; // this.mainConfig.query.page.name;
-        this.query.perPage = 20; // this.mainConfig.query.limit.value;
-        this.mainService.getCurrentPage().subscribe(data => {
-            const oldPage = this.currentPage;
-            this.currentPage = data;
-            if (this.currentPage !== oldPage) {
-                this.getItems();
-            }
-        });
+        this.page = 'page';
+        this.searchTerm = 'name';
+        this.limit = 'limit';
 
-        this.mainService.getSearchTerm().subscribe(data => {
-            const oldSearch = this.searchTerm;
-            this.searchTerm = data;
-            if (this.searchTerm !== oldSearch) {
-                this.getItems();
-            }
-        });
+        this.sendSearch(this.search);
+
+        // this.limit = { name: 'limit', value: 20 }; // this.mainConfig.query.limit;
+        // this.search = { name: 'name', value: '$' }; // this.mainConfig.query.search;
+        // this.page = 'page'; // this.mainConfig.query.page.name;
+        // this.query.perPage = 20; // this.mainConfig.query.limit.value;
+
+        // this.mainService.getCurrentPage().subscribe(data => {
+        //     const oldPage = this.currentPage;
+        //     this.currentPage = data;
+        //     if (this.currentPage !== oldPage) {
+        //         this.getItems();
+        //     }
+        // });
+
+        // this.mainService.getSearchTerm().subscribe(data => {
+        //     const oldSearch = this.searchTerm;
+        //     this.searchTerm = data;
+        //     if (this.searchTerm !== oldSearch) {
+        //         this.getItems();
+        //     }
+        // });
 
         // this.mainService.getActiveItem().subscribe(data => {
         //     this.activeItem = data;
@@ -111,9 +107,9 @@ export class AppComponent implements OnInit {
         //     this.getItems();
         // });
 
-        this.mainService.getReload().subscribe(data => {
-            this.getItems();
-        });
+        // this.mainService.getReload().subscribe(data => {
+        //     this.sendSearch(this.search);
+        // });
     }
 
     /**
@@ -122,9 +118,11 @@ export class AppComponent implements OnInit {
      */
     getItems() {
         let params = new HttpParams();
-        params = params.append(this.page, String(this.currentPage));
-        params = params.append(this.search.name, this.search.value.replace('$', this.searchTerm));
-        params = params.append(this.limit.name, String(this.query.perPage));
+        params = params.append(this.page, String(this.search.page));
+        if (!isNil(this.search.content)) {
+            params = params.append(this.searchTerm, this.search.content);
+        }
+        params = params.append(this.limit, String(this.search.limit));
 
         // TODO CHANGE FACETS @atovar
         // if (!isNil(this.activeFacets)) {
@@ -133,13 +131,9 @@ export class AppComponent implements OnInit {
         //     }
         // }
 
-        this.isLoading = true;
         this.mainService.list(params).subscribe(
             response => {
                 if (response.hasOwnProperty('pager')) {
-                    this.query.perPage = response['pager'].per_page;
-                    this.query.lastPage = response['pager'].pages;
-                    this.query.total = response['pager'].total;
                     this.facets = response['facets'];
                     this.items = {
                         data: response['docs'],
@@ -147,14 +141,12 @@ export class AppComponent implements OnInit {
                     };
                 }
             },
-            err => console.error(err),
-            () => (this.isLoading = false)
+            err => console.error(err)
         );
     }
 
     sendSearch(data: SearchModel) {
-        this.query.perPage = data.limit;
-        this.currentPage = data.page;
+        this.search.update(data);
         this.getItems();
     }
 }
