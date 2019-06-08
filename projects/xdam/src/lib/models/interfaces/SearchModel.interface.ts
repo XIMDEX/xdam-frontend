@@ -8,7 +8,7 @@ export interface SearchOptions {
 }
 
 export interface SearchInputOptions {
-    hasSearch?: boolean;
-    hasReset?: boolean;
-    hasClear?: boolean;
+    search?: boolean;
+    reset?: boolean;
+    clear?: boolean;
 }
