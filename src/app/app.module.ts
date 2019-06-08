@@ -4,15 +4,9 @@ import { AppComponent } from './app.component';
 import { XDamModule } from 'projects/xdam/src/public_api';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    XDamModule,
-    BrowserModule
-  ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [XDamModule, BrowserModule],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
