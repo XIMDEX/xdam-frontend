@@ -7,8 +7,7 @@ import { TextboxQuestion } from '../components/dyn-form/questions/question-textb
 import { DepDropQuestion } from '../components/dyn-form/questions/question-depdrop';
 import { QuestionBase } from '../components/dyn-form/questions/question-base';
 import { TextAreaQuestion } from '../components/dyn-form/questions/question-textarea';
-import { MainService } from '../services/main.service';
-import { Asset } from '../models/Asset';
+import { MainService } from '../../../../../src/app/services/main.service';
 
 /**
  * This class extracts and maps data about the additional form
