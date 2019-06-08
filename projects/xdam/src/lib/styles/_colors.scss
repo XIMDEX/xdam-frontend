@@ -1,8 +1,10 @@
-$actions_color: #009e92;
-$action_font_color: #ffffff;
-$action_font_color_alt: #009e92;
-$actions_color_alt: #ffffff;
+$actions_color: #009e92 !default;
+$action_font_color: #ffffff !default;
+$action_font_color_alt: #009e92 !default;
+$actions_color_alt: #ffffff !default;
 
-$search_bar_bg_color: #ffffff;
+$search_bar_bg_color: #ffffff !default;
 
-$input_bg_color: #f9fafb;
+$input_bg_color: #f9fafb !default;
+
+$list_item_bg_color: #ffffff !default;
