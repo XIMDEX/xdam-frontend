@@ -26,6 +26,7 @@ import { DynTabformComponent } from './components/dyn-tabform/dyn-tabform.compon
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ListComponent } from './components/list/list.component';
 import { ItemComponent } from './components/list/item/item.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
     imports: [
@@ -54,7 +55,8 @@ import { ItemComponent } from './components/list/item/item.component';
         DynTabformComponent,
         PaginatorComponent,
         ListComponent,
-        ItemComponent
+        ItemComponent,
+        FooterComponent
     ],
     exports: [DamComponent]
 })

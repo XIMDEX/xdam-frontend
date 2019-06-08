@@ -1,6 +1,6 @@
 import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { hasIn, isNil } from 'ramda';
+import { hasIn, isNil, isEmpty } from 'ramda';
 import { SearchOptions } from '../../models/interfaces/SearchModel.interface';
 /**@ignore */
 import { SearchModel } from '../../models/SarchModel';
@@ -46,6 +46,16 @@ export class SearchComponent implements OnInit {
             params.content = this.content;
             this.search.emit(params.only('content', 'page'));
             this.lastContent = this.content;
+        }
+    }
+
+    resetSearch() {
+        if (!isEmpty(this.lastContent) && !isNil(this.lastContent)) {
+            const params = new SearchModel();
+            this.search.emit(params.only('content', 'page'));
+            this.lastContent = this.content = '';
+        } else {
+            this.content = '';
         }
     }
 }
