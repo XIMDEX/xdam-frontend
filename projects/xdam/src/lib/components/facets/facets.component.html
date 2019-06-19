@@ -10,7 +10,7 @@
             *ngFor="let facet of data"
             [data]="facet"
             [value]="facets[facet.key]"
-            [withDefualt]="first"
+            [withDefault]="first"
             [open]="isOpenFacet(facet.key)"
             (onChange)="setFacets($event)"
         ></xdam-facet>

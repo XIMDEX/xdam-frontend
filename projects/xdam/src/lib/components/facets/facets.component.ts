@@ -1,6 +1,16 @@
-import { hasIn } from 'ramda';
+import { hasIn, isNil } from 'ramda';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, HostBinding, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    Input,
+    Output,
+    EventEmitter,
+    OnChanges,
+    SimpleChanges,
+    ChangeDetectorRef
+} from '@angular/core';
 import { SearchModel } from '../../models/SarchModel';
 
 @Component({
@@ -19,14 +29,14 @@ export class FacetsComponent implements OnInit, OnChanges {
     protected openFacets = [];
     protected first = true;
 
-    constructor() {}
+    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (hasIn('data', changes)) {
             let start = changes.data.isFirstChange();
-            if (!start) {
+            if (!isNil(changes.data.previousValue)) {
                 start = (changes.data.previousValue as any[]).length === 0;
             }
             this.first = start;
@@ -61,6 +71,7 @@ export class FacetsComponent implements OnInit, OnChanges {
 
         const params = new SearchModel();
         params.facets = this.facets;
+        this.cdr.detectChanges();
 
         if (emit) {
             this.onChange.emit(params.only('facets', 'page'));
