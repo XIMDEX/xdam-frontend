@@ -1,5 +1,8 @@
+import { ItemModel } from './ItemModel.interface';
+
 export interface ListOptions {
     items?: ListItemOption;
+    model?: ItemModel;
 }
 
 export interface ListItemOption {

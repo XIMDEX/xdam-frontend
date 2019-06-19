@@ -17,8 +17,7 @@ import { TableComponent } from './components/table/table.component';
 import { TableSearchComponent } from './components/table/table-search/table-search.component';
 import { TableItemComponent } from './components/table/table-item/table-item.component';
 import { FacetsComponent } from './components/facets/facets.component';
-import { FacetComponent } from './components/facets-old/facet/facet.component';
-import { LoadingComponent } from './components/loading/loading.component';
+import { FacetComponent } from './components/facets/facet/facet.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TabComponent } from './components/tabs/tab.component';
 import { DynTabformComponent } from './components/dyn-tabform/dyn-tabform.component';
@@ -26,6 +25,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ListComponent } from './components/list/list.component';
 import { ItemComponent } from './components/list/item/item.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @NgModule({
     imports: [
@@ -36,7 +36,14 @@ import { FooterComponent } from './components/footer/footer.component';
         NgxSmartModalModule.forRoot(),
         DynFormModule,
         NgSelectModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxLoadingModule.forRoot({
+            animationType: ngxLoadingAnimationTypes.circleSwish,
+            backdropBackgroundColour: 'rgba(0, 0, 0, 0.5)',
+            primaryColour: '#00a397',
+            secondaryColour: '#00a397',
+            tertiaryColour: '#00a397'
+        })
     ],
     providers: [MainService, NgxSmartModalService],
     declarations: [
@@ -48,7 +55,6 @@ import { FooterComponent } from './components/footer/footer.component';
         AssetsModalComponent,
         FacetsComponent,
         FacetComponent,
-        LoadingComponent,
         TabsComponent,
         TabComponent,
         DynTabformComponent,

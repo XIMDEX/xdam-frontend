@@ -1,5 +1,6 @@
 export interface SearchModel {
     content?: string;
+    facets?: any;
     limit?: number;
     page?: number;
 }
