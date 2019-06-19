@@ -1,3 +1,4 @@
+import { FacetModel } from './../FacetModel';
 import { PagerModel } from './PagerModel.interface';
 
 export interface ItemModel {
@@ -13,4 +14,5 @@ export interface ItemModel {
 export interface XDamData {
     data: ItemModel[] | any[];
     pager?: PagerModel;
+    facets?: FacetModel[] | any[];
 }

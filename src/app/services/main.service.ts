@@ -103,14 +103,6 @@ export class MainService {
     }
 
     /**
-     * Get the mappers between api model and front model.
-     * @returns {Object} The models dict
-     */
-    get itemModel() {
-        return this.router.itemModel;
-    }
-
-    /**
      * Gets general profile configs from the active profile.
      */
     getGeneralConfigs() {

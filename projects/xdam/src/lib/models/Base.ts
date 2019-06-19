@@ -1,4 +1,4 @@
-import { hasIn } from 'ramda';
+import { hasIn, isNil } from 'ramda';
 
 export default class BaseModel {
     get(setting: string): any {
@@ -28,15 +28,17 @@ export default class BaseModel {
     }
 
     update(params: any) {
-        Object.keys(params).forEach(key => {
-            let method = key;
-            if (key.startsWith('_')) {
-                method = method.slice(1);
-            }
+        if (!isNil(params)) {
+            Object.keys(params).forEach(key => {
+                let method = key;
+                if (key.startsWith('_')) {
+                    method = method.slice(1);
+                }
 
-            if (hasIn(method, this)) {
-                this[method] = params[key];
-            }
-        });
+                if (hasIn(method, this)) {
+                    this[method] = params[key];
+                }
+            });
+        }
     }
 }
