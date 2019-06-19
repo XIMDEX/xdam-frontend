@@ -31,19 +31,6 @@ export default class RouterMapper {
     private _token = '';
 
     /**
-     * The backend to frontend model mappers
-     */
-    private _itemModel: ItemModel = {
-        id: 'id',
-        title: 'title',
-        hash: 'hash',
-        size: 'size',
-        type: 'type',
-        image: 'image',
-        context: 'context'
-    };
-
-    /**
      * The base parameters for all queries
      */
     private _baseParams = null;
@@ -86,24 +73,16 @@ export default class RouterMapper {
     }
 
     /**@ignore */
-    set itemModel(itemModel: ItemModel | null) {
-        this._itemModel = { ...this._itemModel, ...itemModel };
-    }
-
-    /**@ignore */
-    get itemModel(): ItemModel | null {
-        return this._itemModel;
-    }
-
-    /**@ignore */
     set baseParams(baseParams) {
         this._baseParams = baseParams;
     }
 
     /**@ignore */
     getBaseParams(params: HttpParams) {
-        for (const key of Object.keys(this._baseParams)) {
-            params = params.append(key, String(this.baseParams[key]));
+        if (!isNil(this._baseParams)) {
+            for (const key of Object.keys(this._baseParams)) {
+                params = params.append(key, String(this.baseParams[key]));
+            }
         }
         return params;
     }
@@ -128,7 +107,6 @@ export default class RouterMapper {
         this.baseUrl = xdam.base_url;
         this.token = xdam.token;
         this.routes = xdam.endpoints;
-        this.itemModel = xdam.item_model;
         this.baseParams = xdam.base_params;
     }
 

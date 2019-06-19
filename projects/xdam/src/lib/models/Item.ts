@@ -2,11 +2,13 @@
 import { isNil, hasIn } from 'ramda';
 import { ItemModel } from './interfaces/ItemModel.interface';
 import RouterMapper from '../../../../../src/app/mappers/RouterMapper';
+import { standard } from '../profiles/standard';
+import BaseModel from './Base';
 
 /**
  * The item model used by the table component to show info about every single resource.
  */
-export class Item {
+export class Item extends BaseModel {
     /**
      * The id of the resource
      */
@@ -36,15 +38,12 @@ export class Item {
 
     /**@ignore */
     constructor(item: any = null, schema: ItemModel | null = null) {
+        super();
         if (isNil(schema)) {
-            schema = new RouterMapper().itemModel;
+            schema = standard.list.model;
         }
         if (!isNil(item)) {
-            for (let method of Object.keys(schema)) {
-                if (hasIn(method, this)) {
-                    this[method] = item[schema[method]];
-                }
-            }
+            this.update(this.prepareData(item, schema));
         }
     }
 
@@ -94,5 +93,21 @@ export class Item {
     }
     get context(): string {
         return this._context;
+    }
+
+    protected prepareData(data: {}, schema: ItemModel) {
+        const result = {};
+        for (let key of Object.keys(schema)) {
+            const itemKey = schema[key];
+            if (hasIn(itemKey, data)) {
+                result[key] = data[itemKey];
+            } else if (isNil(itemKey)) {
+                result[key] = null;
+            } else {
+                throw new Error(`Invalid item data, key ${key} is required, please check your Item model settings`);
+            }
+        }
+
+        return result;
     }
 }
