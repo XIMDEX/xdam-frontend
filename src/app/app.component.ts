@@ -52,12 +52,14 @@ export class AppComponent implements OnInit {
      */
     facets = {};
 
+    default = true;
+
     private pagerSchema: PagerModelSchema = {
         total: 'total',
-        currentPage: 'page',
-        lastPage: 'pages',
-        nextPage: 'prev',
-        prevPage: 'next',
+        currentPage: 'current_page',
+        lastPage: 'last_page',
+        nextPage: 'next_page',
+        prevPage: 'prev_page',
         perPage: {
             value: 'per_page'
         }
@@ -66,50 +68,14 @@ export class AppComponent implements OnInit {
     constructor(private mainService: MainService, private cdRef: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.imap = this.mainService.itemModel;
         this.settings = this.mainService.getGeneralConfigs();
         this.search = new SearchModel();
 
         this.page = 'page';
-        this.searchTerm = 'name';
+        this.searchTerm = 'search';
         this.limit = 'limit';
 
         this.sendSearch(this.search);
-
-        // this.limit = { name: 'limit', value: 20 }; // this.mainConfig.query.limit;
-        // this.search = { name: 'name', value: '$' }; // this.mainConfig.query.search;
-        // this.page = 'page'; // this.mainConfig.query.page.name;
-        // this.query.perPage = 20; // this.mainConfig.query.limit.value;
-
-        // this.mainService.getCurrentPage().subscribe(data => {
-        //     const oldPage = this.currentPage;
-        //     this.currentPage = data;
-        //     if (this.currentPage !== oldPage) {
-        //         this.getItems();
-        //     }
-        // });
-
-        // this.mainService.getSearchTerm().subscribe(data => {
-        //     const oldSearch = this.searchTerm;
-        //     this.searchTerm = data;
-        //     if (this.searchTerm !== oldSearch) {
-        //         this.getItems();
-        //     }
-        // });
-
-        // this.mainService.getActiveItem().subscribe(data => {
-        //     this.activeItem = data;
-        //     this.onSelect.emit(data);
-        // });
-
-        // this.mainService.getActiveFacets().subscribe(data => {
-        //     this.activeFacets = data;
-        //     this.getItems();
-        // });
-
-        // this.mainService.getReload().subscribe(data => {
-        //     this.sendSearch(this.search);
-        // });
     }
 
     /**
@@ -122,24 +88,25 @@ export class AppComponent implements OnInit {
         if (!isNil(this.search.content)) {
             params = params.append(this.searchTerm, this.search.content);
         }
+        if (!isNil(this.search.facets)) {
+            Object.keys(this.search.facets).forEach(index => {
+                const value = this.search.facets[index];
+                params = params.append(`facets[${index}]`, value.join(','));
+            });
+        }
+        params = params.append('default', this.default ? '1' : '0');
         params = params.append(this.limit, String(this.search.limit));
 
-        // TODO CHANGE FACETS @atovar
-        // if (!isNil(this.activeFacets)) {
-        //     for (const key of Object.keys(this.activeFacets)) {
-        //         params = params.append(key, this.activeFacets[key]);
-        //     }
-        // }
+        this.default = false;
 
         this.mainService.list(params).subscribe(
             response => {
-                if (response.hasOwnProperty('pager')) {
-                    this.facets = response['facets'];
-                    this.items = {
-                        data: response['docs'],
-                        pager: new Pager(response['pager'], this.pagerSchema)
-                    };
-                }
+                const { data } = response as any;
+                this.items = {
+                    data: data['data'],
+                    pager: new Pager(data, this.pagerSchema),
+                    facets: data['facets']
+                };
             },
             err => console.error(err)
         );
