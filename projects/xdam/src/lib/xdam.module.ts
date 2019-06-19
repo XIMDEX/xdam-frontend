@@ -13,9 +13,6 @@ import { DamComponent } from './components/dam.component';
 import { DynFormModule } from './components/dyn-form/dyn-form.module';
 import { SearchComponent } from './components/search/search.component';
 import { AssetsModalComponent } from './components/modals/assets-modal/assets-modal.component';
-import { TableComponent } from './components/table/table.component';
-import { TableSearchComponent } from './components/table/table-search/table-search.component';
-import { TableItemComponent } from './components/table/table-item/table-item.component';
 import { FacetsComponent } from './components/facets/facets.component';
 import { FacetComponent } from './components/facets/facet/facet.component';
 import { TabsComponent } from './components/tabs/tabs.component';
@@ -49,9 +46,6 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
     declarations: [
         DamComponent,
         SearchComponent,
-        TableComponent,
-        TableSearchComponent,
-        TableItemComponent,
         AssetsModalComponent,
         FacetsComponent,
         FacetComponent,
