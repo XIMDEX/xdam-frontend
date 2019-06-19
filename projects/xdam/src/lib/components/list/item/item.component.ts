@@ -3,6 +3,7 @@ import { sprintf } from 'sprintf-js';
 
 import { ListItemOption, ListItemActions } from '../../../models/interfaces/ListOptions.interface';
 import { Item } from '../../../models/Item';
+import { hasIn } from 'ramda';
 import { faDownload, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -41,6 +42,13 @@ export class ItemComponent {
     }
 
     imgError() {
-        this.img = this.settings.placeholder[this.item.type.toLowerCase()];
+        let image = null;
+        if (hasIn(this.item.type.toLowerCase(), this.settings.placeholder)) {
+            image = this.settings.placeholder[this.item.type.toLowerCase()];
+        } else if (hasIn('default', this.settings.placeholder)) {
+            image = this.settings.placeholder['default'];
+        }
+
+        this.img = image;
     }
 }

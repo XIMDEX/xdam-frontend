@@ -1,6 +1,7 @@
 import { XDamSettingsInterface } from '../models/interfaces/Settings.interface';
 
 export const standard: XDamSettingsInterface = {
+    facets: true,
     search: {
         input: {
             search: true,
@@ -19,6 +20,15 @@ export const standard: XDamSettingsInterface = {
         }
     },
     list: {
+        model: {
+            id: 'id',
+            title: 'title',
+            hash: 'hash',
+            size: 'size',
+            type: 'type',
+            image: 'image',
+            context: 'context'
+        },
         items: {
             type: '%s',
             title: '%s',
@@ -27,7 +37,7 @@ export const standard: XDamSettingsInterface = {
                 audio: 'https://via.placeholder.com/200/ef680e/ffffff?text=Audio',
                 video: 'https://via.placeholder.com/200/af8282/ffffff?text=Video',
                 pdf: 'https://via.placeholder.com/200/5273a8/ffffff?text=pdf',
-                other: 'https://via.placeholder.com/200/5ab1c9/ffffff?text=Other'
+                default: 'https://via.placeholder.com/200/5ab1c9/ffffff?text=Other'
             },
             actions: {
                 edit: true,
