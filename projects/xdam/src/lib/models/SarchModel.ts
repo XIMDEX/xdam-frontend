@@ -4,6 +4,7 @@ import BaseModel from './Base';
 
 export class SearchModel extends BaseModel implements SearchModelI {
     private _content = '';
+    private _facets = {};
     private _limit = 20;
     private _page = 1;
 
@@ -13,6 +14,13 @@ export class SearchModel extends BaseModel implements SearchModelI {
 
     get content(): string | null {
         return this._content;
+    }
+
+    set facets(facets: any | null) {
+        this._facets = facets;
+    }
+    get facets(): any | null {
+        return this._facets;
     }
 
     set limit(limit: number | null) {

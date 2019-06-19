@@ -1,6 +1,7 @@
+import { ListOptions } from './ListOptions.interface';
+
 import { ItemModel } from './ItemModel.interface';
 import { SearchOptions } from './SearchModel.interface';
-import { ListOptions } from './ListOptions.interface';
 import { PagerOptions } from './PagerOptions.interface';
 
 export interface Settings {
@@ -21,4 +22,5 @@ export interface XDamSettingsInterface {
     search?: SearchOptions;
     pager?: PagerOptions;
     list?: ListOptions;
+    facets?: boolean;
 }

@@ -1,0 +1,13 @@
+<div class="facet-title" (click)="toggle()">
+    <span>{{ label }}</span>
+    <fa-icon [icon]="titleIcon"></fa-icon>
+</div>
+<div class="facet-options" *ngIf="isOpen">
+    <ng-container *ngFor="let value of values | keyvalue">
+        <div class="facet-option" [title]="value.key" (click)="selectFacet(value.key)">
+            <input type="checkbox" [checked]="isSelected(value.key)" />
+            <span class="facet-option-label">{{ value.key }}</span>
+            <span class="facet-option-value">({{ value.value }})</span>
+        </div>
+    </ng-container>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input, DoCheck, IterableDiffers } from '@angular/core';
+import { FacetModel } from './../models/FacetModel';
+import { Component, OnInit, Output, EventEmitter, Input, DoCheck, IterableDiffers, HostBinding } from '@angular/core';
 import { isNil, hasIn, is } from 'ramda';
 import { Item } from '../models/Item';
 import { NgxSmartModalService } from 'ngx-smart-modal';
@@ -23,12 +24,15 @@ export class DamComponent implements OnInit, DoCheck {
 
     @Output() onSearch = new EventEmitter<any>();
 
+    @HostBinding('class.dam-main') readonly baseClass = true;
+
     /**
      * The active item currently selected
      */
     activeItem = null;
     elements: Item[] = [];
     search: SearchModel;
+    facets: FacetModel[] = [];
     pager: Pager;
     searchOptions: SearchOptions;
     loading: boolean;
@@ -72,7 +76,9 @@ export class DamComponent implements OnInit, DoCheck {
     perpareData() {
         let result = [];
 
-        result = (this.items.data as [ItemModel?]).map(item => new Item(item));
+        result = (this.items.data as [ItemModel?]).map(item => new Item(item, this.settings.list.model || null));
+
+        this.facets = (this.items.facets as FacetModel[]).map(facet => new FacetModel(facet));
         this.elements = result;
         this.loading = false;
     }
