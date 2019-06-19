@@ -1,5 +1,5 @@
 import { FacetModel } from './../models/FacetModel';
-import { Component, OnInit, Output, EventEmitter, Input, DoCheck, IterableDiffers, HostBinding } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
 import { isNil, hasIn, is } from 'ramda';
 import { Item } from '../models/Item';
 import { NgxSmartModalService } from 'ngx-smart-modal';
@@ -18,7 +18,7 @@ import { XDamSettings } from '../models/XdamSettings';
     templateUrl: './dam.component.html',
     styleUrls: ['./dam.component.scss']
 })
-export class DamComponent implements OnInit, DoCheck {
+export class DamComponent implements OnInit, OnChanges {
     @Input() items: XDamData;
     @Input() settings: XDamSettings;
 
@@ -40,9 +40,7 @@ export class DamComponent implements OnInit, DoCheck {
     elementDiffers: any;
 
     /**@ignore */
-    constructor(private ngxSmartModalService: NgxSmartModalService, private _iterableDiff: IterableDiffers) {
-        this.elementDiffers = this._iterableDiff.find([]).create(null);
-    }
+    constructor(private ngxSmartModalService: NgxSmartModalService) {}
 
     /**@ignore */
     ngOnInit() {
@@ -54,18 +52,14 @@ export class DamComponent implements OnInit, DoCheck {
         }
 
         if (!isNil(this.items) && hasIn('pager', this.items) && !isNil(this.items.pager)) {
-            this.perpareData();
+            this.preparePager();
         }
     }
 
-    ngDoCheck() {
-        if (!isNil(this.items)) {
-            const data: any[] = (this.items.data as []) || [];
-            const change = this.elementDiffers.diff(data);
-            if (change) {
-                this.preparePager();
-                this.perpareData();
-            }
+    ngOnChanges(changes: SimpleChanges): void {
+        if (hasIn('items', changes) && !changes.items.isFirstChange()) {
+            this.preparePager();
+            this.perpareData();
         }
     }
 

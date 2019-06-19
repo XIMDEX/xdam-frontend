@@ -12,7 +12,7 @@ export class FacetComponent implements OnInit, OnChanges {
     @Input() data: FacetModel;
     @Input() value: any[];
     @Input() open: boolean = false;
-    @Input() withDefualt: boolean = true;
+    @Input() withDefault: boolean = true;
 
     @Output() onChange = new EventEmitter<any>();
 
@@ -26,10 +26,6 @@ export class FacetComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (hasIn('value', changes) && !changes.value.isFirstChange()) {
-            this.prepareValues();
-        }
-
         if (hasIn('open', changes)) {
             this.isOpen = this.open;
         }
@@ -82,10 +78,11 @@ export class FacetComponent implements OnInit, OnChanges {
     }
 
     protected prepareValues() {
-        const defaultValue = [];
-        if (this.withDefualt && !isNil(this.data.default)) {
-            defaultValue.push(this.data.default);
+        this.selectedValues = is(Array, this.value) ? this.value : [];
+        if (this.withDefault && !isNil(this.data.default)) {
+            this.selectedValues.push(this.data.default);
+            this.isOpen = true;
+            this.selectFacet(null, false);
         }
-        this.selectedValues = is(Array, this.value) ? this.value : defaultValue;
     }
 }
