@@ -17,12 +17,12 @@
             display: block;
             padding: 6px 8px;
             background-color: $actions_color;
-            color: $action_font_color;
+            color: $actions_font_color;
             font-size: $font_size_normal;
 
             > strong {
                 min-width: 10px;
-                color: $action_font_color_alt;
+                color: $actions_font_color_alt;
                 background-color: $actions_color_alt;
                 padding: 2px;
                 border-radius: $base_border_radius;
@@ -46,7 +46,7 @@
                 cursor: pointer;
                 padding: 6px 8px;
                 background-color: $actions_color_alt;
-                color: $action_font_color_alt;
+                color: $actions_font_color_alt;
 
                 > span {
                     font-size: $font_size_medium;
@@ -55,7 +55,7 @@
 
                 &.active {
                     background-color: $actions_color;
-                    color: $action_font_color;
+                    color: $actions_font_color;
                 }
 
                 &:first-child {

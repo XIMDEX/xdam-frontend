@@ -3,6 +3,7 @@ export interface SearchModel {
     facets?: any;
     limit?: number;
     page?: number;
+    reload?: boolean;
 }
 
 export interface SearchOptions {
