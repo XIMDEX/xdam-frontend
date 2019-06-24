@@ -1,3 +1,5 @@
+@import './borders';
+
 @import url('~ngx-smart-modal/ngx-smart-modal.css');
 @import url('~@ng-select/ng-select/themes/default.theme.css');
 
@@ -54,7 +56,8 @@ select {
     border-radius: 3px;
 }
 
-.dam-btn-base {
+.dam-btn-base,
+.xdam-btn-base {
     display: inline-block;
     height: 28px;
     padding: 0 8px;
@@ -63,12 +66,20 @@ select {
     padding: 0 10px;
     border: unset;
 
-    &.group:first-child {
-        border-right: unset;
+    &:not(.group) {
+        border-radius: $input_border_radius;
     }
 
-    &.group:last-child {
+    &.group:first-of-type {
+        border-right: unset;
+        border-top-left-radius: $input_border_radius;
+        border-bottom-left-radius: $input_border_radius;
+    }
+
+    &.group:last-of-type {
         border-left: unset;
+        border-top-right-radius: $input_border_radius;
+        border-bottom-right-radius: $input_border_radius;
     }
 
     &:active,
