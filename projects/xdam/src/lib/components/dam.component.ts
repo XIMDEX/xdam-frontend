@@ -1,10 +1,9 @@
+import { Pager } from './../models/Pager';
+import { Item } from './../models/Item';
 import { FacetModel } from './../models/FacetModel';
 import { Component, OnInit, Output, EventEmitter, Input, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
 import { isNil, hasIn, is } from 'ramda';
-import { Item } from '../models/Item';
-import { NgxSmartModalService } from 'ngx-smart-modal';
 import { XDamData, ItemModel } from '../models/interfaces/ItemModel.interface';
-import { Pager } from '../models/Pager';
 import { SearchModel } from '../models/SarchModel';
 import { SearchOptions } from '../models/interfaces/SearchModel.interface';
 import { XDamSettings } from '../models/XdamSettings';
@@ -23,6 +22,8 @@ export class DamComponent implements OnInit, OnChanges {
     @Input() settings: XDamSettings;
 
     @Output() onSearch = new EventEmitter<any>();
+    @Output() onDelete = new EventEmitter<Item>();
+    @Output() onDownload = new EventEmitter<Item>();
 
     @HostBinding('class.dam-main') readonly baseClass = true;
 
@@ -40,12 +41,11 @@ export class DamComponent implements OnInit, OnChanges {
     elementDiffers: any;
 
     /**@ignore */
-    constructor(private ngxSmartModalService: NgxSmartModalService) {}
+    constructor() {}
 
     /**@ignore */
     ngOnInit() {
         this.loading = true;
-        this.search = new SearchModel();
 
         if (!isNil(this.items) && hasIn('data', this.items) && this.items.data.length > 0) {
             this.perpareData();
@@ -73,8 +73,22 @@ export class DamComponent implements OnInit, OnChanges {
         result = (this.items.data as [ItemModel?]).map(item => new Item(item, this.settings.list.model || null));
 
         this.facets = (this.items.facets as FacetModel[]).map(facet => new FacetModel(facet));
+        this.initSearch(this.facets);
         this.elements = result;
         this.loading = false;
+    }
+
+    initSearch(facets: FacetModel[]) {
+        if (isNil(this.search)) {
+            const defFacet = {};
+            facets.forEach(facet => {
+                if (hasIn('default', facet) && !isNil(facet.default)) {
+                    defFacet[facet.key] = [facet.default];
+                }
+            });
+            this.search = new SearchModel();
+            this.search.facets = defFacet;
+        }
     }
 
     preparePager() {
@@ -85,11 +99,23 @@ export class DamComponent implements OnInit, OnChanges {
         if (is(Object, parameters)) {
             this.search.update(parameters);
         }
-        this.sendSearch();
+
+        if (parameters.reload) {
+            this.sendSearch();
+        }
     }
 
     sendSearch() {
         this.loading = true;
         this.onSearch.emit(this.search);
+    }
+
+    deleteItem(item: Item) {
+        this.loading = true;
+        this.onDelete.emit(item);
+    }
+
+    downloadItem(item: Item) {
+        this.onDownload.emit(item);
     }
 }

@@ -1,1 +1,7 @@
-<xdam-main [settings]="settings" [items]="items" (onSearch)="sendSearch($event)"></xdam-main>
+<xdam-main
+    [settings]="settings"
+    [items]="items"
+    (onSearch)="sendSearch($event)"
+    (onDelete)="deleteItem($event)"
+    (onDownload)="downloadItem($event)"
+></xdam-main>

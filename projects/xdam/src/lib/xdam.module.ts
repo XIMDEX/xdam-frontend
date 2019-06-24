@@ -23,6 +23,7 @@ import { ListComponent } from './components/list/list.component';
 import { ItemComponent } from './components/list/item/item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
     imports: [
@@ -40,6 +41,22 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
             primaryColour: '#00a397',
             secondaryColour: '#00a397',
             tertiaryColour: '#00a397'
+        }),
+        SweetAlert2Module.forRoot({
+            customClass: {
+                container: 'xdam-modal-container',
+                popup: 'xdam-modal',
+                header: 'xdam-modal-header',
+                title: 'xdam-modal-title',
+                closeButton: 'xdam-modal-close-button',
+                image: 'xdam-modal-image',
+                content: 'xdam-modal-content',
+                input: 'xdam-input',
+                actions: 'xdam-modal-actions',
+                confirmButton: 'xdam-btn-base confirm',
+                cancelButton: 'xdam-btn-base cancel',
+                footer: 'xdam-modal-footer'
+            }
         })
     ],
     providers: [MainService, NgxSmartModalService],

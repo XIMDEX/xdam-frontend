@@ -238,7 +238,7 @@ export class MainService {
      * @param id The resource ID
      * @returns {Observable} The response as a observable
      */
-    deleteResource(id) {
+    delete(id) {
         const url = this.getRoute('delete', this.endPoint);
         return this.http.delete(url + '/' + id, { headers: this.httpOptions.headers });
     }
