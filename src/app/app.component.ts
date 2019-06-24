@@ -1,3 +1,4 @@
+import { Item } from './../../projects/xdam/src/lib/models/Item';
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { MainService } from './services/main.service';
@@ -51,7 +52,6 @@ export class AppComponent implements OnInit {
      * An array of all available facets
      */
     facets = {};
-
     default = true;
 
     private pagerSchema: PagerModelSchema = {
@@ -115,5 +115,35 @@ export class AppComponent implements OnInit {
     sendSearch(data: SearchModel) {
         this.search.update(data);
         this.getItems();
+    }
+
+    downloadItem(item: Item) {
+        this.mainService.downloadResource(item.id).subscribe(
+            response => {
+                const url = window.URL.createObjectURL(response);
+                const downloadFile = document.createElement('a');
+                document.body.appendChild(downloadFile);
+
+                downloadFile.style.display = 'none';
+                downloadFile.href = url;
+                downloadFile.download = item.title;
+                downloadFile.click();
+                downloadFile.remove();
+
+                window.URL.revokeObjectURL(url);
+            },
+            err => console.error(err)
+        );
+    }
+
+    deleteItem(item: Item) {
+        this.mainService.delete(item.id).subscribe(
+            response => {
+                const { data } = response as any;
+                console.warn(data);
+                this.getItems();
+            },
+            err => console.error(err)
+        );
     }
 }

@@ -14,7 +14,12 @@
             ></xdam-paginator>
         </div>
         <div class="dam-list">
-            <xdam-list [items]="elements" [settings]="settings.list"></xdam-list>
+            <xdam-list
+                [items]="elements"
+                [settings]="settings.list"
+                (delete)="deleteItem($event)"
+                (download)="downloadItem($event)"
+            ></xdam-list>
         </div>
         <xdam-paginator
             *ngIf="pager && settings.pager.bottom"

@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { sprintf } from 'sprintf-js';
 
 import { ListItemOption, ListItemActions } from '../../../models/interfaces/ListOptions.interface';
 import { Item } from '../../../models/Item';
 import { hasIn } from 'ramda';
 import { faDownload, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
     selector: 'xdam-item',
@@ -18,6 +19,9 @@ export class ItemComponent {
 
     @Input() item: Item;
     @Input() settings: ListItemOption;
+
+    @Output() delete = new EventEmitter<Item>();
+    @Output() download = new EventEmitter<Item>();
 
     constructor() {}
 
@@ -41,6 +45,20 @@ export class ItemComponent {
         return this.settings.actions;
     }
 
+    get deleteModal(): SweetAlertOptions {
+        return {
+            title: 'Confirm Deletion',
+            html: `<div class="xdam-bold">${
+                this.title
+            }</div><span>Are you sure you want to permanently remove this item?</span>`,
+            type: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            allowEnterKey: false,
+            focusConfirm: false
+        };
+    }
+
     imgError() {
         let image = null;
         if (hasIn(this.item.type.toLowerCase(), this.settings.placeholder)) {
@@ -50,5 +68,15 @@ export class ItemComponent {
         }
 
         this.img = image;
+    }
+
+    deleteItem(confirm: boolean) {
+        if (confirm) {
+            this.delete.emit(this.item);
+        }
+    }
+
+    downloadItem() {
+        this.download.emit(this.item);
     }
 }
