@@ -7,6 +7,7 @@ export class SearchModel extends BaseModel implements SearchModelI {
     private _facets = {};
     private _limit = 20;
     private _page = 1;
+    private _reload = true;
 
     set content(content: string | null) {
         this._content = content;
@@ -41,5 +42,12 @@ export class SearchModel extends BaseModel implements SearchModelI {
     }
     get page(): number | null {
         return this._page;
+    }
+
+    set reload(reload: boolean | null) {
+        this._reload = reload;
+    }
+    get reload(): boolean | null {
+        return this._reload;
     }
 }

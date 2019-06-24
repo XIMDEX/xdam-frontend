@@ -44,7 +44,8 @@ export class SearchComponent implements OnInit {
         if (this.lastContent !== this.content && !isNil(this.content)) {
             const params = new SearchModel();
             params.content = this.content;
-            this.search.emit(params.only('content', 'page'));
+            params.reload = true;
+            this.search.emit(params.only('content', 'page', 'reload'));
             this.lastContent = this.content;
         }
     }
@@ -52,7 +53,8 @@ export class SearchComponent implements OnInit {
     resetSearch() {
         if (!isEmpty(this.lastContent) && !isNil(this.lastContent)) {
             const params = new SearchModel();
-            this.search.emit(params.only('content', 'page'));
+            params.reload = true;
+            this.search.emit(params.only('content', 'page', 'reload'));
             this.lastContent = this.content = '';
         } else {
             this.content = '';
