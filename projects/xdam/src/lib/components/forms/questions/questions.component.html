@@ -1,0 +1,5 @@
+<label *ngIf="label" [attr.for]="key">{{ label }}</label>
+<ng-container [ngSwitch]="question.type">
+    <xdam-text *ngSwitchCase="'text'" [question]="question" (onChange)="changeValue($event)"></xdam-text>
+    <xdam-dropdown *ngSwitchCase="'dropdown'" [question]="question" (onChange)="changeValue($event)"></xdam-dropdown>
+</ng-container>
