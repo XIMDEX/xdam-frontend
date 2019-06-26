@@ -21,10 +21,6 @@
             <aside class="item-form-general">
                 <div class="item-form-group resource">
                     <div class="fields column">
-                        <div class="field-item">
-                            <label>New File</label>
-                            <input ref="fileInput" name="file" accept="*/*" type="file" />
-                        </div>
                         <xdam-question
                             *ngFor="let field of formFields"
                             [question]="field"
@@ -57,18 +53,11 @@
                         </div>
                     </div>
                     <div class="fields column">
-                        <div class="field-item">
-                            <label>Name</label>
-                            <input ref="nameField" name="title" required type="text" />
-                        </div>
-                        <div class="field-item">
-                            <label>Description</label>
-                            <input ref="descriptionField" name="desc" required type="text" />
-                        </div>
-                        <div class="field-item">
-                            <label>Author</label>
-                            <input ref="authorField" name="author" required type="text" />
-                        </div>
+                        <xdam-question
+                            *ngFor="let field of infoFormFields"
+                            [question]="field"
+                            (onChange)="updatedValue(field.key, $event)"
+                        ></xdam-question>
                     </div>
                 </div>
             </aside>
