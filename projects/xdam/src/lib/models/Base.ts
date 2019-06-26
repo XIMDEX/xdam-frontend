@@ -36,7 +36,9 @@ export default class BaseModel {
                 }
 
                 if (hasIn(method, this)) {
-                    this[method] = params[key];
+                    try {
+                        this[method] = params[key];
+                    } catch (e) {}
                 }
             });
         }
