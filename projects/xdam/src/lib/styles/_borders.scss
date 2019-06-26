@@ -11,3 +11,7 @@ $facet_title_border: 2px solid #c3cbd5 !default;
 $facet_shadow: 0 1px 1px rgba(0, 0, 0, 0.05) !default;
 
 $modal_actions_border: 1px solid #c8cacc !default;
+
+$item_form_group_border_weight: 1px;
+$item_form_group_border_color: #c8cacc;
+$item_form_group_border: $item_form_group_border_weight solid $item_form_group_border_color !default;

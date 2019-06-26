@@ -3,7 +3,11 @@
 <div class="shadow-panel dam-main-back">
     <div class="dam-main-container">
         <div>
-            <xdam-search [settings]="settings.search" (search)="prepareSearch($event)"></xdam-search>
+            <xdam-search
+                [settings]="settings.search"
+                (search)="prepareSearch($event)"
+                (action)="setAction($event)"
+            ></xdam-search>
             <xdam-paginator
                 *ngIf="pager && settings.pager.top"
                 [settings]="settings.pager.top"
@@ -31,4 +35,5 @@
         ></xdam-paginator>
     </div>
     <xdam-footer></xdam-footer>
+    <xdam-item-form [action]="action" (close)="closeAction($event)" [settings]="settings.form"></xdam-item-form>
 </div>
