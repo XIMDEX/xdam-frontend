@@ -1,6 +1,7 @@
 @import './borders';
+@import './sizes';
+@import './colors';
 
-@import url('~ngx-smart-modal/ngx-smart-modal.css');
 @import url('~@ng-select/ng-select/themes/default.theme.css');
 
 html,
@@ -48,15 +49,24 @@ body {
     text-transform: uppercase;
 }
 
-.dam-form input[type='text'],
+input[type='text'],
+textarea,
 select {
-    height: 34px;
-    width: 90%;
-    padding: 0 10px;
-    border-radius: 3px;
+    min-width: $input_min_width;
+    min-height: $input_height;
+
+    &:not(textarea) {
+        max-height: $input_height;
+    }
+
+    border: $input_border;
+    border-radius: $input_border_radius;
+    background-color: $input_bg_color;
+
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.dam-btn-base,
 .xdam-btn-base {
     display: inline-block;
     height: 28px;

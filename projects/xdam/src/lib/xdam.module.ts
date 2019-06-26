@@ -24,6 +24,11 @@ import { ItemComponent } from './components/list/item/item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ItemFormComponent } from './components/item-form/item-form.component';
+import swal2 from './profiles/swal2';
+import { QuestionsComponent } from './components/forms/questions/questions.component';
+import { TextComponent } from './components/forms/questions/text/text.component';
+import { DropdownComponent } from './components/forms/questions/dropdown/dropdown.component';
 
 @NgModule({
     imports: [
@@ -42,22 +47,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
             secondaryColour: '#00a397',
             tertiaryColour: '#00a397'
         }),
-        SweetAlert2Module.forRoot({
-            customClass: {
-                container: 'xdam-modal-container',
-                popup: 'xdam-modal',
-                header: 'xdam-modal-header',
-                title: 'xdam-modal-title',
-                closeButton: 'xdam-modal-close-button',
-                image: 'xdam-modal-image',
-                content: 'xdam-modal-content',
-                input: 'xdam-input',
-                actions: 'xdam-modal-actions',
-                confirmButton: 'xdam-btn-base confirm',
-                cancelButton: 'xdam-btn-base cancel',
-                footer: 'xdam-modal-footer'
-            }
-        })
+        SweetAlert2Module.forRoot(swal2)
     ],
     providers: [MainService, NgxSmartModalService],
     declarations: [
@@ -72,7 +62,11 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
         PaginatorComponent,
         ListComponent,
         ItemComponent,
-        FooterComponent
+        FooterComponent,
+        ItemFormComponent,
+        QuestionsComponent,
+        TextComponent,
+        DropdownComponent
     ],
     exports: [DamComponent]
 })

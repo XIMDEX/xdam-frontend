@@ -1,3 +1,4 @@
+import { FormI } from './FormI.interface';
 import { ListOptions } from './ListOptions.interface';
 
 import { ItemModel } from './ItemModel.interface';
@@ -23,4 +24,5 @@ export interface XDamSettingsInterface {
     pager?: PagerOptions;
     list?: ListOptions;
     facets?: boolean;
+    form?: FormI;
 }

@@ -2,7 +2,8 @@
 @import '../styles/fonts';
 @import '../styles/borders';
 
-.xdam-modal {
+.xdam-modal,
+.xdam-modal-form {
     font-family: $font_family !important;
 
     .xdam-modal-header {
@@ -31,7 +32,10 @@
 
     .xdam-modal-content {
         font-size: $font_size_medium;
-        padding: 0 15px;
+
+        &:not(.full) {
+            padding: 0 15px;
+        }
 
         > #swal2-content {
             text-align: left !important;
@@ -61,6 +65,14 @@
                 background-color: $actions_color_cancel !important;
                 color: $actions_font_color_cancel !important;
             }
+        }
+    }
+
+    &:not(.xdam-modal) {
+        width: 800px;
+
+        .xdam-modal-header {
+            justify-content: flex-end;
         }
     }
 }

@@ -1,3 +1,4 @@
+import { FormI } from './interfaces/FormI.interface';
 import { ListOptions as ListOptionsI } from './interfaces/ListOptions.interface';
 import { ListOptions } from './ListOptions';
 import { XDamSettingsInterface } from './interfaces/Settings.interface';
@@ -11,6 +12,7 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     private _list: ListOptionsI = standard.list;
     private _pager: PagerOptions = standard.pager;
     private _facets: boolean = standard.facets;
+    private _form: FormI = null;
 
     constructor(settings: XDamSettingsInterface) {
         super();
@@ -47,5 +49,13 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
 
     get facets(): boolean {
         return this._facets;
+    }
+
+    set form(form: FormI) {
+        this._form = form;
+    }
+
+    get form(): FormI {
+        return this._form;
     }
 }

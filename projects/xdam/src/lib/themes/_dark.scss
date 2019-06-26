@@ -2,76 +2,77 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 @import url('../style.scss');
 
-.dam-main{
+.dam-main {
     font-family: 'Lato', sans-serif;
-    color: #FFF;
+    color: #fff;
 }
 
-.shadow-panel{
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.12);
+.shadow-panel {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
 
-.dam-main-back{
+.dam-main-back {
     background-color: #666;
 }
 
-.dam-item{
+.dam-item {
     font-size: 13px;
-    background: #009E92;
+    background: #009e92;
     border-top: 2px solid white;
-    transition: all .25s;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.12);
+    transition: all 0.25s;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
 
-.dam-type{
+.dam-type {
     font-size: 10px;
     font-weight: 700;
-    color: #FFF;
+    color: #fff;
 }
 
-.dam-btn-base{
-    background: linear-gradient(180deg,#666 0,#555 100%);
+.xdam-btn-base {
+    background: linear-gradient(180deg, #666 0, #555 100%);
     color: white;
     font-size: 10px;
     box-shadow: none;
-    border-left: 1px dotted #E0E4E6;
+    border-left: 1px dotted #e0e4e6;
     font-size: 12px;
 }
 
-.dam-btn-base:hover {
+.xdam-btn-base:hover {
     background: #00a397;
-    background: linear-gradient(180deg,#00a89b 0,#00a397 100%);
+    background: linear-gradient(180deg, #00a89b 0, #00a397 100%);
 }
 
-.dam-search-bar{
+.dam-search-bar {
     background-color: #999;
 }
 
-.dam-btn-base.group {
-    border:1px solid #00a89b;
+.xdam-btn-base.group {
+    border: 1px solid #00a89b;
 }
 
-.dam-btn-base.red{
-    background: linear-gradient(180deg,#c54444 0,#E35D5D 100%);
+.xdam-btn-base.red {
+    background: linear-gradient(180deg, #c54444 0, #e35d5d 100%);
 }
 
-.dam-form input[type="text"], select{
-    font-family: Lato,sans-serif;
+.dam-form input[type='text'],
+select {
+    font-family: Lato, sans-serif;
     font-size: 13px;
     color: #666;
     background-color: #f9fafb;
-    border: 1px solid #DDD;
-    transition: all .25s;
+    border: 1px solid #ddd;
+    transition: all 0.25s;
 }
 
-.dam-form input[type="text"]:focus{
+.dam-form input[type='text']:focus {
     outline: 0;
-    background-color: #FFF;
-    border-color: rgba(0,163,151,.5);
-    box-shadow: 0 0 10px 0 rgba(0,163,151,.05);
+    background-color: #fff;
+    border-color: rgba(0, 163, 151, 0.5);
+    box-shadow: 0 0 10px 0 rgba(0, 163, 151, 0.05);
 }
 
-.dam-form input[type="text"].ng-invalid.ng-dirty{
-    border-color: rgba(250,80,80,.5);
-    box-shadow: 0 0 10px 0 rgba(250,80,80,.5);
+.dam-form input[type='text'].ng-invalid.ng-dirty {
+    border-color: rgba(250, 80, 80, 0.5);
+    box-shadow: 0 0 10px 0 rgba(250, 80, 80, 0.5);
 }

@@ -38,7 +38,7 @@
     color: #666;
 }
 
-.dam-btn-base {
+.xdam-btn-base {
     background: linear-gradient(180deg, #00a397 0, #009e92 100%);
     color: white;
     font-size: 10px;
@@ -47,7 +47,7 @@
     font-size: 12px;
 }
 
-.dam-btn-base:hover {
+.xdam-btn-base:hover {
     background: #00a397;
     background: linear-gradient(180deg, #00a89b 0, #00a397 100%);
 }
@@ -56,11 +56,11 @@
     background-color: white;
 }
 
-.dam-btn-base.group {
+.xdam-btn-base.group {
     border: 1px solid #00a89b;
 }
 
-.dam-btn-base.red {
+.xdam-btn-base.red {
     background: linear-gradient(180deg, #c54444 0, #e35d5d 100%);
 }
 

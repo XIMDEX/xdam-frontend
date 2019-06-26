@@ -140,10 +140,12 @@ export class AppComponent implements OnInit {
         this.mainService.delete(item.id).subscribe(
             response => {
                 const { data } = response as any;
-                console.warn(data);
                 this.getItems();
             },
-            err => console.error(err)
+            err => {
+                console.error(err);
+                this.getItems();
+            }
         );
     }
 }

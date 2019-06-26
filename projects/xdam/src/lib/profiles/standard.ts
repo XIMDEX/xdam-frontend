@@ -7,6 +7,9 @@ export const standard: XDamSettingsInterface = {
             search: true,
             reset: true,
             clear: true
+        },
+        actions: {
+            newAsset: true
         }
     },
     pager: {
