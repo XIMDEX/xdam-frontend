@@ -1,0 +1,11 @@
+:host {
+    &.field-item {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+
+        label {
+            text-transform: uppercase;
+        }
+    }
+}
