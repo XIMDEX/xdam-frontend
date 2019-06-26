@@ -8,7 +8,7 @@ export class Text extends Base<string> implements TextI {
     protected _multiline = false;
     protected _type = 'text';
 
-    constructor(params: Text | null = null) {
+    constructor(params: Text | any | null = null) {
         super();
         this.update(params);
     }
