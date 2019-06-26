@@ -1,3 +1,4 @@
+import { ActionModel } from './../models/ActionModel';
 import { Pager } from './../models/Pager';
 import { Item } from './../models/Item';
 import { FacetModel } from './../models/FacetModel';
@@ -37,6 +38,7 @@ export class DamComponent implements OnInit, OnChanges {
     pager: Pager;
     searchOptions: SearchOptions;
     loading: boolean;
+    action: ActionModel | null;
 
     elementDiffers: any;
 
@@ -89,6 +91,16 @@ export class DamComponent implements OnInit, OnChanges {
             this.search = new SearchModel();
             this.search.facets = defFacet;
         }
+    }
+
+    setAction(action: ActionModel) {
+        if (isNil(this.action)) {
+            this.action = new ActionModel(action);
+        }
+    }
+
+    closeAction(data) {
+        this.action = null;
     }
 
     preparePager() {

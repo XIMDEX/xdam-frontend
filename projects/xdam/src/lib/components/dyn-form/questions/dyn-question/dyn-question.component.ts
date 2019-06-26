@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { QuestionBase } from '../question-base';
-import { hasIn } from 'ramda';
+import { hasIn, isNil } from 'ramda';
 import { TextboxQuestion } from '../question-textbox';
 import { TextAreaQuestion } from '../question-textarea';
 import { DepDropQuestion } from '../question-depdrop';
@@ -13,7 +13,7 @@ import { MainService } from '../../../../../../../../src/app/services/main.servi
  * for dynamic forms.
  */
 @Component({
-    selector: 'app-question',
+    selector: 'xdam-dyn-question',
     templateUrl: './dyn-question.component.html'
 })
 export class DynQuestionComponent implements OnInit {
@@ -45,6 +45,9 @@ export class DynQuestionComponent implements OnInit {
      * @returns {Boolean} True if valid, False otherwise
      */
     get isValid() {
+        if (isNil(this.form)) {
+            return true;
+        }
         return this.form.controls[this.question.key].valid;
     }
 
