@@ -11,7 +11,7 @@ export default class SettingsMapper extends XDamSettings {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : {};
         let params = null;
         if (hasIn('settings', xdam)) {
-            params = xdam['settings'];
+            params = { ...xdam['settings'], form: xdam['form'] };
         }
         super(params);
     }
