@@ -1,3 +1,4 @@
+import { ActionModel } from './../../models/ActionModel';
 import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { hasIn, isNil, isEmpty } from 'ramda';
@@ -11,7 +12,9 @@ import { SearchModel } from '../../models/SarchModel';
 })
 export class SearchComponent implements OnInit {
     @Input() settings: SearchOptions = null;
+
     @Output() search = new EventEmitter<SearchModel>();
+    @Output() action = new EventEmitter<ActionModel>();
 
     /**@ignore */
     faSearch = faSearch;
@@ -40,6 +43,14 @@ export class SearchComponent implements OnInit {
         return result;
     }
 
+    get actions() {
+        let result = null;
+        if (!isNil(this.settings) && hasIn('actions', this.settings)) {
+            result = this.settings.actions;
+        }
+        return result;
+    }
+
     updateSearch() {
         if (this.lastContent !== this.content && !isNil(this.content)) {
             const params = new SearchModel();
@@ -59,5 +70,11 @@ export class SearchComponent implements OnInit {
         } else {
             this.content = '';
         }
+    }
+
+    sendAction() {
+        const action = new ActionModel();
+        action.method = 'new';
+        return this.action.emit(action);
     }
 }
