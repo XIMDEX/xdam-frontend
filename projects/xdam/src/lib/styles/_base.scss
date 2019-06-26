@@ -67,6 +67,11 @@ select {
     padding-right: 5px;
 }
 
+.ng-select .ng-select-container,
+.ng-select.ng-select-opened > .ng-select-contain {
+    background-color: $input_bg_color;
+}
+
 .xdam-btn-base {
     display: inline-block;
     height: 28px;

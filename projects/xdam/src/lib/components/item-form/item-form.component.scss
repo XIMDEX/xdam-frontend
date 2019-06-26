@@ -54,7 +54,8 @@
             }
 
             input[type='text'],
-            input[type='file'] {
+            input[type='file'],
+            textarea {
                 margin-top: 5px;
                 flex-grow: 1;
             }

@@ -7,6 +7,7 @@ import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChange
 import { SwalPartialTargets, SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import swal2 from '../../profiles/swal2';
 import { setQuestion } from '../../models/forms/question';
+import { itemInfo, fileForm } from '../../profiles/forms';
 
 @Component({
     selector: 'xdam-item-form',
@@ -33,6 +34,7 @@ export class ItemFormComponent implements OnChanges {
 
     formFields: any[] = [];
     formFieldsValues: any = {};
+    infoFormFields = itemInfo;
 
     constructor(public readonly swalTargets: SwalPartialTargets) {
         this.swalCustomClass = { ...swal2.customClass, ...this.swalCustomClass };
@@ -70,7 +72,7 @@ export class ItemFormComponent implements OnChanges {
                 return setQuestion({ type, ...object });
             });
         }
-        this.formFields = formFields;
+        this.formFields = fileForm.concat(formFields);
     }
 
     validForm(): boolean {

@@ -29,6 +29,7 @@ import swal2 from './profiles/swal2';
 import { QuestionsComponent } from './components/forms/questions/questions.component';
 import { TextComponent } from './components/forms/questions/text/text.component';
 import { DropdownComponent } from './components/forms/questions/dropdown/dropdown.component';
+import { FileComponent } from './components/forms/questions/file/file.component';
 
 @NgModule({
     imports: [
@@ -66,7 +67,8 @@ import { DropdownComponent } from './components/forms/questions/dropdown/dropdow
         ItemFormComponent,
         QuestionsComponent,
         TextComponent,
-        DropdownComponent
+        DropdownComponent,
+        FileComponent
     ],
     exports: [DamComponent]
 })
