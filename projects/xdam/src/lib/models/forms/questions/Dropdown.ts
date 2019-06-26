@@ -25,7 +25,7 @@ export class Dropdown extends Base<string> implements DropdownI {
     protected _responseKey: string = 'result.data';
     protected _type = 'dropdown';
 
-    constructor(params: Dropdown | null = null) {
+    constructor(params: Dropdown | any | null = null) {
         super();
         this.update(params);
     }
