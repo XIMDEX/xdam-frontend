@@ -22,7 +22,6 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     set search(params: SearchOptions) {
         this._search = params;
     }
-
     get search(): SearchOptions {
         return this._search;
     }
@@ -30,7 +29,6 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     set list(params: ListOptions) {
         this._list = new ListOptions(params);
     }
-
     get list(): ListOptions {
         return this._list as ListOptions;
     }
@@ -38,7 +36,6 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     set pager(params: PagerOptions) {
         this._pager = params;
     }
-
     get pager(): PagerOptions {
         return this._pager;
     }
@@ -46,7 +43,6 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     set facets(params: boolean) {
         this._facets = params;
     }
-
     get facets(): boolean {
         return this._facets;
     }
@@ -54,7 +50,6 @@ export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     set form(form: FormI) {
         this._form = form;
     }
-
     get form(): FormI {
         return this._form;
     }
