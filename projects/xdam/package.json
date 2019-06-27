@@ -31,6 +31,7 @@
         "sprintf-js": "^1.1.2",
         "ngx-loading": "^3.0.1",
         "@sweetalert2/ngx-sweetalert2": "^5.1.0",
-        "sweetalert2": "^8.12.1"
+        "sweetalert2": "^8.12.1",
+        "ngx-tabset": "^2.1.0"
     }
 }
