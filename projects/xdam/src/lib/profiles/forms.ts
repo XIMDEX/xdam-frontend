@@ -22,7 +22,7 @@ export const itemInfo = [
 export const fileForm = [
     new File({
         realName: 'fileField',
-        key: 'file',
+        key: 'resource',
         label: 'New File'
     })
 ];

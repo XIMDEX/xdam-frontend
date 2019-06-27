@@ -4,7 +4,7 @@ import { Base } from './questions/Base';
 import { Text } from './questions/Text';
 import { hasIn, isNil } from 'ramda';
 
-export function setQuestion(params: Text | Dropdown) {
+export function setQuestion(params: Text | Dropdown | File | Base<any>, prefix: string = null) {
     let type = null;
     let question = null;
     if (hasIn('type', params)) {
@@ -22,7 +22,12 @@ export function setQuestion(params: Text | Dropdown) {
     } else if (type === 'file') {
         question = new File(params);
     } else {
-        question = new Base(params);
+        question = new Base<any>(params);
+    }
+
+    if (!isNil(prefix)) {
+        question.key = `${prefix}.${question.key}`;
+        question.realName = `${prefix}.${question.realName}`;
     }
 
     return question;
