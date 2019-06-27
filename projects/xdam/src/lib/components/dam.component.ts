@@ -25,6 +25,7 @@ export class DamComponent implements OnInit, OnChanges {
     @Output() onSearch = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<Item>();
     @Output() onDownload = new EventEmitter<Item>();
+    @Output() onSave = new EventEmitter<any>();
 
     @HostBinding('class.dam-main') readonly baseClass = true;
 
@@ -129,5 +130,9 @@ export class DamComponent implements OnInit, OnChanges {
 
     downloadItem(item: Item) {
         this.onDownload.emit(item);
+    }
+
+    storeAction(data: any) {
+        this.onSave.emit(data);
     }
 }

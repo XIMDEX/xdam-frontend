@@ -35,5 +35,10 @@
         ></xdam-paginator>
     </div>
     <xdam-footer></xdam-footer>
-    <xdam-item-form [action]="action" (close)="closeAction($event)" [settings]="settings.form"></xdam-item-form>
+    <xdam-item-form
+        [action]="action"
+        (close)="closeAction($event)"
+        (save)="storeAction($event)"
+        [settings]="settings.form"
+    ></xdam-item-form>
 </div>
