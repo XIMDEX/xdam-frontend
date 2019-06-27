@@ -1,4 +1,3 @@
-import { Settings } from './../../models/interfaces/Settings.interface';
 import { FormI } from './../../models/interfaces/FormI.interface';
 import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import { hasIn, isNil, is, equals } from 'ramda';
@@ -19,11 +18,11 @@ export class ItemFormComponent implements OnChanges {
     @Input() settings: FormI;
 
     @Output() close = new EventEmitter<any>();
+    @Output() save = new EventEmitter<any>();
 
     @ViewChild('swalModal') swalModal: SwalComponent;
 
     private modal;
-    private save = false;
 
     faTimes = faTimes;
     faSave = faSave;
@@ -32,7 +31,8 @@ export class ItemFormComponent implements OnChanges {
         content: 'xdam-modal-content full'
     };
 
-    formFields: any[] = [];
+    formFields: any[] = fileForm;
+    tabsForms: any[] = [];
     formFieldsValues: any = {};
     infoFormFields = itemInfo;
 
@@ -47,15 +47,13 @@ export class ItemFormComponent implements OnChanges {
             }
         }
 
-        if (
-            hasIn('settings', changes) &&
-            !isNil(this.swalModal) &&
-            !isNil(changes.settings.currentValue) &&
-            hasIn('fields', changes.settings.currentValue)
-        ) {
-            const currFields = changes.settings.currentValue.fields;
-            if (!equals(currFields, this.formFields)) {
-                this.prepareFormFields(currFields);
+        if (hasIn('settings', changes) && !isNil(this.swalModal) && !isNil(changes.settings.currentValue)) {
+            for (const form of changes.settings.currentValue) {
+                if (hasIn('fields', form) && !isNil(form.fields)) {
+                    this.setFormFields(form.fields);
+                } else if (hasIn('tabs', form) && !isNil(form.tabs)) {
+                    this.setTabsForm(form);
+                }
             }
         }
     }
@@ -64,15 +62,61 @@ export class ItemFormComponent implements OnChanges {
         return this.action.method === 'edit';
     }
 
-    protected prepareFormFields(fields: any) {
+    protected setTabsForm(form: any) {
+        let name: string | null = null;
+        let title: string | null = null;
+        let tabs: any[] = [];
+        if (hasIn('name', form)) {
+            name = form.name;
+        }
+
+        if (hasIn('title', form)) {
+            title = form.title;
+        }
+
+        if (!isNil(name) && isNil(title)) {
+            title = name;
+        }
+
+        if (hasIn('tabs', form) && is(Array, form.tabs)) {
+            form.tabs.forEach(tabForm => {
+                let title = 'Form';
+                let fields = [];
+                if (hasIn('title', tabForm)) {
+                    title = tabForm.title;
+                }
+
+                if (hasIn('fields', tabForm)) {
+                    fields = this.prepareFormsFields(tabForm.fields, name);
+                    tabs.push({ title, fields });
+                }
+            });
+        }
+
+        if (!isNil(name) && !isNil(title) && tabs.length > 0) {
+            this.tabsForms.push({
+                title,
+                name,
+                tabs
+            });
+        }
+    }
+
+    protected setFormFields(fields: any) {
+        if (!equals(fields, this.formFields)) {
+            this.formFields = this.formFields.concat(this.prepareFormsFields(fields));
+        }
+    }
+
+    protected prepareFormsFields(fields: any, prefix: string = null) {
         let formFields: any[] = [];
         if (!isNil(fields) && is(Array, fields)) {
             formFields = fields.map(value => {
                 const { type, object } = value;
-                return setQuestion({ type, ...object });
+                return setQuestion({ type, ...object }, prefix);
             });
         }
-        this.formFields = fileForm.concat(formFields);
+        return formFields;
     }
 
     validForm(): boolean {
@@ -80,20 +124,36 @@ export class ItemFormComponent implements OnChanges {
     }
 
     cancelForm() {
-        this.save = false;
         this.modal.close();
     }
 
     closeForm() {
-        if (this.save) {
-            this.save = false;
-        }
-
         this.close.emit();
     }
 
+    saveForm() {
+        const action = { ...this.action } as ActionModel;
+        action.data = this.formFieldsValues;
+        this.save.emit(action);
+    }
+
     updatedValue(key: string, value: any) {
-        this.formFieldsValues[key] = value;
-        console.log(this.formFieldsValues);
+        const keys = key.split('.');
+        this.formFieldsValues = this.formFieldToFormFieldsValue(keys, value, { ...this.formFieldsValues });
+    }
+
+    protected formFieldToFormFieldsValue(keys: string[], value: any, obj: any) {
+        const key = keys.shift();
+        if (!hasIn(key, this.formFieldsValues)) {
+            obj[key] = {};
+        }
+
+        if (keys.length > 0) {
+            obj[key] = this.formFieldToFormFieldsValue(keys, value, obj[key]);
+        } else {
+            obj[key] = value;
+        }
+
+        return obj;
     }
 }
