@@ -1,3 +1,4 @@
+import { ActionModel } from './../../projects/xdam/src/lib/models/ActionModel';
 import { Item } from './../../projects/xdam/src/lib/models/Item';
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
@@ -145,6 +146,19 @@ export class AppComponent implements OnInit {
             err => {
                 console.error(err);
                 this.getItems();
+            }
+        );
+    }
+
+    saveItem(data: ActionModel) {
+        const action = new ActionModel(data);
+
+        this.mainService.postFileForm(action.toFormData()).subscribe(
+            response => {
+                const { data } = response as any;
+            },
+            err => {
+                console.error(err);
             }
         );
     }

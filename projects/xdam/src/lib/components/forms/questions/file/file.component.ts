@@ -7,7 +7,7 @@ import { File as QuestionFile } from './../../../../models/forms/questions/File'
     templateUrl: './file.component.html',
     styleUrls: ['./file.component.scss']
 })
-export class FileComponent extends QuestionBaseComponent<FileList | any[]> {
+export class FileComponent extends QuestionBaseComponent<FileList | File | any[]> {
     @Input() question: QuestionFile;
 
     protected defaultValue = [];
@@ -23,6 +23,9 @@ export class FileComponent extends QuestionBaseComponent<FileList | any[]> {
     protected changeValue(evt: Event = null) {
         const { target } = evt;
         let files: FileList | File = (target as HTMLInputElement).files;
+        if (!this.multiple) {
+            files = (files as FileList).item(0);
+        }
         return this.onChange.emit(files);
     }
 }
