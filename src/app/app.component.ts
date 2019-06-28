@@ -54,6 +54,7 @@ export class AppComponent implements OnInit {
      */
     facets = {};
     default = true;
+    action: ActionModel | null = null;
 
     private pagerSchema: PagerModelSchema = {
         total: 'total',
@@ -140,7 +141,6 @@ export class AppComponent implements OnInit {
     deleteItem(item: Item) {
         this.mainService.delete(item.id).subscribe(
             response => {
-                const { data } = response as any;
                 this.getItems();
             },
             err => {
@@ -150,12 +150,21 @@ export class AppComponent implements OnInit {
         );
     }
 
-    saveItem(data: ActionModel) {
+    damAction(data: ActionModel) {
         const action = new ActionModel(data);
+        let actionType = null;
 
-        this.mainService.postFileForm(action.toFormData()).subscribe(
-            response => {
-                const { data } = response as any;
+        if (action.method === 'new') {
+            actionType = this.mainService.postFileForm(action.toFormData());
+        } else if (action.method === 'show') {
+            actionType = this.mainService.getResource(action.item.id);
+        }
+
+        actionType.subscribe(
+            ({ result }) => {
+                const { data } = result as any;
+                action.data = data;
+                this.action = action;
             },
             err => {
                 console.error(err);

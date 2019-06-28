@@ -22,6 +22,7 @@ export class ItemComponent {
 
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();
+    @Output() edit = new EventEmitter<Item>();
 
     constructor() {}
 
@@ -68,6 +69,10 @@ export class ItemComponent {
         }
 
         this.img = image;
+    }
+
+    editItem() {
+        this.edit.emit(this.item);
     }
 
     deleteItem(confirm: boolean) {

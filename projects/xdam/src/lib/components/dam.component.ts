@@ -21,11 +21,13 @@ import { XDamSettings } from '../models/XdamSettings';
 export class DamComponent implements OnInit, OnChanges {
     @Input() items: XDamData;
     @Input() settings: XDamSettings;
+    @Input() action: ActionModel;
 
     @Output() onSearch = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<Item>();
     @Output() onDownload = new EventEmitter<Item>();
     @Output() onSave = new EventEmitter<any>();
+    @Output() onAction = new EventEmitter<ActionModel>();
 
     @HostBinding('class.dam-main') readonly baseClass = true;
 
@@ -39,7 +41,7 @@ export class DamComponent implements OnInit, OnChanges {
     pager: Pager;
     searchOptions: SearchOptions;
     loading: boolean;
-    action: ActionModel | null;
+    actionModel: ActionModel | null;
 
     elementDiffers: any;
 
@@ -63,6 +65,10 @@ export class DamComponent implements OnInit, OnChanges {
         if (hasIn('items', changes) && !changes.items.isFirstChange()) {
             this.preparePager();
             this.perpareData();
+        }
+
+        if (hasIn('action', changes)) {
+            this.setAction(this.action);
         }
     }
 
@@ -95,13 +101,14 @@ export class DamComponent implements OnInit, OnChanges {
     }
 
     setAction(action: ActionModel) {
-        if (isNil(this.action)) {
-            this.action = new ActionModel(action);
+        if (isNil(this.actionModel) && !isNil(action)) {
+            this.actionModel = new ActionModel(action);
+            this.loading = false;
         }
     }
 
-    closeAction(data) {
-        this.action = null;
+    closeAction() {
+        this.actionModel = null;
     }
 
     preparePager() {
@@ -132,7 +139,8 @@ export class DamComponent implements OnInit, OnChanges {
         this.onDownload.emit(item);
     }
 
-    storeAction(data: any) {
-        this.onSave.emit(data);
+    sendAction(action: ActionModel) {
+        this.loading = true;
+        this.onAction.emit(action);
     }
 }
