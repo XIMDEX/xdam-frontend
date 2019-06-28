@@ -1,8 +1,9 @@
 <xdam-main
     [settings]="settings"
     [items]="items"
+    [action]="action"
     (onSearch)="sendSearch($event)"
     (onDelete)="deleteItem($event)"
     (onDownload)="downloadItem($event)"
-    (onSave)="saveItem($event)"
+    (onAction)="damAction($event)"
 ></xdam-main>

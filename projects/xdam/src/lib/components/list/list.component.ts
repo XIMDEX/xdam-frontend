@@ -1,3 +1,4 @@
+import { ActionModel } from './../../models/ActionModel';
 import { Item } from '../../models/Item';
 import { ListOptions } from '../../models/interfaces/ListOptions.interface';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
@@ -16,8 +17,14 @@ export class ListComponent {
 
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();
+    @Output() edit = new EventEmitter<ActionModel>();
 
-    constructor() {}
+    editItem(item: Item) {
+        const action = new ActionModel();
+        action.method = 'show';
+        action.item = item;
+        this.edit.emit(action);
+    }
 
     deleteItem(item: Item) {
         this.delete.emit(item);

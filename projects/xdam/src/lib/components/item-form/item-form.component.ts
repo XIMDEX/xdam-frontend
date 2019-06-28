@@ -1,6 +1,7 @@
+import { ActionMethods } from './../../models/interfaces/ActionI.interface';
 import { FormI } from './../../models/interfaces/FormI.interface';
 import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
-import { hasIn, isNil, is, equals } from 'ramda';
+import { hasIn, isNil, is, equals, clone } from 'ramda';
 import { ActionModel } from './../../models/ActionModel';
 import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { SwalPartialTargets, SwalComponent } from '@sweetalert2/ngx-sweetalert2';
@@ -33,26 +34,46 @@ export class ItemFormComponent implements OnChanges {
 
     formFields: any[] = fileForm;
     tabsForms: any[] = [];
+
+    oldFormFields: any[] = [];
+    oldTabsForms: any[] = [];
+    oldInfoFormFields: any[] = [];
+
     formFieldsValues: any = {};
     infoFormFields = itemInfo;
+    method: ActionMethods;
 
     constructor(public readonly swalTargets: SwalPartialTargets) {
         this.swalCustomClass = { ...swal2.customClass, ...this.swalCustomClass };
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (hasIn('action', changes) && !changes.action.isFirstChange() && !isNil(this.swalModal)) {
-            if (!isNil(changes.action.currentValue)) {
-                this.modal = this.swalModal.show();
-            }
-        }
-
         if (hasIn('settings', changes) && !isNil(this.swalModal) && !isNil(changes.settings.currentValue)) {
             for (const form of changes.settings.currentValue) {
                 if (hasIn('fields', form) && !isNil(form.fields)) {
                     this.setFormFields(form.fields);
                 } else if (hasIn('tabs', form) && !isNil(form.tabs)) {
                     this.setTabsForm(form);
+                }
+            }
+        }
+
+        if (hasIn('action', changes) && !changes.action.isFirstChange() && !isNil(this.swalModal)) {
+            if (!isNil(changes.action.currentValue)) {
+                this.modal = this.swalModal.show();
+                this.method = this.action.method;
+
+                if (this.action.method === 'show') {
+                    this.method = 'edit';
+                    const mainForm = this.action.data;
+                    const tabsForm = hasIn('tabsform', mainForm) && isNil(mainForm.tabsform) ? mainForm.tabsform : [];
+
+                    if (hasIn('tabsform', mainForm)) {
+                        delete mainForm.tabsform;
+                    }
+
+                    this.setFormValues(mainForm, this.formFields, this.oldFormFields);
+                    this.setFormValues(mainForm, this.infoFormFields, this.oldInfoFormFields);
                 }
             }
         }
@@ -128,6 +149,22 @@ export class ItemFormComponent implements OnChanges {
     }
 
     closeForm() {
+        this.formFieldsValues = {};
+        if (this.oldFormFields.length > 0) {
+            this.formFields = clone(this.oldFormFields);
+            this.oldFormFields = [];
+        }
+
+        if (this.oldInfoFormFields.length > 0) {
+            this.infoFormFields = clone(this.oldInfoFormFields);
+            this.oldInfoFormFields = [];
+        }
+
+        if (this.oldTabsForms.length > 0) {
+            this.tabsForms = clone(this.oldTabsForms);
+            this.oldTabsForms = [];
+        }
+
         this.close.emit();
     }
 
@@ -135,6 +172,17 @@ export class ItemFormComponent implements OnChanges {
         const action = { ...this.action } as ActionModel;
         action.data = this.formFieldsValues;
         this.save.emit(action);
+    }
+
+    setFormValues(data: any, form: any[], cloneForm: any[]) {
+        cloneForm = clone(form);
+        for (const field of form) {
+            if (hasIn(field.key, data)) {
+                field.value = data[field.key];
+            } else if (hasIn(field.realName, data)) {
+                field.value = data[field.realName];
+            }
+        }
     }
 
     updatedValue(key: string, value: any) {

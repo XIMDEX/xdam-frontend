@@ -23,6 +23,7 @@
                 [settings]="settings.list"
                 (delete)="deleteItem($event)"
                 (download)="downloadItem($event)"
+                (edit)="sendAction($event)"
             ></xdam-list>
         </div>
         <xdam-paginator
@@ -36,9 +37,9 @@
     </div>
     <xdam-footer></xdam-footer>
     <xdam-item-form
-        [action]="action"
-        (close)="closeAction($event)"
-        (save)="storeAction($event)"
+        [action]="actionModel"
+        (save)="sendAction($event)"
         [settings]="settings.form"
+        (close)="closeAction($event)"
     ></xdam-item-form>
 </div>
