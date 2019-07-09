@@ -42,8 +42,7 @@ export class DamComponent implements OnInit, OnChanges {
     searchOptions: SearchOptions;
     loading: boolean;
     actionModel: ActionModel | null;
-
-    elementDiffers: any;
+    displayForm: boolean = false;
 
     /**@ignore */
     constructor() {}
@@ -104,11 +103,18 @@ export class DamComponent implements OnInit, OnChanges {
         if (isNil(this.actionModel) && !isNil(action)) {
             this.actionModel = new ActionModel(action);
             this.loading = false;
+        } else if (!isNil(this.actionModel) && !isNil(action)) {
+            this.actionModel = new ActionModel(action);
+        }
+
+        if (!isNil(action)) {
+            this.displayForm = action.status !== 'success';
         }
     }
 
     closeAction() {
         this.actionModel = null;
+        this.displayForm = false;
     }
 
     preparePager() {

@@ -17,6 +17,7 @@ import { itemInfo, fileForm } from '../../profiles/forms';
 export class ItemFormComponent implements OnChanges {
     @Input() action: ActionModel | null;
     @Input() settings: FormI;
+    @Input() display: boolean;
 
     @Output() close = new EventEmitter<any>();
     @Output() save = new EventEmitter<any>();
@@ -60,10 +61,12 @@ export class ItemFormComponent implements OnChanges {
 
         if (hasIn('action', changes) && !changes.action.isFirstChange() && !isNil(this.swalModal)) {
             if (!isNil(changes.action.currentValue)) {
-                this.modal = this.swalModal.show();
                 this.method = this.action.method;
+                this.oldInfoFormFields = clone(this.infoFormFields);
+                this.oldFormFields = clone(this.formFields);
 
                 if (this.action.method === 'show') {
+                    this.action.status = 'pending';
                     this.method = 'edit';
                     const mainForm = this.action.data;
                     const tabsForm = hasIn('tabsform', mainForm) && isNil(mainForm.tabsform) ? mainForm.tabsform : [];
@@ -72,15 +75,123 @@ export class ItemFormComponent implements OnChanges {
                         delete mainForm.tabsform;
                     }
 
-                    this.setFormValues(mainForm, this.formFields, this.oldFormFields);
-                    this.setFormValues(mainForm, this.infoFormFields, this.oldInfoFormFields);
+                    this.setFormValues(mainForm, this.formFields);
+                    this.setFormValues(mainForm, this.infoFormFields);
                 }
+
+                if (!isNil(this.action.errors)) {
+                    const mainForm = this.action.errors;
+                    const tabsForm = hasIn('tabsform', mainForm) && isNil(mainForm.tabsform) ? mainForm.tabsform : [];
+
+                    if (hasIn('tabsform', mainForm)) {
+                        delete mainForm.tabsform;
+                    }
+
+                    this.setFormErrors(mainForm, this.formFields);
+                    this.setFormErrors(mainForm, this.infoFormFields);
+                }
+            }
+        }
+
+        if (
+            hasIn('display', changes) &&
+            !changes.display.isFirstChange() &&
+            !isNil(this.swalModal) &&
+            !isNil(this.formFields)
+        ) {
+            if (this.display) {
+                this.modal = this.swalModal.show();
+            } else {
+                this.modal.close();
             }
         }
     }
 
     get isEdition(): boolean {
         return this.action.method === 'edit';
+    }
+
+    validForm(): boolean {
+        return false;
+    }
+
+    cancelForm() {
+        this.modal.close();
+    }
+
+    closeForm() {
+        this.formFieldsValues = {};
+        if (this.oldFormFields.length > 0) {
+            this.formFields = clone(this.oldFormFields);
+            this.oldFormFields = [];
+        }
+
+        if (this.oldInfoFormFields.length > 0) {
+            this.infoFormFields = clone(this.oldInfoFormFields);
+            this.oldInfoFormFields = [];
+        }
+
+        if (this.oldTabsForms.length > 0) {
+            this.tabsForms = clone(this.oldTabsForms);
+            this.oldTabsForms = [];
+        }
+
+        this.close.emit();
+    }
+
+    saveForm() {
+        const action = new ActionModel({ ...this.action });
+        action.data = this.formFieldsValues;
+        action.method = this.method;
+        this.save.emit(action);
+    }
+
+    setFormValues(data: any, form: any[]) {
+        for (const field of form) {
+            let key = null;
+            if (hasIn(field.key, data)) {
+                key = field.key;
+            } else if (hasIn(field.realName, data)) {
+                key = field.realName;
+            }
+            if (!isNil(key)) {
+                let value = data[key];
+                if (hasIn('map', field) && !isNil(field.map)) {
+                    const map = field.map;
+                    if (is(Array, value)) {
+                        value = value.map(data => {
+                            return data[map.key];
+                        });
+                    } else if (is(Object, value)) {
+                        value = value[map.key];
+                    }
+                }
+                field.value = value;
+                this.updatedValue(key, value);
+            }
+        }
+    }
+
+    setFormErrors(data: any, form: any[]) {
+        for (const field of form) {
+            let key = null;
+            if (hasIn(field.key, data)) {
+                key = field.key;
+            } else if (hasIn(field.realName, data)) {
+                key = field.realName;
+            } else if (hasIn('errors', field)) {
+                field.errors = [];
+            }
+
+            if (!isNil(key)) {
+                field.errors = data[key];
+            }
+        }
+    }
+
+    updatedValue(key: string, value: any) {
+        const keys = key.split('.');
+        this.formFieldsValues = this.formFieldToFormFieldsValue(keys, value, { ...this.formFieldsValues });
     }
 
     protected setTabsForm(form: any) {
@@ -138,56 +249,6 @@ export class ItemFormComponent implements OnChanges {
             });
         }
         return formFields;
-    }
-
-    validForm(): boolean {
-        return false;
-    }
-
-    cancelForm() {
-        this.modal.close();
-    }
-
-    closeForm() {
-        this.formFieldsValues = {};
-        if (this.oldFormFields.length > 0) {
-            this.formFields = clone(this.oldFormFields);
-            this.oldFormFields = [];
-        }
-
-        if (this.oldInfoFormFields.length > 0) {
-            this.infoFormFields = clone(this.oldInfoFormFields);
-            this.oldInfoFormFields = [];
-        }
-
-        if (this.oldTabsForms.length > 0) {
-            this.tabsForms = clone(this.oldTabsForms);
-            this.oldTabsForms = [];
-        }
-
-        this.close.emit();
-    }
-
-    saveForm() {
-        const action = { ...this.action } as ActionModel;
-        action.data = this.formFieldsValues;
-        this.save.emit(action);
-    }
-
-    setFormValues(data: any, form: any[], cloneForm: any[]) {
-        cloneForm = clone(form);
-        for (const field of form) {
-            if (hasIn(field.key, data)) {
-                field.value = data[field.key];
-            } else if (hasIn(field.realName, data)) {
-                field.value = data[field.realName];
-            }
-        }
-    }
-
-    updatedValue(key: string, value: any) {
-        const keys = key.split('.');
-        this.formFieldsValues = this.formFieldToFormFieldsValue(keys, value, { ...this.formFieldsValues });
     }
 
     protected formFieldToFormFieldsValue(keys: string[], value: any, obj: any) {

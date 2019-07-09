@@ -1,4 +1,6 @@
 :host {
+    @import '../../../styles/colors';
+
     &.field-item {
         margin-top: 10px;
         display: flex;
@@ -6,6 +8,11 @@
 
         label {
             text-transform: uppercase;
+        }
+
+        .errors {
+            color: $input_error_color;
+            padding: 5px 10px;
         }
     }
 }
