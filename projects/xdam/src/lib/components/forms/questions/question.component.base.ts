@@ -34,6 +34,14 @@ export abstract class QuestionBaseComponent<T> {
         return value;
     }
 
+    get errors(): string[] {
+        return this.question.errors || [];
+    }
+
+    get hasErrors(): boolean {
+        return this.errors.length > 0;
+    }
+
     protected changeValue() {
         return this.onChange.emit(this.value);
     }

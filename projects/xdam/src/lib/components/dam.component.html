@@ -38,6 +38,7 @@
     <xdam-footer></xdam-footer>
     <xdam-item-form
         [action]="actionModel"
+        [display]="displayForm"
         (save)="sendAction($event)"
         [settings]="settings.form"
         (close)="closeAction($event)"

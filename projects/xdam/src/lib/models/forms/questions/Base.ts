@@ -10,6 +10,7 @@ export interface BaseI<T> {
     order?: number;
     type?: string;
     val?: any;
+    errors?: string[];
 }
 
 export class Base<T> extends BaseModel implements BaseI<any> {
@@ -20,6 +21,7 @@ export class Base<T> extends BaseModel implements BaseI<any> {
     protected _required: boolean;
     protected _order: number;
     protected _type: string;
+    protected _errors: string[];
 
     public constructor(params: Base<any> | null = null) {
         super();
@@ -73,5 +75,12 @@ export class Base<T> extends BaseModel implements BaseI<any> {
     }
     get type(): string {
         return this._type;
+    }
+
+    set errors(errors: string[]) {
+        this._errors = errors;
+    }
+    get errors(): string[] {
+        return this._errors;
     }
 }

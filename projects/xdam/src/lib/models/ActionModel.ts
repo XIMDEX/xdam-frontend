@@ -1,14 +1,16 @@
 import { Item } from './Item';
 import { is } from 'ramda';
 import BaseModel from './Base';
-import { ActionI, ActionMethods } from './interfaces/ActionI.interface';
+import { ActionI, ActionMethods, ActionStatus } from './interfaces/ActionI.interface';
 
 export class ActionModel extends BaseModel implements ActionI {
     private _method: ActionMethods;
     private _data: any = null;
+    private _errors: any = null;
     private _item: Item | null = null;
+    private _status: ActionStatus = 'pending';
 
-    constructor(params: ActionI = null) {
+    constructor(params: any = null) {
         super();
         this.update(params);
     }
@@ -32,6 +34,26 @@ export class ActionModel extends BaseModel implements ActionI {
     }
     get data(): any {
         return this._data;
+    }
+
+    set errors(errors: any) {
+        this._errors = errors;
+    }
+    get errors(): any {
+        return this._errors;
+    }
+
+    set status(status: ActionStatus) {
+        if (this.method === 'show') {
+            status = 'pending';
+        }
+        this._status = status;
+    }
+    get status(): ActionStatus {
+        if (this.method === 'show') {
+            return 'pending';
+        }
+        return this._status;
     }
 
     public toFormData() {
