@@ -1,3 +1,5 @@
+import { sprintf } from 'sprintf-js';
+import { ActionModel } from './../../../projects/xdam/src/lib/models/ActionModel';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -20,48 +22,26 @@ export class MainService {
      * Dict containing options for using with the http client
      */
     private httpOptions = { headers: {}, params: {} };
-    /**
-     * Stores the current page as an updateable observable
-     */
-    private currentPage: BehaviorSubject<number>;
-    /**
-     * Stores the current query search term as an updateable observable
-     */
-    private searchTerm: BehaviorSubject<string>;
-    /**
-     * Stores the current active item as an updateable observable
-     */
-    private activeItem: BehaviorSubject<Item>;
-    /**
-     * Stores the active facets as an updateable observable
-     */
-    private activeFacets: BehaviorSubject<Object>;
+
     /**
      * An instance of the RouterMapper
      */
     private router: RouterMapper;
+
     /**
      * An instance of the ConfigMapper
      */
     private configs: SettingsMapper;
+
     /**
      * The application endpoint for queries
      */
     private endPoint = 'resources';
-    /**
-     * Used for items reload
-     */
-    private reload: BehaviorSubject<boolean>;
 
     /**
      * @ignore
      */
     constructor(private http: HttpClient) {
-        this.currentPage = new BehaviorSubject<number>(1);
-        this.searchTerm = new BehaviorSubject<string>('');
-        this.activeItem = new BehaviorSubject<Item>(null);
-        this.activeFacets = new BehaviorSubject<Object>({});
-        this.reload = new BehaviorSubject<boolean>(true);
         this.router = new RouterMapper();
         this.configs = new SettingsMapper();
 
@@ -154,11 +134,6 @@ export class MainService {
         const url = this.getRoute('list', this.endPoint);
         params = this.router.getBaseParams(params);
         this.httpOptions.params = params;
-        if (!hasIn('page', params)) {
-            this.getCurrentPage().subscribe(value => {
-                params['page'] = value;
-            });
-        }
         return this.http.get(url, this.httpOptions);
     }
 
@@ -173,50 +148,28 @@ export class MainService {
     }
 
     /**
-     * Gets the form for the dynamic form from a remote API.
-     */
-    getForm() {
-        const url = this.getBaseUrl() + 'forms';
-        return this.http.get(url, this.httpOptions);
-    }
-
-    /**
-     * Gets the form for the dynamic tabsform from a remote API.
-     */
-    getTabForm() {
-        const url = this.getBaseUrl() + 'tabform';
-        return this.http.get(url, this.httpOptions);
-    }
-
-    /**
-     * Receives a FormData object and posts the form to the server.
+     * Receives a FormData object and send the form to the server.
      * @param {FormData} form The form to be sent
      * @returns {Observable} The response as a observable
      */
-    postFileForm(form: FormData) {
-        const url = this.getRoute('post', this.endPoint);
+    saveForm(data: ActionModel) {
         const heads = new HttpHeaders({
             'Access-Control-Allow-Origin': '*',
             Authorization: 'Bearer ' + this.getToken(),
             Accept: 'application/json'
         });
-        return this.http.post(url, form, { headers: heads });
-    }
 
-    /**
-     * Receives a FormData object and a resource ID and makes a put request.
-     * @param {FormData} form The form to be sent
-     * @param {number} id The resource ID
-     * @returns {Observable} The response as a observable
-     */
-    putFileForm(form: FormData, id: number) {
-        const url = this.getRoute('post', this.endPoint);
-        const heads = new HttpHeaders({
-            'Access-Control-Allow-Origin': '*',
-            Authorization: 'Bearer ' + this.getToken(),
-            Accept: 'application/json'
-        });
-        return this.http.post(url + '/' + id, form, { headers: heads });
+        const item = data.item;
+        const method = data.method === 'new' ? 'post' : 'put';
+        const formData = data.toFormData();
+        let url = this.getRoute(method, this.endPoint);
+        url = sprintf(url, item);
+
+        if (method === 'put') {
+            formData.append('_method', 'PUT');
+        }
+
+        return this.http.post(url, formData, { headers: heads });
     }
 
     /**
@@ -241,90 +194,5 @@ export class MainService {
     delete(id) {
         const url = this.getRoute('delete', this.endPoint);
         return this.http.delete(url + '/' + id, { headers: this.httpOptions.headers });
-    }
-
-    /**
-     * Modifies current page and notifies every subscribed component.
-     * @param {number} newPage The new active page
-     */
-    setCurrentPage(newPage: number) {
-        this.currentPage.next(newPage);
-    }
-
-    /**
-     * Returns the current page as a subscribable observable.
-     * @returns {Observable<number>} The current page as a observable
-     */
-    getCurrentPage(): Observable<number> {
-        return this.currentPage.asObservable();
-    }
-
-    /**
-     * Returns the current page as a number value.
-     * @returns {number} The current page
-     */
-    getCurrentPageValue(): number {
-        return this.currentPage.getValue();
-    }
-
-    /**
-     * Modifies current search term and notifies every subscribed component.
-     * @param {string} newTerm The new search term
-     */
-    setSearchTerm(newTerm: string) {
-        this.searchTerm.next(newTerm);
-    }
-
-    /**
-     * Returns the current search term as a subscribable observable.
-     * @returns {Observable<string>} The current search term as a observable
-     */
-    getSearchTerm(): Observable<string> {
-        return this.searchTerm.asObservable();
-    }
-
-    /**
-     * Sets the current selected item and notifies every subscribed component.
-     * @param {Item} item The new selected item
-     */
-    setActiveItem(item: Item) {
-        this.activeItem.next(item);
-    }
-
-    /**
-     * Returns the current search term as a subscribable observable.
-     * @returns {Observable<Item>} The current search term as a observable
-     */
-    getActiveItem(): Observable<Item> {
-        return this.activeItem.asObservable();
-    }
-
-    /**
-     * Sets the current selected facets and notifies every subscribed component.
-     * @param {Object} newFacets The facets currently selected
-     */
-    setActiveFacets(newFacets: Object) {
-        this.activeFacets.next(newFacets);
-    }
-
-    /**
-     * Returns the current active facets as a subscribable observable.
-     * @returns {Observable<Object>} The current active facets as a observable
-     */
-    getActiveFacets(): Observable<Object> {
-        return this.activeFacets.asObservable();
-    }
-    /**
-     * Gets a reload
-     */
-    getReload(): Observable<boolean> {
-        return this.reload.asObservable();
-    }
-
-    /**
-     * Sets a reload
-     */
-    setReload(reload: boolean) {
-        this.reload.next(reload);
     }
 }
