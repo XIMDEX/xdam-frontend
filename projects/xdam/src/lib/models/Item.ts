@@ -1,7 +1,6 @@
 // TODO @atovar remove RouterMapper dependencies
 import { isNil, hasIn } from 'ramda';
 import { ItemModel } from './interfaces/ItemModel.interface';
-import RouterMapper from '../../../../../src/app/mappers/RouterMapper';
 import { standard } from '../profiles/standard';
 import BaseModel from './Base';
 

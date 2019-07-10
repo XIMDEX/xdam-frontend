@@ -36,10 +36,6 @@ export class ItemFormComponent implements OnChanges {
     formFields: any[] = fileForm;
     tabsForms: any[] = [];
 
-    oldFormFields: any[] = [];
-    oldTabsForms: any[] = [];
-    oldInfoFormFields: any[] = [];
-
     formFieldsValues: any = {};
     infoFormFields = itemInfo;
     method: ActionMethods;
@@ -62,8 +58,6 @@ export class ItemFormComponent implements OnChanges {
         if (hasIn('action', changes) && !changes.action.isFirstChange() && !isNil(this.swalModal)) {
             if (!isNil(changes.action.currentValue)) {
                 this.method = this.action.method;
-                this.oldInfoFormFields = clone(this.infoFormFields);
-                this.oldFormFields = clone(this.formFields);
 
                 if (this.action.method === 'show') {
                     this.action.status = 'pending';
@@ -121,20 +115,8 @@ export class ItemFormComponent implements OnChanges {
 
     closeForm() {
         this.formFieldsValues = {};
-        if (this.oldFormFields.length > 0) {
-            this.formFields = clone(this.oldFormFields);
-            this.oldFormFields = [];
-        }
-
-        if (this.oldInfoFormFields.length > 0) {
-            this.infoFormFields = clone(this.oldInfoFormFields);
-            this.oldInfoFormFields = [];
-        }
-
-        if (this.oldTabsForms.length > 0) {
-            this.tabsForms = clone(this.oldTabsForms);
-            this.oldTabsForms = [];
-        }
+        this.clearFormValues(this.formFields);
+        this.clearFormValues(this.infoFormFields);
 
         this.close.emit();
     }
@@ -144,6 +126,18 @@ export class ItemFormComponent implements OnChanges {
         action.data = this.formFieldsValues;
         action.method = this.method;
         this.save.emit(action);
+    }
+
+    clearFormValues(form: any[]) {
+        for (const field of form) {
+            if (hasIn('errors', field)) {
+                field.errors = [];
+            }
+
+            if (hasIn('value', field)) {
+                field.value = undefined;
+            }
+        }
     }
 
     setFormValues(data: any, form: any[]) {
@@ -156,6 +150,9 @@ export class ItemFormComponent implements OnChanges {
             }
             if (!isNil(key)) {
                 let value = data[key];
+                if (isNil(value)) {
+                    continue;
+                }
                 if (hasIn('map', field) && !isNil(field.map)) {
                     const map = field.map;
                     if (is(Array, value)) {
