@@ -1,8 +1,10 @@
 {
     "name": "@ximdex/xdam",
-    "version": "0.0.1",
+    "version": "2.0",
+    "homepage": "https://github.com/XIMDEX/xdam-frontend",
     "author": {
-        "name": "ximdex"
+        "name": "Ximdex",
+        "url": "https://www.ximdex.com"
     },
     "contributors": [
         {
