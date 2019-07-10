@@ -9,7 +9,7 @@ import { Pager } from 'projects/xdam/src/lib/models/Pager';
 import { PagerModelSchema } from 'projects/xdam/src/lib/models/interfaces/PagerModel.interface';
 import { SearchModel } from 'projects/xdam/src/lib/models/SarchModel';
 import { XDamSettingsInterface } from 'projects/xdam/src/lib/models/interfaces/Settings.interface';
-import { isNil } from 'ramda';
+import { isNil, hasIn } from 'ramda';
 
 @Component({
     selector: 'app-root',
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
         }
     };
 
-    constructor(private mainService: MainService, private cdRef: ChangeDetectorRef) {}
+    constructor(private mainService: MainService) {}
 
     ngOnInit() {
         this.settings = this.mainService.getGeneralConfigs();
@@ -139,36 +139,48 @@ export class AppComponent implements OnInit {
     }
 
     deleteItem(item: Item) {
-        this.mainService.delete(item.id).subscribe(
-            response => {
+        this.mainService
+            .delete(item.id)
+            .subscribe(
+                response => {},
+                err => {
+                    console.error(err);
+                }
+            )
+            .add(() => {
                 this.getItems();
-            },
-            err => {
-                console.error(err);
-                this.getItems();
-            }
-        );
+            });
     }
 
     damAction(data: ActionModel) {
         const action = new ActionModel(data);
         let actionType = null;
 
-        if (action.method === 'new') {
-            actionType = this.mainService.postFileForm(action.toFormData());
-        } else if (action.method === 'show') {
+        if (action.method === 'show') {
             actionType = this.mainService.getResource(action.item.id);
+        } else {
+            actionType = this.mainService.saveForm(action);
         }
 
-        actionType.subscribe(
-            ({ result }) => {
-                const { data } = result as any;
-                action.data = data;
+        actionType
+            .subscribe(
+                ({ result }) => {
+                    const { data } = result as any;
+                    action.data = data;
+                    action.status = 'success';
+                },
+                ({ error, message, statusText }) => {
+                    action.status = 'fail';
+                    if (hasIn('errors', error)) {
+                        action.errors = error.errors;
+                    }
+                }
+            )
+            .add(() => {
+                if (action.method !== 'show') {
+                    this.getItems();
+                }
                 this.action = action;
-            },
-            err => {
-                console.error(err);
-            }
-        );
+            });
     }
 }
