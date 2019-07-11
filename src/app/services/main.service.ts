@@ -1,10 +1,9 @@
+import { Item } from './../../../projects/xdam/src/lib/models/Item';
 import { sprintf } from 'sprintf-js';
 import { ActionModel } from './../../../projects/xdam/src/lib/models/ActionModel';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { hasIn, isNil } from 'ramda';
-import { Item } from '../../../projects/xdam/src/lib/models/Item';
 import RouterMapper from '../mappers/RouterMapper';
 import SettingsMapper from '../mappers/SettingsMapper';
 
@@ -142,9 +141,25 @@ export class MainService {
      * @param id The identifier of the resource
      * @returns {Observable} The response as a observable
      */
-    getResource(id) {
-        const url = this.getRoute('get', this.endPoint);
-        return this.http.get(url + '/' + id, this.httpOptions);
+    getResource(data: ActionModel) {
+        let url = this.getRoute('get', this.endPoint);
+        const item = data.item;
+        url = sprintf(url, item);
+
+        return this.http.get(url, this.httpOptions);
+    }
+
+    /**
+     * Deletes a resource from the server given its ID.
+     * @param id The resource ID
+     * @returns {Observable} The response as a observable
+     */
+    delete(data: Item) {
+        let url = this.getRoute('delete', this.endPoint);
+        const item = data;
+        url = sprintf(url, item);
+
+        return this.http.delete(url, { headers: this.httpOptions.headers });
     }
 
     /**
@@ -184,15 +199,5 @@ export class MainService {
             Authorization: 'Bearer ' + this.getToken()
         });
         return this.http.get(url + '/' + id + '/file', { headers: heads, responseType: 'blob' });
-    }
-
-    /**
-     * Deletes a resource from the server given its ID.
-     * @param id The resource ID
-     * @returns {Observable} The response as a observable
-     */
-    delete(id) {
-        const url = this.getRoute('delete', this.endPoint);
-        return this.http.delete(url + '/' + id, { headers: this.httpOptions.headers });
     }
 }
