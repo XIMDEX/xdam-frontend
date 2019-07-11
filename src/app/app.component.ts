@@ -1,6 +1,6 @@
 import { ActionModel } from './../../projects/xdam/src/lib/models/ActionModel';
 import { Item } from './../../projects/xdam/src/lib/models/Item';
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { MainService } from './services/main.service';
 import { XDamData } from '../../projects/xdam/src/lib/models/interfaces/ItemModel.interface';
@@ -140,7 +140,7 @@ export class AppComponent implements OnInit {
 
     deleteItem(item: Item) {
         this.mainService
-            .delete(item.id)
+            .delete(item)
             .subscribe(
                 response => {},
                 err => {
@@ -157,7 +157,7 @@ export class AppComponent implements OnInit {
         let actionType = null;
 
         if (action.method === 'show') {
-            actionType = this.mainService.getResource(action.item.id);
+            actionType = this.mainService.getResource(action);
         } else {
             actionType = this.mainService.saveForm(action);
         }

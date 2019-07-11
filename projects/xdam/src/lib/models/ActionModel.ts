@@ -77,6 +77,9 @@ export class ActionModel extends BaseModel implements ActionI {
         }
 
         for (const key of Object.keys(obj)) {
+            if (key.startsWith('[') && key.endsWith(']') && prefix.endsWith('.')) {
+                prefix = prefix.slice(0, -1);
+            }
             let fullkey = prefix + key;
             if ((is(Object, obj[key]) || is(Array, obj[key])) && obj[key].constructor !== File) {
                 if (is(Object, obj[key]) && !is(Array, obj[key]) && obj[key].constructor !== FileList) {

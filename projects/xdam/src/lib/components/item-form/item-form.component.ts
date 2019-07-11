@@ -63,7 +63,7 @@ export class ItemFormComponent implements OnChanges {
                     this.action.status = 'pending';
                     this.method = 'edit';
                     const mainForm = this.action.data;
-                    const tabsForm = hasIn('tabsform', mainForm) && isNil(mainForm.tabsform) ? mainForm.tabsform : [];
+                    const tabsForm = hasIn('tabsform', mainForm) && !isNil(mainForm.tabsform) ? mainForm.tabsform : [];
 
                     if (hasIn('tabsform', mainForm)) {
                         delete mainForm.tabsform;
@@ -71,11 +71,12 @@ export class ItemFormComponent implements OnChanges {
 
                     this.setFormValues(mainForm, this.formFields);
                     this.setFormValues(mainForm, this.infoFormFields);
+                    this.setTabsFormValues(tabsForm);
                 }
 
                 if (!isNil(this.action.errors)) {
                     const mainForm = this.action.errors;
-                    const tabsForm = hasIn('tabsform', mainForm) && isNil(mainForm.tabsform) ? mainForm.tabsform : [];
+                    const tabsForm = hasIn('tabsform', mainForm) && !isNil(mainForm.tabsform) ? mainForm.tabsform : [];
 
                     if (hasIn('tabsform', mainForm)) {
                         delete mainForm.tabsform;
@@ -117,6 +118,7 @@ export class ItemFormComponent implements OnChanges {
         this.formFieldsValues = {};
         this.clearFormValues(this.formFields);
         this.clearFormValues(this.infoFormFields);
+        this.clearTabsFormValues();
 
         this.close.emit();
     }
@@ -169,6 +171,37 @@ export class ItemFormComponent implements OnChanges {
         }
     }
 
+    clearTabsFormValues() {
+        for (const section of this.tabsForms) {
+            for (const tab of section.tabs) {
+                this.clearFormValues(tab.fields);
+            }
+        }
+    }
+
+    setTabsFormValues(form: any) {
+        for (const section of this.tabsForms) {
+            if (hasIn(section.name, form)) {
+                const formTab = form[section.name];
+                for (const tab of section.tabs) {
+                    if (hasIn(tab.key, formTab)) {
+                        let fieldKey = `${section.name}.${tab.key}`;
+                        for (const key of Object.keys(formTab[tab.key])) {
+                            const _fieldKey = `${fieldKey}.${key}`;
+                            const value = formTab[tab.key][key];
+                            tab.fields.forEach(element => {
+                                if (element.realName === _fieldKey) {
+                                    element.value = value;
+                                    this.updatedValue(element.key, value);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     setFormErrors(data: any, form: any[]) {
         for (const field of form) {
             let key = null;
@@ -210,14 +243,20 @@ export class ItemFormComponent implements OnChanges {
         if (hasIn('tabs', form) && is(Array, form.tabs)) {
             form.tabs.forEach(tabForm => {
                 let title = 'Form';
+                let key = null;
                 let fields = [];
+
                 if (hasIn('title', tabForm)) {
                     title = tabForm.title;
                 }
 
+                if (hasIn('key', tabForm)) {
+                    key = tabForm.key;
+                }
+
                 if (hasIn('fields', tabForm)) {
-                    fields = this.prepareFormsFields(tabForm.fields, name);
-                    tabs.push({ title, fields });
+                    fields = this.prepareFormsFields(tabForm.fields);
+                    tabs.push({ title, fields, key });
                 }
             });
         }
