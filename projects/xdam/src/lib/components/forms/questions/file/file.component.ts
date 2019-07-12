@@ -20,7 +20,7 @@ export class FileComponent extends QuestionBaseComponent<FileList | File | any[]
         return this.question.multiple;
     }
 
-    protected changeValue(evt: Event = null) {
+    public changeValue(evt: Event = null) {
         const { target } = evt;
         let files: FileList | File = (target as HTMLInputElement).files;
         if (!this.multiple) {
