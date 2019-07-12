@@ -2,11 +2,12 @@
 @import '../styles/fonts';
 @import '../styles/borders';
 
-.xdam-modal,
-.xdam-modal-form {
+.swal2-modal,
+.xdam-modal {
     font-family: $font_family !important;
 
-    .xdam-modal-header {
+    .xdam-modal-header,
+    .swal2-header {
         display: flex !important;
         flex-direction: row !important;
         align-items: baseline;
@@ -24,12 +25,14 @@
             }
         }
 
+        .swal2-title,
         .xdam-modal-title {
             font-size: $font_size_big;
             margin: 0;
         }
     }
 
+    .swal2-content,
     .xdam-modal-content {
         font-size: $font_size_medium;
 
@@ -46,12 +49,19 @@
         }
     }
 
+    .swal2-actions,
     .xdam-modal-actions {
         border-top: $modal_actions_border;
         margin: 15px auto 0 !important;
 
-        > .xdam-btn-base {
+        > .xdam-btn-base,
+        > button {
+            display: inline-block;
+            height: 28px;
             min-width: 50px;
+            padding: 0 8px;
+            line-height: 28px;
+            cursor: pointer;
             border: unset !important;
             border-radius: $input_border_radius !important;
             background-color: $actions_color !important;
@@ -61,18 +71,25 @@
             padding: 0 8px;
             font-weight: normal;
 
-            &.cancel {
+            &:active,
+            &:focus {
+                outline: 0 !important;
+            }
+
+            &.cancel,
+            &.swal2-cancel {
                 background-color: $actions_color_cancel !important;
                 color: $actions_font_color_cancel !important;
             }
         }
     }
+}
 
-    &:not(.xdam-modal) {
-        width: 800px;
+.xdam-modal-form {
+    width: 800px !important;
 
-        .xdam-modal-header {
-            justify-content: flex-end;
-        }
+    .xdam-modal-header,
+    .swal2-header {
+        justify-content: flex-end;
     }
 }
