@@ -53,7 +53,6 @@ body {
 input[type='text'],
 textarea,
 select {
-    min-width: $input_min_width;
     min-height: $input_height;
 
     &:not(textarea) {

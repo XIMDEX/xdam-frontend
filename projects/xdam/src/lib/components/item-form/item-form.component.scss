@@ -18,7 +18,7 @@
     > .item-form-general {
         flex-grow: 1;
         display: grid;
-        grid-template-columns: auto 50%;
+        grid-template-columns: 50% auto;
         border: $item_form_group_border;
         grid-gap: $item_form_group_border_weight;
         background-color: $item_form_group_border_color;
@@ -38,6 +38,10 @@
                     margin-top: 10px;
                 }
             }
+        }
+
+        @media screen and (max-width: 650px) {
+            grid-template-columns: 100%;
         }
     }
 
@@ -63,6 +67,7 @@
             textarea {
                 margin-top: 5px;
                 flex-grow: 1;
+                min-width: unset !important;
             }
         }
 
@@ -73,6 +78,10 @@
             > * {
                 margin-left: 5px;
                 margin-right: 5px;
+            }
+
+            @media screen and (max-width: 650px) {
+                grid-template-columns: 100%;
             }
         }
 
