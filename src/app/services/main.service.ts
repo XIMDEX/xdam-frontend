@@ -192,12 +192,15 @@ export class MainService {
      * @param id The resource ID
      * @returns {Observable} The response as a observable
      */
-    downloadResource(id) {
-        const url = this.getRoute('get', this.endPoint);
+    downloadResource(item: Item) {
         const heads = new HttpHeaders({
             'Access-Control-Allow-Origin': '*',
             Authorization: 'Bearer ' + this.getToken()
         });
-        return this.http.get(url + '/' + id + '/file', { headers: heads, responseType: 'blob' });
+
+        let url = this.getRoute('get', this.endPoint);
+        url = sprintf(url, item);
+
+        return this.http.get(url + '/file', { headers: heads, responseType: 'blob' });
     }
 }

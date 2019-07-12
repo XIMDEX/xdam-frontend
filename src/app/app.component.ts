@@ -120,7 +120,7 @@ export class AppComponent implements OnInit {
     }
 
     downloadItem(item: Item) {
-        this.mainService.downloadResource(item.id).subscribe(
+        this.mainService.downloadResource(item).subscribe(
             response => {
                 const url = window.URL.createObjectURL(response);
                 const downloadFile = document.createElement('a');
