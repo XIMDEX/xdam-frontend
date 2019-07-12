@@ -42,7 +42,7 @@ export abstract class QuestionBaseComponent<T> {
         return this.errors.length > 0;
     }
 
-    protected changeValue() {
+    public changeValue() {
         return this.onChange.emit(this.value);
     }
 }

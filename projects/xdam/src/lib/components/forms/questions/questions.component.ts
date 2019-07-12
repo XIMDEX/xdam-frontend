@@ -15,7 +15,7 @@ export class QuestionsComponent extends QuestionBaseComponent<any> {
 
     protected defaultValue: any = null;
 
-    protected changeValue(value: any = null) {
+    public changeValue(value: any = null) {
         return this.onChange.emit(value);
     }
 }
