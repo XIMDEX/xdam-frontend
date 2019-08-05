@@ -1,0 +1,9 @@
+<ng-container *ngFor="let item of items">
+    <xdam-item
+        [settings]="settings.items"
+        [item]="item"
+        (delete)="deleteItem($event)"
+        (download)="downloadItem($event)"
+        (edit)="editItem($event)"
+    ></xdam-item>
+</ng-container>

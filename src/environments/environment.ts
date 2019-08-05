@@ -6,10 +6,16 @@
  * @ignore
  */
 export const environment = {
-  production: false,
-  API: 'http://universo.lh/api/v1/',
-  resourcesAPI: 'http://universo.lh/api/v1/resources',
-  token: ''
+    production: false,
+    base_url: 'http://universo.lh/api/v1/',
+    token: 'ssdfksj856erfh3vs634pldaskg',
+    endpoints: {
+        resources: {
+            get: 'resources',
+            post: 'resources',
+            delete: 'resources'
+        }
+    }
 };
 
 /*

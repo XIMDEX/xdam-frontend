@@ -1,6 +1,9 @@
-<div id="wrapper">
-  <button *ngIf="false" (click)="toggleOpen()">ABRIR</button>
-  <app-dam [popup]="false" [isOpen]="isOpen" (openEmitter)="toggleOpen();" (onSelect)="handleSelect($event)">
-  </app-dam>
-</div>
-
+<xdam-main
+    [settings]="settings"
+    [items]="items"
+    [action]="action"
+    (onSearch)="sendSearch($event)"
+    (onDelete)="deleteItem($event)"
+    (onDownload)="downloadItem($event)"
+    (onAction)="damAction($event)"
+></xdam-main>

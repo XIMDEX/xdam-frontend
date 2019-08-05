@@ -1,0 +1,46 @@
+<ngx-loading [show]="loading"></ngx-loading>
+<xdam-facets *ngIf="settings.facets" [data]="facets" (onChange)="prepareSearch($event)"></xdam-facets>
+<div class="shadow-panel dam-main-back">
+    <div class="dam-main-container">
+        <div>
+            <xdam-search
+                [settings]="settings.search"
+                (search)="prepareSearch($event)"
+                (action)="setAction($event)"
+            ></xdam-search>
+            <xdam-paginator
+                *ngIf="pager && settings.pager.top"
+                [settings]="settings.pager.top"
+                [total]="pager.total"
+                [perPage]="pager.perPage"
+                [pager]="pager"
+                (change)="prepareSearch($event)"
+            ></xdam-paginator>
+        </div>
+        <div class="dam-list">
+            <xdam-list
+                [items]="elements"
+                [settings]="settings.list"
+                (delete)="deleteItem($event)"
+                (download)="downloadItem($event)"
+                (edit)="sendAction($event)"
+            ></xdam-list>
+        </div>
+        <xdam-paginator
+            *ngIf="pager && settings.pager.bottom"
+            [settings]="settings.pager.bottom"
+            [total]="pager.total"
+            [perPage]="pager.perPage"
+            [pager]="pager"
+            (change)="prepareSearch($event)"
+        ></xdam-paginator>
+    </div>
+    <xdam-footer></xdam-footer>
+    <xdam-item-form
+        [action]="actionModel"
+        [display]="displayForm"
+        (save)="sendAction($event)"
+        [settings]="settings.form"
+        (close)="closeAction()"
+    ></xdam-item-form>
+</div>
