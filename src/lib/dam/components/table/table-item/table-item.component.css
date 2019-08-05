@@ -36,6 +36,10 @@
     
 }
 
+.dam-header input {
+    float: right;
+}
+
 .dam-preview{
     padding: 0;
     font-size: 11px;

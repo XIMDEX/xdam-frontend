@@ -116,6 +116,23 @@ ul.pagination li:last-child{
     margin: 0.6em 1em 0 auto;
 }
 
+.batch-menu {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: linear-gradient(0deg,#EDEFF2 0,#E0E4E6 40%);
+    color: white;
+    padding: 1em;
+}
+
+.batch-menu ul {
+    padding: 0px;
+}
+
+.batch-menu ul li {
+    list-style: none;
+}
+
 /* MOBILE */
 @media all and (max-width: 599px) { 
     .pagination-nav{

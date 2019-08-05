@@ -31,6 +31,10 @@ export class Asset {
    * The type of resource attached to the asset
    */
   type: string;
+  /**
+   * The file name of the asset
+   */
+  filename: string;
 
   /**@ignore */
   constructor(
@@ -40,7 +44,8 @@ export class Asset {
     url?: string,
     resource?: File,
     extension?: string,
-    type?: string
+    type?: string,
+    filename?: string
     ) {
     this.title = title || '';
     this.description = description || '';
@@ -49,6 +54,7 @@ export class Asset {
     this.resource = resource || null;
     this.extension = extension || '';
     this.type = type || '';
+    this.filename = filename || '';
 
   }
 }

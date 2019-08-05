@@ -53,6 +53,10 @@ export class MainService {
    * The application endpoint for queries
    */
   private endPoint = 'resources';
+  /**
+   * Used for items reload
+   */
+  private reload: BehaviorSubject<Boolean>;
 
   /**
    * @ignore
@@ -62,6 +66,7 @@ export class MainService {
     this.searchTerm = new BehaviorSubject<string>('');
     this.activeItem = new BehaviorSubject<Item>(null);
     this.activeFacets = new BehaviorSubject<Object>({});
+    this.reload = new BehaviorSubject<Boolean>(true);
     this.settings = new RouterMapper();
     this.configs = new ConfigMapper;
 
@@ -185,10 +190,18 @@ export class MainService {
   }
 
   /**
-   * @ignore
+   * Gets the form for the dynamic form from a remote API.
    */
   getForm() {
     const url = this.settings.getBaseUrl() + 'forms';
+    return this.http.get(url, this.httpOptions);
+  }
+
+  /**
+   * Gets the form for the dynamic tabsform from a remote API.
+   */
+  getTabForm() {
+    const url = this.settings.getBaseUrl() + 'tabform';
     return this.http.get(url, this.httpOptions);
   }
 
@@ -314,5 +327,18 @@ export class MainService {
    */
   getActiveFacets(): Observable<Object> {
     return this.activeFacets.asObservable();
+  }
+  /**
+   * Gets a reload
+   */
+  getReload(): Observable<Boolean> {
+    return this.reload.asObservable();
+  }
+
+  /**
+   * Sets a reload
+   */
+  setReload(reload: Boolean) {
+    this.reload.next(reload);
   }
 }

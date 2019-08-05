@@ -6,13 +6,12 @@ import { DepDropQuestion } from '../components/dyn-form/questions/question-depdr
 import { QuestionBase } from '../components/dyn-form/questions/question-base';
 import { TextAreaQuestion } from '../components/dyn-form/questions/question-textarea';
 import { MainService } from '../services/main.service';
-import { Asset } from '../models/Asset';
 
 /**
  * This class extracts and maps data about the additional form
  * for uploading or editing resources.
  */
-export default class FormMapper {
+export default class TabsFormMapper {
 
     /**
      * The extracted forms as a dict
@@ -26,6 +25,11 @@ export default class FormMapper {
      * The instance of the mainService
      */
     private mainService: MainService;
+    /**
+     * @ignore
+     */
+    private tabs: any[] = null;
+    private title: string;
 
     /**@ignore */
     constructor(mainService: MainService) {
@@ -54,32 +58,46 @@ export default class FormMapper {
         this.fields = fields;
     }
 
+    getTabs() {
+        return this.tabs;
+    }
+
+    setTabs(tabs: any[]) {
+        this.tabs = tabs;
+    }
+
+    setTitle(title) {
+        this.title = title;
+    }
+
+    getTitle() {
+        return this.title;
+    }
+
     /**
      * Initializes and process the form to obtain que question fields
      */
     private initForm() {
         const localForm = this.getForms();
         /*if (localForm.api === true) {
-            this.mainService.getForm().subscribe(response => {
-                const rawFields = response['result'].data.fields;
-                this.fields = this.handleForm(rawFields);
+            this.mainService.getTabForm().subscribe(response => {
+                const rawTabs= response['result'].data.tabs;
+                this.title = response['result'].data.title;
+                this.tabs = this.handleTabs(rawTabs);
             });
         } else {
-            this.fields = this.handleForm(localForm.fields);
+            this.title = localForm.title;
+            this.tabs = this.handleTabs(localForm.tabs);
         }*/
-        this.fields = this.handleForm(localForm.fields);
+        this.title = localForm.title;
+        this.tabs = this.handleTabs(localForm.tabs);
       }
 
     /**@ignore */
-    private getValue(field: Object, key: string, isArray: boolean = true): any {
+    private getValue(field: Object, key: string, _default: any = ''): any {
         let value = Object.assign({}, field);
         const keys = key.split('.');
-
-        if (!isArray) {
-            if (hasIn(key, value)) {
-                value = value[key];
-            }
-        } else {
+        if (Array.isArray(keys)) {
             for (let i = 0; i < keys.length; i++) {
                 if (is(Object, value) && hasIn(keys[i], value)) {
                     value = value[keys[i]];
@@ -89,10 +107,24 @@ export default class FormMapper {
             }
         }
 
-        if (value === field) {
-            value = '';
+        if (typeof value === 'object') {
+            value = _default;
         }
         return value;
+    }
+
+    /**
+     * Process the tabs from the schema.
+     * @param rawTabs The raw schema
+     */
+    handleTabs(rawTabs, asset = null) {
+        let tabs;
+        let fields: QuestionBase<Object>[] = null;
+        tabs = rawTabs.map( (tab) => {
+            fields = this.handleForm(tab.fields, asset);
+            return {title: tab.title, questions: fields};
+        });
+        return tabs;
     }
 
     /**
@@ -105,7 +137,7 @@ export default class FormMapper {
             let object = null;
             if ( !isNil( asset ) ) {
                 const key = hasIn('realName', field.object) ? field.object.realName : field.object.key;
-                field.object.val = this.getValue(asset, key, this.getProp(field.object, 'multi', false));
+                field.object.val = this.getValue(asset, key);
             }
             if (field.type === 'dropdown') {
                 object = new DropdownQuestion(field.object);
@@ -145,7 +177,7 @@ export default class FormMapper {
         const xdam = hasIn('$xdam', window) ? (<any>window).$xdam : null;
 
         const result = Object.assign({}, environment, xdam);
-        this.setForms(result.forms)
+        this.setForms(result.tabsform)
             .initForm();
     }
 }

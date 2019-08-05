@@ -6,6 +6,7 @@ import { QuestionBase } from '../../dyn-form/questions/question-base';
 import FormMapper from '../../../mappers/FormMapper';
 import { MainService } from '../../../services/main.service';
 import { Asset } from '../../../models/Asset';
+import TabsFormMapper from '../../../mappers/TabsFormMapper';
 
 /**
  * Modal component used as a single instance for all the application lifecycle that holds the data
@@ -66,6 +67,13 @@ export class AssetsModalComponent implements OnInit {
    * Instance of a FormMapper used to build the dynamic form questions
    */
   private formMapper: FormMapper;
+   /**
+   * Instance of a TabMapper used to build the dynamic tab form questions
+   */
+  private TabMapper: TabsFormMapper;
+  tabData: any = {};
+  tabs: any[] = [];
+  tabTitle = '';
 
   /**
    *@ignore
@@ -80,7 +88,10 @@ export class AssetsModalComponent implements OnInit {
    */
   ngOnInit() {
     this.formMapper = new FormMapper(this.mainService);
+    this.TabMapper = new TabsFormMapper(this.mainService);
     this.getQuestions();
+    this.getTabs();
+    this.getTabTitle();
   }
 
   /**
@@ -90,12 +101,35 @@ export class AssetsModalComponent implements OnInit {
     this.questions = this.formMapper.getFields();
   }
 
+  getTabs() {
+    this.tabs = this.TabMapper.getTabs();
+  }
+
+  getTabTitle() {
+    this.tabTitle = this.TabMapper.getTitle();
+  }
+
+  /**
+   * Sets the file name
+   */
+  setFileName() {
+    if (this.asset.filename === '' || isNil(this.asset.filename)) {
+      this.fileName = 'None';
+    } else {
+      this.fileName = this.asset.filename;
+    }
+  }
+
   /**
    * Sets the dynamic data received from the dynamic form
    * @param event The dynamic data sent by the form component
    */
   setDynData(event) {
     this.dynData = event;
+  }
+
+  setTabData(event) {
+    this.tabData = event;
   }
 
   /**
@@ -115,7 +149,7 @@ export class AssetsModalComponent implements OnInit {
       const data = this.ngxSmartModalService.getModal('assets').getData();
       this.asset = data.asset;
       this.id = data.id;
-      this.fileName = this.asset.title + '.' + this.asset.extension;
+      this.setFileName();
       this.createQuestions();
     }
   }
@@ -125,8 +159,12 @@ export class AssetsModalComponent implements OnInit {
    */
   createQuestions() {
     const fields = this.formMapper.handleForm(this.formMapper.getForms().fields, this.asset);
+    const newTabs= this.TabMapper.handleTabs(this.TabMapper.getForms().tabs, this.asset);
     this.formMapper.setFields(fields);
+    this.TabMapper.setTabs(newTabs);
     this.questions = fields;
+    newTabs[0].active = true;
+    this.tabs = newTabs;
   }
 
   /**
@@ -138,11 +176,15 @@ export class AssetsModalComponent implements OnInit {
       formData.append('_method', 'PUT');
     }
 
-    for (const key in this.dynData) {
+    for (const key of Object.keys(this.dynData)) {
       this.asset[key] = this.dynData[key];
     }
 
-    for (const key in this.asset) {
+    for (const key of Object.keys(this.tabData)) {
+      this.asset[key] = this.tabData[key];
+    }
+
+    for (const key of Object.keys(this.asset)) {
       if ((key === 'resource') && isNil(this.asset[key])) {
         continue;
       } else if (isNil(this.asset[key])) {
@@ -162,7 +204,7 @@ export class AssetsModalComponent implements OnInit {
     if (!this.edit) {
       this.mainService.postFileForm(form).subscribe(
         suc => {
-          this.mainService.setCurrentPage(1);
+          this.mainService.setReload(true);
           this.close();
         },
         err => {
@@ -174,7 +216,7 @@ export class AssetsModalComponent implements OnInit {
     } else {
       this.mainService.putFileForm(form, this.id).subscribe(
         suc => {
-          this.mainService.setCurrentPage(1);
+          this.mainService.setReload(true);
           this.close();
         },
         err => {
