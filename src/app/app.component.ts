@@ -99,8 +99,6 @@ export class AppComponent implements OnInit {
         params = params.append('default', this.default ? '1' : '0');
         params = params.append(this.limit, String(this.search.limit));
 
-        this.default = false;
-
         this.mainService.list(params).subscribe(
             response => {
                 const { data } = response as any;
@@ -109,9 +107,25 @@ export class AppComponent implements OnInit {
                     pager: new Pager(data, this.pagerSchema),
                     facets: data['facets']
                 };
+                if (this.default) {
+                    this.getDefaultFacet(data['facets']);
+                }
             },
             err => console.error(err)
         );
+    }
+
+    getDefaultFacet(data) {
+        const facets = {};
+
+        data.map(({ key, default: defFacet = null }) => {
+            if (!isNil(defFacet)) {
+                facets[key] = [defFacet];
+            }
+        });
+
+        this.default = false;
+        this.search.update({ facets });
     }
 
     sendSearch(data: SearchModel) {
