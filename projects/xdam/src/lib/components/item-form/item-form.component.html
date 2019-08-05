@@ -63,7 +63,7 @@
             </aside>
             <aside class="item-form-tabs" *ngIf="tabsForms.length > 0">
                 <ngx-tabset>
-                    <ngx-tab *ngFor="let form of tabsForms" [tabTitle]="form.title" [bypassDOM]="true">
+                    <ngx-tab *ngFor="let form of tabsForms; let formIndex = index" [tabTitle]="form.title" [bypassDOM]="true">
                         <ng-template>
                             <ngx-tabset>
                                 <ngx-tab
@@ -74,9 +74,11 @@
                                     <ng-template>
                                         <div class="fields table">
                                             <xdam-question
-                                                *ngFor="let field of subForm.fields"
+                                                *ngFor="let field of subForm.fields; let tabIndex = index"
                                                 [question]="field"
-                                                (onChange)="updatedValue(field.key, $event)"
+                                                (onChange)="
+                                                    updatedTabsFormValue(formIndex, tabIndex, field.key, $event)
+                                                "
                                             ></xdam-question>
                                         </div>
                                     </ng-template>

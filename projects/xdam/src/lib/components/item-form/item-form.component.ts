@@ -219,6 +219,16 @@ export class ItemFormComponent implements OnChanges {
         }
     }
 
+    updatedTabsFormValue(form: string, tab: string, key: string, value: any) {
+        this.updatedValue(key, value);
+
+        this.tabsForms[form].tabs[tab].fields.forEach(field => {
+            if (field.key === key) {
+                field.value = value;
+            }
+        });
+    }
+
     updatedValue(key: string, value: any) {
         const keys = key.split('.');
         this.formFieldsValues = this.formFieldToFormFieldsValue(keys, value, { ...this.formFieldsValues });
