@@ -24,9 +24,9 @@ export class FacetsComponent implements OnChanges {
 
     @HostBinding('class.open_facets') isOpen = false;
 
-    protected facets = {};
+    public facets = {};
+    public first = true;
     protected openFacets = [];
-    protected first = true;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
