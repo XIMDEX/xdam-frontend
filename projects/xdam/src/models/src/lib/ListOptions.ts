@@ -1,10 +1,11 @@
-import { ItemModel } from './interfaces/ItemModel.interface';
-import { ListOptions as ListOptionsI, ListItemOption } from './interfaces/ListOptions.interface';
+import { ListItemOptionI, ListOptionsI } from './interfaces/ListOptions.interface';
+
 import BaseModel from './Base';
-import { standard } from '../profiles/standard';
+import { ItemModel } from './interfaces/ItemModel.interface';
+import { standard } from './profiles/standard';
 
 export class ListOptions extends BaseModel implements ListOptionsI {
-    private _items: ListItemOption = standard.list.items;
+    private _items: ListItemOptionI = standard.list.items;
     private _model: ItemModel = null;
 
     public constructor(options: ListOptionsI) {
@@ -12,10 +13,10 @@ export class ListOptions extends BaseModel implements ListOptionsI {
         this.update(options);
     }
 
-    set items(items: ListItemOption) {
+    set items(items: ListItemOptionI) {
         this._items = items;
     }
-    get items(): ListItemOption {
+    get items(): ListItemOptionI {
         return this._items;
     }
 

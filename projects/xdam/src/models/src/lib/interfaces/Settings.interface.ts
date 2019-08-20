@@ -1,8 +1,8 @@
 import { FormI } from './FormI.interface';
-import { ListOptions } from './ListOptions.interface';
+import { ListOptionsI } from './ListOptions.interface';
 
 import { ItemModel } from './ItemModel.interface';
-import { SearchOptions } from './SearchModel.interface';
+import { SearchOptionsI } from './SearchModel.interface';
 import { PagerOptions } from './PagerOptions.interface';
 
 export interface Settings {
@@ -20,9 +20,9 @@ export interface SettingsEndpoint {
 }
 
 export interface XDamSettingsInterface {
-    search?: SearchOptions;
+    search?: SearchOptionsI;
     pager?: PagerOptions;
-    list?: ListOptions;
+    list?: ListOptionsI;
     facets?: boolean;
     form?: FormI;
 }
