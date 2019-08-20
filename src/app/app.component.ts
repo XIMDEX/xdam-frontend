@@ -7,7 +7,7 @@ import { Item } from '@xdam/models/Item';
 import { MainService } from './services/main.service';
 import { Pager } from '@xdam/models/Pager';
 import { PagerModelSchema } from '@xdam/models/interfaces/PagerModel.interface';
-import { SearchModel } from '@xdam/models/SarchModel';
+import { SearchModel } from '@xdam/models/SearchModel';
 import { XDamData } from '@xdam/models/interfaces/ItemModel.interface';
 import { XDamSettingsInterface } from '@xdam/models/interfaces/Settings.interface';
 
