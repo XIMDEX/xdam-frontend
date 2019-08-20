@@ -1,16 +1,17 @@
-import { hasIn, isNil } from 'ramda';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import {
+    ChangeDetectorRef,
     Component,
+    EventEmitter,
     HostBinding,
     Input,
-    Output,
-    EventEmitter,
     OnChanges,
-    SimpleChanges,
-    ChangeDetectorRef
+    Output,
+    SimpleChanges
 } from '@angular/core';
-import { SearchModel } from '../../models/SarchModel';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { hasIn, isNil } from 'ramda';
+
+import { SearchModel } from '../../../models/src/lib/SearchModel';
 
 @Component({
     selector: 'xdam-facets',

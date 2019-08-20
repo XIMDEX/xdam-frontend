@@ -1,6 +1,6 @@
-import { Item } from './../../../projects/xdam/src/lib/models/Item';
+import { ActionModel } from '@xdam/models/ActionModel';
+import { Item } from '@xdam/models/Item';
 import { sprintf } from 'sprintf-js';
-import { ActionModel } from './../../../projects/xdam/src/lib/models/ActionModel';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { hasIn, isNil } from 'ramda';

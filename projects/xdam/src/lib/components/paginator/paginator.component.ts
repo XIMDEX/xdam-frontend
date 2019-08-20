@@ -1,9 +1,10 @@
-import { faStepBackward, faCaretLeft, faCaretRight, faStepForward } from '@fortawesome/free-solid-svg-icons';
-import { PerPageModel, PagerModel } from '../../models/interfaces/PagerModel.interface';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { SearchModel } from '../../models/SarchModel';
-import { PagerOptionsItems } from '../../models/interfaces/PagerOptions.interface';
-import { isNil, hasIn } from 'ramda';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PagerModel, PerPageModel } from './../../../models/src/lib/interfaces/PagerModel.interface';
+import { faCaretLeft, faCaretRight, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
+import { hasIn, isNil } from 'ramda';
+
+import { PagerOptionsItems } from './../../../models/src/lib/interfaces/PagerOptions.interface';
+import { SearchModel } from '../../../models/src/lib/SearchModel';
 
 @Component({
     selector: 'xdam-paginator',

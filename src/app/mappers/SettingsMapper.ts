@@ -1,5 +1,5 @@
-import { XDamSettings } from './../../../projects/xdam/src/lib/models/XdamSettings';
-import { isNil, hasIn } from 'ramda';
+import { XDamSettings } from '@xdam/models/XDamSettings';
+import { hasIn } from 'ramda';
 
 /**
  * This class extracts and maps data about the components

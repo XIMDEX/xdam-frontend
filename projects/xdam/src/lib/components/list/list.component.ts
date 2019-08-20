@@ -1,7 +1,8 @@
-import { ActionModel } from './../../models/ActionModel';
-import { Item } from '../../models/Item';
-import { ListOptions } from '../../models/interfaces/ListOptions.interface';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { ActionModel } from '../../../models/src/lib/ActionModel';
+import { Item } from '../../../models/src/lib/Item';
+import { ListOptionsI } from './../../../models/src/lib/interfaces/ListOptions.interface';
 
 @Component({
     selector: 'xdam-list',
@@ -13,7 +14,7 @@ export class ListComponent {
      * The items received by the DAM component
      */
     @Input() items: Item[];
-    @Input() settings: ListOptions;
+    @Input() settings: ListOptionsI;
 
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();

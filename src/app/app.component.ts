@@ -1,15 +1,15 @@
-import { ActionModel } from './../../projects/xdam/src/lib/models/ActionModel';
-import { Item } from './../../projects/xdam/src/lib/models/Item';
 import { Component, OnInit } from '@angular/core';
+import { hasIn, isNil } from 'ramda';
 
-import { MainService } from './services/main.service';
-import { XDamData } from '../../projects/xdam/src/lib/models/interfaces/ItemModel.interface';
+import { ActionModel } from '@xdam/models/ActionModel';
 import { HttpParams } from '@angular/common/http';
-import { Pager } from 'projects/xdam/src/lib/models/Pager';
-import { PagerModelSchema } from 'projects/xdam/src/lib/models/interfaces/PagerModel.interface';
-import { SearchModel } from 'projects/xdam/src/lib/models/SarchModel';
-import { XDamSettingsInterface } from 'projects/xdam/src/lib/models/interfaces/Settings.interface';
-import { isNil, hasIn } from 'ramda';
+import { Item } from '@xdam/models/Item';
+import { MainService } from './services/main.service';
+import { Pager } from '@xdam/models/Pager';
+import { PagerModelSchema } from '@xdam/models/interfaces/PagerModel.interface';
+import { SearchModel } from '@xdam/models/SarchModel';
+import { XDamData } from '@xdam/models/interfaces/ItemModel.interface';
+import { XDamSettingsInterface } from '@xdam/models/interfaces/Settings.interface';
 
 @Component({
     selector: 'app-root',
