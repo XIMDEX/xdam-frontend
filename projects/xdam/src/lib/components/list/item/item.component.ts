@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { sprintf } from 'sprintf-js';
-
-import { ListItemOption, ListItemActions } from '../../../models/interfaces/ListOptions.interface';
-import { Item } from '../../../models/Item';
-import { hasIn } from 'ramda';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ListItemActionsI, ListItemOptionI } from './../../../../models/src/lib/interfaces/ListOptions.interface';
 import { faDownload, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import { Item } from '../../../../models/src/lib/Item';
 import { SweetAlertOptions } from 'sweetalert2';
+import { hasIn } from 'ramda';
+import { sprintf } from 'sprintf-js';
 
 @Component({
     selector: 'xdam-item',
@@ -18,7 +18,7 @@ export class ItemComponent {
     faTrash = faTrash;
 
     @Input() item: Item;
-    @Input() settings: ListItemOption;
+    @Input() settings: ListItemOptionI;
 
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();
@@ -42,7 +42,7 @@ export class ItemComponent {
         return this.item.image;
     }
 
-    get actions(): ListItemActions | null {
+    get actions(): ListItemActionsI | null {
         return this.settings.actions;
     }
 

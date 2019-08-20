@@ -1,9 +1,7 @@
+import { Settings } from '@xdam/models/interfaces/Settings.interface';
 import { hasIn, isNil } from 'ramda';
 import { HttpParams } from '@angular/common/http';
 import { isFunction } from 'util';
-
-import { Settings } from '../../../projects/xdam/src/lib/models/interfaces/Settings.interface';
-import { ItemModel } from '../../../projects/xdam/src/lib/models/interfaces/ItemModel.interface';
 
 /**
  * Mapper class for routes and models configurations in index or environment file

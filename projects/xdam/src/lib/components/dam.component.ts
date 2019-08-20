@@ -1,13 +1,14 @@
-import { ActionModel } from './../models/ActionModel';
-import { Pager } from './../models/Pager';
-import { Item } from './../models/Item';
-import { FacetModel } from './../models/FacetModel';
-import { Component, OnInit, Output, EventEmitter, Input, HostBinding, OnChanges, SimpleChanges } from '@angular/core';
-import { isNil, hasIn, is } from 'ramda';
-import { XDamData, ItemModel } from '../models/interfaces/ItemModel.interface';
-import { SearchModel } from '../models/SarchModel';
-import { SearchOptions } from '../models/interfaces/SearchModel.interface';
-import { XDamSettings } from '../models/XdamSettings';
+import { Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ItemModel, XDamData } from './../../models/src/lib/interfaces/ItemModel.interface';
+import { hasIn, is, isNil } from 'ramda';
+
+import { ActionModel } from '../../models/src/lib/ActionModel';
+import { FacetModel } from '../../models/src/lib/FacetModel';
+import { Item } from '../../models/src/lib/Item';
+import { Pager } from '../../models/src/lib/Pager';
+import { SearchModel } from '../../models/src/lib/SearchModel';
+import { SearchOptionsI } from './../../models/src/lib/interfaces/SearchModel.interface';
+import { XDamSettings } from '../../models/src/lib/XDamSettings';
 
 /**
  * Entry point component for the application, is the component in charge of the
@@ -39,7 +40,7 @@ export class DamComponent implements OnInit, OnChanges {
     search: SearchModel;
     facets: FacetModel[] = [];
     pager: Pager;
-    searchOptions: SearchOptions;
+    searchOptions: SearchOptionsI;
     loading: boolean;
     actionModel: ActionModel | null;
     displayForm: boolean = false;

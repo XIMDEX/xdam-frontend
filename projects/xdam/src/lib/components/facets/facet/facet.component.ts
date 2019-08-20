@@ -1,7 +1,8 @@
-import { is, hasIn, isNil } from 'ramda';
-import { FacetModel } from './../../../models/FacetModel';
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { hasIn, is, isNil } from 'ramda';
+
+import { FacetModel } from '../../../../models/src/lib/FacetModel';
 
 @Component({
     selector: 'xdam-facet',
