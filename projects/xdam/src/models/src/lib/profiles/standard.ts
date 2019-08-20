@@ -1,4 +1,4 @@
-import { XDamSettingsInterface } from '../models/interfaces/Settings.interface';
+import { XDamSettingsInterface } from '../interfaces/Settings.interface';
 
 export const standard: XDamSettingsInterface = {
     facets: true,

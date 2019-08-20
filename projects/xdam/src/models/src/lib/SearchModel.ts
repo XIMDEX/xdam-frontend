@@ -1,6 +1,7 @@
 import { hasIn, isNil } from 'ramda';
-import { SearchModel as SearchModelI } from './interfaces/SearchModel.interface';
+
 import BaseModel from './Base';
+import { SearchModelI } from './interfaces/SearchModel.interface';
 
 export class SearchModel extends BaseModel implements SearchModelI {
     private _content = '';
