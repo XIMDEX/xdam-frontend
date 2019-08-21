@@ -23,6 +23,7 @@ export class ItemComponent {
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();
     @Output() edit = new EventEmitter<Item>();
+    @Output() select = new EventEmitter<Item>();
 
     constructor() {}
 
@@ -71,7 +72,9 @@ export class ItemComponent {
         this.img = image;
     }
 
-    editItem() {
+    editItem(evt: Event) {
+        evt.stopPropagation();
+
         this.edit.emit(this.item);
     }
 
@@ -81,7 +84,15 @@ export class ItemComponent {
         }
     }
 
-    downloadItem() {
+    downloadItem(evt: Event) {
+        evt.stopPropagation();
+
         this.download.emit(this.item);
+    }
+
+    onSelectItem() {
+        if (this.actions.select) {
+            this.select.emit(this.item);
+        }
     }
 }

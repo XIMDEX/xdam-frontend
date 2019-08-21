@@ -16,4 +16,5 @@ export interface ListItemActionsI {
     edit?: boolean;
     download?: boolean;
     delete?: boolean;
+    select?: boolean;
 }
