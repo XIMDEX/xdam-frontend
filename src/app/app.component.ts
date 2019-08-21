@@ -56,6 +56,8 @@ export class AppComponent implements OnInit {
     default = true;
     action: ActionModel | null = null;
 
+    reset = false;
+
     private pagerSchema: PagerModelSchema = {
         total: 'total',
         currentPage: 'current_page',
@@ -152,6 +154,13 @@ export class AppComponent implements OnInit {
         );
     }
 
+    resetDam() {
+        this.reset = true;
+        setTimeout(() => {
+            this.reset = false;
+        }, 250);
+    }
+
     deleteItem(item: Item) {
         this.mainService
             .delete(item)
@@ -170,31 +179,39 @@ export class AppComponent implements OnInit {
         const action = new ActionModel(data);
         let actionType = null;
 
-        if (action.method === 'show') {
-            actionType = this.mainService.getResource(action);
-        } else {
-            actionType = this.mainService.saveForm(action);
-        }
-
-        actionType
-            .subscribe(
-                ({ result }) => {
-                    const { data } = result as any;
-                    action.data = data;
-                    action.status = 'success';
-                },
-                ({ error, message, statusText }) => {
-                    action.status = 'fail';
-                    if (hasIn('errors', error)) {
-                        action.errors = error.errors;
-                    }
-                }
-            )
-            .add(() => {
-                if (action.method !== 'show') {
-                    this.getItems();
-                }
+        if (action.method === 'select') {
+            action.status = 'success';
+            setTimeout(() => {
+                alert(`Selectd item ${action.item.title}`);
                 this.action = action;
-            });
+            }, 2500);
+        } else {
+            if (action.method === 'show') {
+                actionType = this.mainService.getResource(action);
+            } else {
+                actionType = this.mainService.saveForm(action);
+            }
+
+            actionType
+                .subscribe(
+                    ({ result }) => {
+                        const { data } = result as any;
+                        action.data = data;
+                        action.status = 'success';
+                    },
+                    ({ error, message, statusText }) => {
+                        action.status = 'fail';
+                        if (hasIn('errors', error)) {
+                            action.errors = error.errors;
+                        }
+                    }
+                )
+                .add(() => {
+                    if (action.method !== 'show') {
+                        this.getItems();
+                    }
+                    this.action = action;
+                });
+        }
     }
 }
