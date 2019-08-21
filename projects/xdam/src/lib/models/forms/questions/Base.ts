@@ -1,5 +1,5 @@
+import BaseModel from '../../../../models/src/lib/Base';
 import { isNil } from 'ramda';
-import BaseModel from '../../Base';
 
 export interface BaseI<T> {
     value?: T;

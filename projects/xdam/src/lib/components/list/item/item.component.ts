@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { sprintf } from 'sprintf-js';
-
-import { ListItemOption, ListItemActions } from '../../../models/interfaces/ListOptions.interface';
-import { Item } from '../../../models/Item';
-import { hasIn } from 'ramda';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ListItemActionsI, ListItemOptionI } from './../../../../models/src/lib/interfaces/ListOptions.interface';
 import { faDownload, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import { Item } from '../../../../models/src/lib/Item';
 import { SweetAlertOptions } from 'sweetalert2';
+import { hasIn } from 'ramda';
+import { sprintf } from 'sprintf-js';
 
 @Component({
     selector: 'xdam-item',
@@ -18,11 +18,12 @@ export class ItemComponent {
     faTrash = faTrash;
 
     @Input() item: Item;
-    @Input() settings: ListItemOption;
+    @Input() settings: ListItemOptionI;
 
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();
     @Output() edit = new EventEmitter<Item>();
+    @Output() select = new EventEmitter<Item>();
 
     constructor() {}
 
@@ -42,7 +43,7 @@ export class ItemComponent {
         return this.item.image;
     }
 
-    get actions(): ListItemActions | null {
+    get actions(): ListItemActionsI | null {
         return this.settings.actions;
     }
 
@@ -71,7 +72,9 @@ export class ItemComponent {
         this.img = image;
     }
 
-    editItem() {
+    editItem(evt: Event) {
+        evt.stopPropagation();
+
         this.edit.emit(this.item);
     }
 
@@ -81,7 +84,15 @@ export class ItemComponent {
         }
     }
 
-    downloadItem() {
+    downloadItem(evt: Event) {
+        evt.stopPropagation();
+
         this.download.emit(this.item);
+    }
+
+    onSelectItem() {
+        if (this.actions.select) {
+            this.select.emit(this.item);
+        }
     }
 }

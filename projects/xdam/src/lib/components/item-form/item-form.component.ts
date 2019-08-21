@@ -1,13 +1,14 @@
-import { ActionMethods } from './../../models/interfaces/ActionI.interface';
-import { FormI } from './../../models/interfaces/FormI.interface';
-import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
-import { hasIn, isNil, is, equals, clone } from 'ramda';
-import { ActionModel } from './../../models/ActionModel';
-import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { SwalPartialTargets, SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import swal2 from '../../profiles/swal2';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { SwalComponent, SwalPartialTargets } from '@sweetalert2/ngx-sweetalert2';
+import { equals, hasIn, is, isNil } from 'ramda';
+import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { fileForm, itemInfo } from '../../profiles/forms';
+
+import { ActionMethods } from './../../../models/src/lib/interfaces/ActionI.interface';
+import { ActionModel } from '../../../models/src/lib/ActionModel';
+import { FormI } from './../../../models/src/lib/interfaces/FormI.interface';
 import { setQuestion } from '../../models/forms/question';
-import { itemInfo, fileForm } from '../../profiles/forms';
+import swal2 from '../../profiles/swal2';
 
 @Component({
     selector: 'xdam-item-form',

@@ -1,6 +1,6 @@
-import { Item } from './../Item';
+import { Item } from '../Item';
 
-export type ActionMethods = 'new' | 'edit' | 'show';
+export type ActionMethods = 'new' | 'edit' | 'show' | 'select';
 export type ActionStatus = 'success' | 'fail' | 'pending';
 
 export interface ActionI {

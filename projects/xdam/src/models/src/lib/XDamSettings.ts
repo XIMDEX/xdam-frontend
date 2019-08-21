@@ -1,11 +1,11 @@
-import { FormI } from './interfaces/FormI.interface';
-import { ListOptions as ListOptionsI } from './interfaces/ListOptions.interface';
-import { ListOptions } from './ListOptions';
-import { XDamSettingsInterface } from './interfaces/Settings.interface';
 import BaseModel from './Base';
-import { SearchOptions } from './SearchOptions';
-import { standard } from '../profiles/standard';
+import { FormI } from './interfaces/FormI.interface';
+import { ListOptions } from './ListOptions';
+import { ListOptionsI } from './interfaces/ListOptions.interface';
 import { PagerOptions } from './interfaces/PagerOptions.interface';
+import { SearchOptions } from './SearchOptions';
+import { XDamSettingsInterface } from './interfaces/Settings.interface';
+import { standard } from './profiles/standard';
 
 export class XDamSettings extends BaseModel implements XDamSettingsInterface {
     private _search: SearchOptions = standard.search;

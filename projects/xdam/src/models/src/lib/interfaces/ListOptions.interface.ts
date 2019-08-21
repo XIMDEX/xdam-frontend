@@ -1,19 +1,20 @@
 import { ItemModel } from './ItemModel.interface';
 
-export interface ListOptions {
-    items?: ListItemOption;
+export interface ListOptionsI {
+    items?: ListItemOptionI;
     model?: ItemModel;
 }
 
-export interface ListItemOption {
+export interface ListItemOptionI {
     type?: string;
     title?: string;
     placeholder?: {};
-    actions?: ListItemActions;
+    actions?: ListItemActionsI;
 }
 
-export interface ListItemActions {
+export interface ListItemActionsI {
     edit?: boolean;
     download?: boolean;
     delete?: boolean;
+    select?: boolean;
 }

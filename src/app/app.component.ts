@@ -1,15 +1,15 @@
-import { ActionModel } from './../../projects/xdam/src/lib/models/ActionModel';
-import { Item } from './../../projects/xdam/src/lib/models/Item';
 import { Component, OnInit } from '@angular/core';
+import { hasIn, isNil } from 'ramda';
 
-import { MainService } from './services/main.service';
-import { XDamData } from '../../projects/xdam/src/lib/models/interfaces/ItemModel.interface';
+import { ActionModel } from '@xdam/models/ActionModel';
 import { HttpParams } from '@angular/common/http';
-import { Pager } from 'projects/xdam/src/lib/models/Pager';
-import { PagerModelSchema } from 'projects/xdam/src/lib/models/interfaces/PagerModel.interface';
-import { SearchModel } from 'projects/xdam/src/lib/models/SarchModel';
-import { XDamSettingsInterface } from 'projects/xdam/src/lib/models/interfaces/Settings.interface';
-import { isNil, hasIn } from 'ramda';
+import { Item } from '@xdam/models/Item';
+import { MainService } from './services/main.service';
+import { Pager } from '@xdam/models/Pager';
+import { PagerModelSchema } from '@xdam/models/interfaces/PagerModel.interface';
+import { SearchModel } from '@xdam/models/SearchModel';
+import { XDamData } from '@xdam/models/interfaces/ItemModel.interface';
+import { XDamSettingsInterface } from '@xdam/models/interfaces/Settings.interface';
 
 @Component({
     selector: 'app-root',
@@ -56,6 +56,8 @@ export class AppComponent implements OnInit {
     default = true;
     action: ActionModel | null = null;
 
+    reset = false;
+
     private pagerSchema: PagerModelSchema = {
         total: 'total',
         currentPage: 'current_page',
@@ -99,8 +101,6 @@ export class AppComponent implements OnInit {
         params = params.append('default', this.default ? '1' : '0');
         params = params.append(this.limit, String(this.search.limit));
 
-        this.default = false;
-
         this.mainService.list(params).subscribe(
             response => {
                 const { data } = response as any;
@@ -109,9 +109,25 @@ export class AppComponent implements OnInit {
                     pager: new Pager(data, this.pagerSchema),
                     facets: data['facets']
                 };
+                if (this.default) {
+                    this.getDefaultFacet(data['facets']);
+                }
             },
             err => console.error(err)
         );
+    }
+
+    getDefaultFacet(data) {
+        const facets = {};
+
+        data.map(({ key, default: defFacet = null }) => {
+            if (!isNil(defFacet)) {
+                facets[key] = [defFacet];
+            }
+        });
+
+        this.default = false;
+        this.search.update({ facets });
     }
 
     sendSearch(data: SearchModel) {
@@ -138,6 +154,13 @@ export class AppComponent implements OnInit {
         );
     }
 
+    resetDam() {
+        this.reset = true;
+        setTimeout(() => {
+            this.reset = false;
+        }, 250);
+    }
+
     deleteItem(item: Item) {
         this.mainService
             .delete(item)
@@ -156,31 +179,39 @@ export class AppComponent implements OnInit {
         const action = new ActionModel(data);
         let actionType = null;
 
-        if (action.method === 'show') {
-            actionType = this.mainService.getResource(action);
-        } else {
-            actionType = this.mainService.saveForm(action);
-        }
-
-        actionType
-            .subscribe(
-                ({ result }) => {
-                    const { data } = result as any;
-                    action.data = data;
-                    action.status = 'success';
-                },
-                ({ error, message, statusText }) => {
-                    action.status = 'fail';
-                    if (hasIn('errors', error)) {
-                        action.errors = error.errors;
-                    }
-                }
-            )
-            .add(() => {
-                if (action.method !== 'show') {
-                    this.getItems();
-                }
+        if (action.method === 'select') {
+            action.status = 'success';
+            setTimeout(() => {
+                alert(`Selectd item ${action.item.title}`);
                 this.action = action;
-            });
+            }, 2500);
+        } else {
+            if (action.method === 'show') {
+                actionType = this.mainService.getResource(action);
+            } else {
+                actionType = this.mainService.saveForm(action);
+            }
+
+            actionType
+                .subscribe(
+                    ({ result }) => {
+                        const { data } = result as any;
+                        action.data = data;
+                        action.status = 'success';
+                    },
+                    ({ error, message, statusText }) => {
+                        action.status = 'fail';
+                        if (hasIn('errors', error)) {
+                            action.errors = error.errors;
+                        }
+                    }
+                )
+                .add(() => {
+                    if (action.method !== 'show') {
+                        this.getItems();
+                    }
+                    this.action = action;
+                });
+        }
     }
 }

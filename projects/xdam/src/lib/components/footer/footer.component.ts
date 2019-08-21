@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { version, homepage, author } from '../../../../package.json';
+import { version, homepage, author } from '../../../package.json';
 
 @Component({
     selector: 'xdam-footer',

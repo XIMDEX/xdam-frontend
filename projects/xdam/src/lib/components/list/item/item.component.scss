@@ -19,6 +19,10 @@
         box-shadow: $list_item_box_shadow;
         transition: all 0.25s ease-in-out;
 
+        &.selectable {
+            cursor: pointer;
+        }
+
         &:hover {
             transform: scale(1.1);
         }

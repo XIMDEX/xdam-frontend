@@ -1,4 +1,4 @@
-import { FacetModel } from './../FacetModel';
+import { FacetModel } from '../FacetModel';
 import { PagerModel } from './PagerModel.interface';
 
 export interface ItemModel {

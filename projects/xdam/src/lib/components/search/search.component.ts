@@ -1,17 +1,18 @@
-import { ActionModel } from './../../models/ActionModel';
-import { faSearch, faEraser, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { hasIn, isNil, isEmpty } from 'ramda';
-import { SearchOptions } from '../../models/interfaces/SearchModel.interface';
-/**@ignore */
-import { SearchModel } from '../../models/SarchModel';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faEraser, faSearch, faSync, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { hasIn, isEmpty, isNil } from 'ramda';
+
+import { ActionModel } from '../../../models/src/lib/ActionModel';
+import { SearchModel } from '../../../models/src/lib/SearchModel';
+import { SearchOptionsI } from './../../../models/src/lib/interfaces/SearchModel.interface';
+
 @Component({
     selector: 'xdam-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-    @Input() settings: SearchOptions = null;
+    @Input() settings: SearchOptionsI = null;
 
     @Output() search = new EventEmitter<SearchModel>();
     @Output() action = new EventEmitter<ActionModel>();

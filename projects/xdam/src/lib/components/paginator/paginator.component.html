@@ -3,8 +3,8 @@
         Found <strong>{{ total }}</strong> items
     </span>
 </div>
-<div class="pager">
-    <ul *ngIf="hasPager && pager && pager.lastPage > 1" class="pagination shadow-panel">
+<div class="xdam-pager">
+    <ul *ngIf="hasPager && pager && pager.lastPage > 1" class="xdam-pagination shadow-panel">
         <li [ngClass]="{ active: page.active == true }" *ngFor="let page of paginator" (click)="updatePage(page.value)">
             <ng-container *ngIf="page.icon !== null; else number">
                 <fa-icon [icon]="page.icon"></fa-icon>

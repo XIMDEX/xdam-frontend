@@ -1,4 +1,4 @@
-<div class="dam-item">
+<div class="dam-item" (click)="onSelectItem()" [class.selectable]="actions.select">
     <div class="dam-type">{{ type }}</div>
     <div class="dam-preview">
         <div class="dam-preview-img">

@@ -1,16 +1,19 @@
-import { hasIn, isNil } from 'ramda';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import {
+    ChangeDetectorRef,
     Component,
+    EventEmitter,
     HostBinding,
     Input,
-    Output,
-    EventEmitter,
     OnChanges,
+    Output,
     SimpleChanges,
-    ChangeDetectorRef
+    ViewChildren
 } from '@angular/core';
-import { SearchModel } from '../../models/SarchModel';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { hasIn, isNil } from 'ramda';
+
+import { FacetComponent } from './facet/facet.component';
+import { SearchModel } from '../../../models/src/lib/SearchModel';
 
 @Component({
     selector: 'xdam-facets',
@@ -22,11 +25,14 @@ export class FacetsComponent implements OnChanges {
 
     @Output() onChange = new EventEmitter<SearchModel>();
 
-    @HostBinding('class.open_facets') isOpen = false;
+    @ViewChildren('facetComponent') facetComponent: FacetComponent[];
 
-    protected facets = {};
+    @HostBinding('class.open_facets')
+    isOpen = false;
+
+    public facets = {};
+    public first = true;
     protected openFacets = [];
-    protected first = true;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
@@ -49,20 +55,20 @@ export class FacetsComponent implements OnChanges {
         return result;
     }
 
-    public setFacets(facet: any) {
-        const key = Object.keys(facet.data)[0];
-        const value = facet.data[key] as [];
-        if (value.length > 0) {
-            this.facets = { ...this.facets, ...facet.data };
-        } else {
-            delete this.facets[key];
-        }
+    reset() {
+        this.first = true;
+        this.facetComponent.forEach(element => {
+            element.reset();
+        });
+    }
 
-        const i = this.openFacets.indexOf(key);
-        if (facet.isOpen && i === -1) {
-            this.openFacets.push(key);
-        } else if (!facet.isOpen && i !== -1) {
-            this.openFacets.splice(i, 1);
+    public setFacets(facet: any) {
+        if (!isNil(facet.data)) {
+            const keys = Object.keys(facet.data);
+            keys.forEach(key => {
+                const value = facet.data[key] as [];
+                this.toggleFacet(key, value, facet.isOpen);
+            });
         }
 
         const params = new SearchModel();
@@ -70,5 +76,22 @@ export class FacetsComponent implements OnChanges {
         params.reload = facet.emit;
         this.cdr.detectChanges();
         this.onChange.emit(params.only('facets', 'page', 'reload'));
+    }
+
+    protected toggleFacet(key: string, value: Array<string>, isOpen: boolean) {
+        if (value.length > 0) {
+            const data = {};
+            data[key] = value;
+            this.facets = { ...this.facets, ...data };
+        } else {
+            delete this.facets[key];
+        }
+
+        const i = this.openFacets.indexOf(key);
+        if (isOpen && i === -1) {
+            this.openFacets.push(key);
+        } else if (!isOpen && i !== -1) {
+            this.openFacets.splice(i, 1);
+        }
     }
 }
