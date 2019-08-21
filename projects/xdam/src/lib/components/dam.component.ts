@@ -1,11 +1,24 @@
-import { Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import { ItemModel, XDamData } from './../../models/src/lib/interfaces/ItemModel.interface';
 import { hasIn, is, isNil } from 'ramda';
 
 import { ActionModel } from '../../models/src/lib/ActionModel';
 import { FacetModel } from '../../models/src/lib/FacetModel';
+import { FacetsComponent } from './facets/facets.component';
 import { Item } from '../../models/src/lib/Item';
 import { Pager } from '../../models/src/lib/Pager';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { SearchComponent } from './search/search.component';
 import { SearchModel } from '../../models/src/lib/SearchModel';
 import { SearchOptionsI } from './../../models/src/lib/interfaces/SearchModel.interface';
 import { XDamSettings } from '../../models/src/lib/XDamSettings';
@@ -23,12 +36,17 @@ export class DamComponent implements OnInit, OnChanges {
     @Input() items: XDamData;
     @Input() settings: XDamSettings;
     @Input() action: ActionModel;
+    @Input() reset: boolean;
 
     @Output() onSearch = new EventEmitter<any>();
     @Output() onDelete = new EventEmitter<Item>();
     @Output() onDownload = new EventEmitter<Item>();
     @Output() onSave = new EventEmitter<any>();
     @Output() onAction = new EventEmitter<ActionModel>();
+
+    @ViewChild('search') searchComponent: SearchComponent;
+    @ViewChild('paginator') paginatorComponent: PaginatorComponent;
+    @ViewChild('facet') facetsComponent: FacetsComponent;
 
     @HostBinding('class.dam-main') readonly baseClass = true;
 
@@ -69,6 +87,12 @@ export class DamComponent implements OnInit, OnChanges {
 
         if (hasIn('action', changes)) {
             this.setAction(this.action);
+        }
+
+        if (hasIn('reset', changes) && !changes.reset.isFirstChange() && changes.reset.currentValue) {
+            this.searchComponent.resetSearch();
+            this.paginatorComponent.reset();
+            this.facetsComponent.reset();
         }
     }
 
@@ -148,6 +172,7 @@ export class DamComponent implements OnInit, OnChanges {
 
     sendAction(action: ActionModel) {
         this.loading = true;
+        this.actionModel = null;
         this.onAction.emit(action);
     }
 }

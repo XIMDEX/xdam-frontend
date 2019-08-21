@@ -76,4 +76,9 @@ export class PaginatorComponent {
         params.page = value;
         this.change.emit(params.only('limit', 'page', 'reload'));
     }
+
+    reset() {
+        const params = new SearchModel();
+        this.change.emit(params.only('limit', 'page', 'reload'));
+    }
 }

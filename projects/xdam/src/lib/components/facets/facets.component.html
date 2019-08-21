@@ -7,6 +7,7 @@
     </div>
     <ng-container *ngIf="isOpen">
         <xdam-facet
+            #facetComponent
             *ngFor="let facet of data"
             [data]="facet"
             [value]="facets[facet.key]"

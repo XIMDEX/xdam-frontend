@@ -61,6 +61,14 @@ export class FacetComponent implements OnInit, OnChanges {
         this.selectFacet(null, false);
     }
 
+    public reset() {
+        this.prepareValues(true);
+        const data = {};
+        data[this.key] = this.selectedValues;
+
+        this.onChange.emit({ data, isOpen: this.isOpen, emit: true });
+    }
+
     public selectFacet(value: string | null, emit: boolean = true) {
         if (!isNil(value)) {
             const index = this.selectedValues.indexOf(value);
@@ -75,15 +83,17 @@ export class FacetComponent implements OnInit, OnChanges {
         const data = {};
         data[this.key] = this.selectedValues;
 
-        this.onChange.emit({ data: data, isOpen: this.isOpen, emit });
+        this.onChange.emit({ data, isOpen: this.isOpen, emit });
     }
 
-    protected prepareValues() {
+    protected prepareValues(reset: boolean = false) {
         this.selectedValues = is(Array, this.value) ? this.value : [];
-        if (this.withDefault && !isNil(this.data.default)) {
+        if ((this.withDefault || reset) && !isNil(this.data.default)) {
             this.selectedValues.push(this.data.default);
             this.isOpen = true;
             this.selectFacet(null, false);
+        } else if (reset) {
+            this.selectedValues = [];
         }
     }
 }
