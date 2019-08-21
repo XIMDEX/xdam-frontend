@@ -19,6 +19,7 @@ export class ListComponent {
     @Output() delete = new EventEmitter<Item>();
     @Output() download = new EventEmitter<Item>();
     @Output() edit = new EventEmitter<ActionModel>();
+    @Output() select = new EventEmitter<ActionModel>();
 
     editItem(item: Item) {
         const action = new ActionModel();
@@ -33,5 +34,12 @@ export class ListComponent {
 
     downloadItem(item: Item) {
         this.download.emit(item);
+    }
+
+    selectItem(item: Item) {
+        const action = new ActionModel();
+        action.method = 'select';
+        action.item = item;
+        this.select.emit(action);
     }
 }

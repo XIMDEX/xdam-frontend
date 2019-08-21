@@ -45,7 +45,8 @@ export const standard: XDamSettingsInterface = {
             actions: {
                 edit: true,
                 download: true,
-                delete: true
+                delete: true,
+                select: false
             }
         }
     }
