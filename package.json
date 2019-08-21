@@ -5,14 +5,15 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
-        "build_lib": "ng build XDam",
+        "build:lib": "ng build XDam && npm run build:lib:scss",
+        "build:lib:scss": "./node_modules/.bin/scss-bundle -p .",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "ng_package": "ng-packagr -p ng-package.json",
         "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json",
-        "npm_pack": "cd dist/xdam && npm pack",
-        "package": "npm run build_lib && npm run npm_pack"
+        "pack": "cd dist/xdam && npm pack",
+        "package": "npm run build:lib && npm run pack"
     },
     "private": true,
     "dependencies": {
@@ -39,7 +40,7 @@
         "ramda": "^0.26.1",
         "rxjs": "~6.3.3",
         "sprintf-js": "^1.1.2",
-        "sweetalert2": "^8.15.3",
+        "sweetalert2": "^8.16.2",
         "typescript-validator": "^1.0.2",
         "zone.js": "^0.8.27"
     },
@@ -62,6 +63,7 @@
         "karma-jasmine-html-reporter": "^0.2.2",
         "ng-packagr": "^5.5.0",
         "protractor": "~5.4.0",
+        "scss-bundle": "^2.5.1",
         "ts-node": "~7.0.0",
         "tsickle": "^0.36.0",
         "tslib": "^1.10.0",
