@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PagerModel, PerPageModel } from './../../../models/src/lib/interfaces/PagerModel.interface';
 import { faCaretLeft, faCaretRight, faStepBackward, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import { hasIn, isNil } from 'ramda';
@@ -11,7 +11,7 @@ import { SearchModel } from '../../../models/src/lib/SearchModel';
     templateUrl: './paginator.component.html',
     styleUrls: ['./paginator.component.scss']
 })
-export class PaginatorComponent {
+export class PaginatorComponent implements OnInit, OnChanges {
     @Input() total: number | null = null;
     @Input() perPage: PerPageModel | null = null;
     @Input() pager: PagerModel | null = null;
@@ -19,12 +19,26 @@ export class PaginatorComponent {
 
     @Output() change = new EventEmitter<SearchModel>();
 
+    paginator = [];
+
     constructor() {}
+
+    ngOnInit(): void {
+        this.setPaginator();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { pager = false } = changes;
+
+        if (pager && !pager.isFirstChange()) {
+            this.setPaginator();
+        }
+    }
 
     /**
      * Creates the paginator data based on info about current and total pages
      */
-    get paginator() {
+    setPaginator() {
         const paginator = [];
         let pagShorted = false;
 
@@ -49,7 +63,7 @@ export class PaginatorComponent {
             paginator.push({ value: this.pager.currentPage + 1, active: false, icon: faCaretRight });
             paginator.push({ value: this.pager.lastPage, active: false, icon: faStepForward });
         }
-        return paginator;
+        this.paginator = paginator;
     }
 
     get hasTotal() {
@@ -67,6 +81,7 @@ export class PaginatorComponent {
     updateLimit(value: number) {
         const params = new SearchModel();
         params.limit = value;
+        params.reload = true;
         this.change.emit(params.only('limit', 'page', 'reload'));
     }
 
@@ -74,11 +89,13 @@ export class PaginatorComponent {
         const params = new SearchModel();
         params.limit = this.perPage.value;
         params.page = value;
+        params.reload = true;
         this.change.emit(params.only('limit', 'page', 'reload'));
     }
 
     reset() {
         const params = new SearchModel();
+        params.reload = true;
         this.change.emit(params.only('limit', 'page', 'reload'));
     }
 }
