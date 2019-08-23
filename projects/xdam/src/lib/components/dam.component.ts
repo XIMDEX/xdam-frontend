@@ -7,7 +7,8 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    ViewChildren
 } from '@angular/core';
 import { ItemModel, XDamData } from './../../models/src/lib/interfaces/ItemModel.interface';
 import { hasIn, is, isNil } from 'ramda';
@@ -45,7 +46,7 @@ export class DamComponent implements OnInit, OnChanges {
     @Output() onAction = new EventEmitter<ActionModel>();
 
     @ViewChild('search') searchComponent: SearchComponent;
-    @ViewChild('paginator') paginatorComponent: PaginatorComponent;
+    @ViewChildren('paginator') paginatorComponent: PaginatorComponent[];
     @ViewChild('facet') facetsComponent: FacetsComponent;
 
     @HostBinding('class.dam-main') readonly baseClass = true;
@@ -91,7 +92,7 @@ export class DamComponent implements OnInit, OnChanges {
 
         if (hasIn('reset', changes) && !changes.reset.isFirstChange() && changes.reset.currentValue) {
             this.searchComponent.resetSearch();
-            this.paginatorComponent.reset();
+            this.paginatorComponent.forEach(paginator => paginator.reset());
             this.facetsComponent.reset();
         }
     }
@@ -151,6 +152,8 @@ export class DamComponent implements OnInit, OnChanges {
             this.search.update(parameters);
         }
 
+        console.log('prepare', parameters);
+
         if (parameters.reload) {
             this.sendSearch();
         }
@@ -158,6 +161,7 @@ export class DamComponent implements OnInit, OnChanges {
 
     sendSearch() {
         this.loading = true;
+        console.log('send', this.search);
         this.onSearch.emit(this.search);
     }
 

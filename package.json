@@ -3,17 +3,17 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "ng serve --port 8080",
         "build": "ng build",
         "build:lib": "ng build XDam && npm run build:lib:scss",
         "build:lib:scss": "./node_modules/.bin/scss-bundle -p .",
+        "build:lib:pack": "cd dist/xdam && npm pack",
+        "build:lib:package": "npm run build:lib && npm run build:lib:pack",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "ng_package": "ng-packagr -p ng-package.json",
-        "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json",
-        "pack": "cd dist/xdam && npm pack",
-        "package": "npm run build:lib && npm run pack"
+        "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json"
     },
     "private": true,
     "dependencies": {

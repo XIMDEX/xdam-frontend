@@ -4,16 +4,20 @@
     </span>
 </div>
 <div class="xdam-pager">
-    <ul *ngIf="hasPager && pager && pager.lastPage > 1" class="xdam-pagination shadow-panel">
-        <li [ngClass]="{ active: page.active == true }" *ngFor="let page of paginator" (click)="updatePage(page.value)">
-            <ng-container *ngIf="page.icon !== null; else number">
-                <fa-icon [icon]="page.icon"></fa-icon>
+    <ng-container *ngIf="hasPager && pager && pager.lastPage > 1">
+        <ul class="xdam-pagination shadow-panel">
+            <ng-container *ngFor="let page of paginator">
+                <li [ngClass]="{ active: page.active == true }" (click)="updatePage(page.value)">
+                    <ng-container *ngIf="page.icon !== null; else number">
+                        <fa-icon [icon]="page.icon"></fa-icon>
+                    </ng-container>
+                    <ng-template #number>
+                        <span>{{ page.value }}</span>
+                    </ng-template>
+                </li>
             </ng-container>
-            <ng-template #number>
-                <span>{{ page.value }}</span>
-            </ng-template>
-        </li>
-    </ul>
+        </ul>
+    </ng-container>
 </div>
 <div class="limit">
     <ng-select
