@@ -1,6 +1,6 @@
 # XDAM front-end
 
-Front end application made with Angular 6 for Ximdex Digital Asset Management service (XDAM).
+Front end application made with Angular 7 for Ximdex Digital Asset Management service (XDAM).
 
 ## Description
 
