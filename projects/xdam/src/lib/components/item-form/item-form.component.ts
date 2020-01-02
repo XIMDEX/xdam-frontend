@@ -4,10 +4,10 @@ import { equals, hasIn, is, isNil } from 'ramda';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { fileForm, itemInfo } from '../../profiles/forms';
 
-import { ActionMethods } from './../../../models/src/lib/interfaces/ActionI.interface';
+import { ActionMethods } from '../../../models/src/lib/interfaces/ActionI.interface';
 import { ActionModel } from '../../../models/src/lib/ActionModel';
-import { FormI } from './../../../models/src/lib/interfaces/FormI.interface';
-import { setQuestion } from '../../models/forms/question';
+import { FormI } from '../../../models/src/lib/interfaces/FormI.interface';
+import { setQuestion } from '../../models/forms/Question';
 import swal2 from '../../profiles/swal2';
 
 @Component({
