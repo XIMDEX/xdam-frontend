@@ -19,6 +19,7 @@ export class FacetComponent implements OnInit, OnChanges {
 
     public isOpen: boolean = false;
     private selectedValues = [];
+    private filter = "";
 
     constructor() {}
 
