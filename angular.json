@@ -109,7 +109,7 @@
                 }
             }
         },
-        "XDam": {
+        "xdam": {
             "root": "projects/xdam",
             "sourceRoot": "projects/xdam/src",
             "projectType": "library",

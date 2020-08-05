@@ -165,6 +165,11 @@ export class DamComponent implements OnInit, OnChanges {
         this.onSearch.emit(this.search);
     }
 
+    // reset search input
+    resetSearch() {
+        this.searchComponent.resetSearch();
+    }
+
     deleteItem(item: Item) {
         this.loading = true;
         this.onDelete.emit(item);
