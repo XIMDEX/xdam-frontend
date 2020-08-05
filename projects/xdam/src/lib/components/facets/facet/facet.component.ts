@@ -18,8 +18,8 @@ export class FacetComponent implements OnInit, OnChanges {
     @Output() onChange = new EventEmitter<any>();
 
     public isOpen: boolean = false;
+    public filter = "";
     private selectedValues = [];
-    private filter = "";
 
     constructor() {}
 
